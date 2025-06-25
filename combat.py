@@ -31,9 +31,7 @@ def combat_encounter(player, target):
                     print(f"{player.name} accidentally launched an ice shard over {target.name}")
                     print("==========================================")
             elif selection == "3":
-                    player.healing_word(player)
-                else:
-                    print("The spell fizzles and fails.")
+                    player.healing_word(player)             
     else:
         return
 
