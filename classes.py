@@ -6,8 +6,7 @@ import random
 class Wizard:
     def __init__(self, name, health, intelligence, wisdom):
         self.name = name
-        self.hp = health
-        self.strength = strength
+        self.health = health
         self.intelligence = intelligence
         self.wisdom = wisdom
 
@@ -39,11 +38,16 @@ class Wizard:
             return
         
     def healing_word(self):
-        heals = 6 + (self.wisom * random.uniform(1,4))
+        heals = round(6 + (self.wisdom * random.uniform(1,4)))
         self.health += heals
         print (f"{self.name} has been healed for {heals}!")
+        print(f"{self.name}'s health is now {self.health}")
         return 
     
+    def counter_attack(self, target):
+        counter_option = [self.cast_fireball, self.cast_ice_shard]
+        attack = random.choice(counter_option)
+        attack(target)
 
 
 class Rouge:
@@ -55,10 +59,10 @@ class Rouge:
         
 
     def rapier_stab(self, target):
-        stabbie = 10 + ((self.dexterity + self.strength) * random.uniform(.65,.85))
+        stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.65,.85)))
         target.health -= stabbie
         print("========================================================================")
-        print(f"{self.name} stabs {target.name} dealing {damage} damage")
+        print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
         print("=======================================================================")
         if target.health <= 0:
             print(f"{target.name} has been stabbed to dealth!")
@@ -81,10 +85,16 @@ class Rouge:
             return
 
     def healing_potion(self):
-        heals = 10 + random.uniform(2,4)
+        heals = round(10 + random.uniform(2,4))
         self.health += heals
         print (f"{self.name} heals himself for {heals}")
+        print(f"{self.name}'s health is now {self.health}")
         return   
+    
+    def counter_attack(self, target):
+        counter_option = [self.rapier_stab, self.sly_flurish]
+        attack = random.choice(counter_option)
+        attack(target)
         
     
 
@@ -97,7 +107,7 @@ class Room:
         self.visited = visited
 
     def describe_room(self):
-        print (f"You enter the {self.description} room, it is very dark.\nYou manage to spot{self.items}.\nAlong with those items, you spot {self.characters}!")
+        print (f"You enter the {self.name} room, it is very dark.\nYou manage to spot{self.items}.\nAlong with those items, you spot {self.characters}!")
         return 
 
     def pick_up_item(self, items):
@@ -112,6 +122,7 @@ class Room:
         else:
             print("That item is not here")
             return None
+
 
     
 
