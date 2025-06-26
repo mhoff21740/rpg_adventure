@@ -7,8 +7,11 @@ def combat_encounter(player, target):
         while target.health > 0 and player.health > 0:
             selection = input(
                 "You need to defend yourself, which action will you take?\n"
+                
                 "1.) Cast Fireball - deals moderate fire damage.\n"
+                
                 "2.) Cast Ice Shard - deals light cold damage.\n"
+                
                 "3.) Cast Healing Word - restores a small amount of health\n"
             ).strip()
             if selection not in ("1", "2", "3"):
@@ -39,14 +42,18 @@ def combat_encounter(player, target):
                 player.healing_word()
                 if target.health > 0:
                    target.counter_attack(player)
-                   target.counter_attack(player)    
+                   target.counter_attack(player)
+                     
                         
     elif player == Asterion:
         while target.health > 0 and player.health > 0:
             selection = input(
                 "You need to defend yourself, which action will you take?\n"
+                
                 "1.) Stab with your rapier - deals moderate stab damage.\n"
+                
                 "2.) Sly Flurish - deals light stab damage.\n"
+                
                 "3.) Drink a healing potion - restores a small amount of health\n"
             ).strip()
             if selection not in ("1", "2", "3"):
@@ -77,7 +84,8 @@ def combat_encounter(player, target):
                 player.healing_potion()
                 if target.health > 0:
                         target.counter_attack(player)
-                        target.counter_attack(player)              
+                        target.counter_attack(player)
+                                      
     else:
         return
 

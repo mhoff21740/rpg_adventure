@@ -50,6 +50,8 @@ class Wizard:
         counter_option = [self.cast_fireball, self.cast_ice_shard]
         attack = random.choice(counter_option)
         attack(target)
+        
+        
 
 
 class Rouge:
@@ -63,7 +65,7 @@ class Rouge:
         
 
     def rapier_stab(self, target):
-        stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.65,.85)))
+        stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
         target.health -= stabbie
         print("========================================================================")
         print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
@@ -76,7 +78,7 @@ class Rouge:
             return
         
     def sly_flurish(self, target):
-        damage = int(round( 5 + self.dexterity + self.strength * random.uniform(.55, .65)))
+        damage = int(round( 5 + self.dexterity + self.strength * random.uniform(.45, .55)))
         target.health -= damage
         print("========================================================================")
         print(f"{self.name} flurishes {target.name} dealing {damage} damage")
@@ -100,6 +102,7 @@ class Rouge:
         attack = random.choice(counter_option)
         attack(target)
         
+        
     
 
 class Room:
@@ -114,18 +117,13 @@ class Room:
         print (f"You enter the {self.name} room, it is very dark.\nYou manage to spot{self.items}.\nAlong with those items, you spot {self.characters}!")
         return 
 
-    def pick_up_item(self, items):
-        print ("Which item would you like to pick up?")
-        for item in items:
-            print(item)
-        picked_up = input("Enter the item you would like to pick up")
-        if picked_up in items:
-            items.remove(picked_up)
-            print (f"you picked up {picked_up}")
-            return picked_up
-        else:
-            print("That item is not here")
-            return None
+    def randomize_character_spawn(self,rooms_list,target):
+        room_choise = random.choice(rooms_list)
+        room_choise.characters = target
+        
+        
+        
+        
 
 
     

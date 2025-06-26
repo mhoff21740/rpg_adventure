@@ -20,7 +20,7 @@ north_room = Room(
 south_room = Room(
     description="You are in an eerie warm room with moss covered wall. The air is damp and stanky",
     exits={},  # placeholder
-    characters=Asterion,
+    characters= None,
     visited=False,
     items=["goldcoin", "bread", "turtle","toilet"]
 )
@@ -30,7 +30,7 @@ east_room = Room(
     exits={},  # placeholder
     characters=None,
     visited=False,
-    items=["sweet_roll", "cheesewheel", "old_boot"],
+    items=["sweet_roll", "cheesewheel", "old boot"],
 )
 
 west_room = Room(
@@ -38,7 +38,7 @@ west_room = Room(
     exits={},  # placeholder
     characters=None,
     visited=False,
-    items=["chair", "goldfish", "magic_wand"]
+    items=["chair", "goldfish", "magic wand"]
 )
 
 # Now set the actual exits using room references
@@ -47,3 +47,5 @@ south_room.exits = {"north": north_room}
 east_room.exits = {"west": west_room, "center":center_room}
 west_room.exits = {"east": east_room, "center":center_room}
 center_room.exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room}
+
+rooms_list = [north_room, south_room, east_room, west_room]
