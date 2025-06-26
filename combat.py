@@ -14,7 +14,7 @@ def combat_encounter(player, target):
             if selection not in ("1", "2", "3"):
                 print("You do not know these spells.")
                 continue
-            attack = random.randint(0, 20)
+            attack = random.randint(1, 20)
             if selection == "1":
                 print(f"{player.name} has rolled a {attack}")
                 if attack >= 9:            

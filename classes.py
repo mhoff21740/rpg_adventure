@@ -4,11 +4,13 @@ import random
 # This is a collection of classes that will be used thoughout the land of Faerun. 
 
 class Wizard:
+
     def __init__(self, name, health, intelligence, wisdom):
         self.name = name
         self.health = health
         self.intelligence = intelligence
         self.wisdom = wisdom
+        self.inventory = []
 
     def cast_fireball(self, target): 
         damage = int(round( 10 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
@@ -51,11 +53,13 @@ class Wizard:
 
 
 class Rouge:
+    
     def __init__(self, name, health, dexterity, strength):
         self.name = name
         self.health = health
         self.dexterity = dexterity
         self.strength = strength
+        self.inventory = []
         
 
     def rapier_stab(self, target):

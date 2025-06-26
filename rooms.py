@@ -1,4 +1,4 @@
-from characters import Asterion
+from characters import *
 from classes import Room
 
 center_room = Room(
@@ -22,7 +22,7 @@ south_room = Room(
     exits={},  # placeholder
     characters=Asterion,
     visited=False,
-    items=["goldcoin", "bread", "turtle"]
+    items=["goldcoin", "bread", "turtle","toilet"]
 )
 
 east_room = Room(
@@ -42,8 +42,8 @@ west_room = Room(
 )
 
 # Now set the actual exits using room references
-north_room.exits = {"south": south_room, "east": east_room}
+north_room.exits = {"south": south_room, "east": east_room, "center":center_room}
 south_room.exits = {"north": north_room}
-east_room.exits = {"west": west_room}
-west_room.exits = {"east": east_room}
+east_room.exits = {"west": west_room, "center":center_room}
+west_room.exits = {"east": east_room, "center":center_room}
 center_room.exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room}
