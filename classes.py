@@ -3,14 +3,24 @@ import random
 
 # This is a collection of classes that will be used thoughout the land of Faerun. 
 
-class Wizard:
-
-    def __init__(self, name, health, intelligence, wisdom):
+class DND_CLASS:
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
         self.name = name
         self.health = health
         self.intelligence = intelligence
         self.wisdom = wisdom
-        self.inventory = []
+        self.dexterity = dexterity
+        self.strength = strength
+        self.inventory = inventory if inventory is not None else {}
+
+
+
+
+
+
+class Wizard(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
 
     def cast_fireball(self, target): 
         damage = int(round( 10 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
@@ -54,15 +64,9 @@ class Wizard:
         
 
 
-class Rouge:
-    
-    def __init__(self, name, health, dexterity, strength):
-        self.name = name
-        self.health = health
-        self.dexterity = dexterity
-        self.strength = strength
-        self.inventory = []
-        
+class Rouge(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
 
     def rapier_stab(self, target):
         stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
@@ -84,7 +88,7 @@ class Rouge:
         print(f"{self.name} flurishes {target.name} dealing {damage} damage")
         print("=======================================================================")
         if target.health <= 0:
-            print(f"{target.name} has been stabbed to dealth!")
+            print(f"{target.name} has been stabbed to death!")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -119,11 +123,14 @@ class Room:
 
     def loot_item(self, character, item):
         self.items.remove(item)
-        character.inventory.append(item)
-        if item =="goldfish":
-            print(f"You have caught the {item}!")
+        if item in character.inventory:
+            character.inventory[item] += 1
         else:
-            print(f"You looted the {item}!")
+            character.inventory[item] = 1 
+        if item =="goldfish":
+            print(f"You have caught the elusive {item}, are you proud of yourself?!\n")
+        else:
+            print(f"You looted the {item}!\n")
 
 
 

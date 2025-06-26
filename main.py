@@ -17,12 +17,14 @@ def main():
             input("Press Enter to Begin!")
             print (boarder)
             randomize_character_spawn(rooms_list, Asterion)
+            randomize_items_in_rooms(all_items,rooms_list)
             exploration(Toby_Sprinkledust)
             break
         if character == "Asterion":
             print("You have selected the vamperic rogue Asterion!")
             input("Press enter to continue")
             randomize_character_spawn(rooms_list, Toby_Sprinkledust)
+            randomize_items_in_rooms(all_items,rooms_list)
             exploration(Asterion)
             break
         else:

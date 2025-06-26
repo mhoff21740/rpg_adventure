@@ -74,48 +74,60 @@ def exploration(character):
 
             elif selection == "2":
                 # Item loot loop
-                while True:
-                    item_looted = input(
-                        f"Which item would you like to loot: {', '.join(current_room.items)}?" +"\n"
-                    )
-                    if item_looted not in current_room.items:
-                        print("That item isn't here")
-                        continue
-                    elif item_looted in ("toilet", "turtle", "old_boot", "chair", "goldfish"):
-                        if item_looted == "toilet":
-                            print("What are you planning to do with a toilet?!")
-                            current_room.loot_item(character,item_looted)
-                            break
-                        elif item_looted == "turtle":
-                            print("I think the turtle wants to be left alone")
-                            print("You agree with your conscience and leave him at it")
-                            break
-                        elif item_looted == "old_boot":
-                            print("Maybe I can find the matching one!")
-                            break
-                            current_room.loot_item(character,item_looted)
-                        elif item_looted == "chair":
-                            print("You can't fit this into your bag")
-                            break
-                        elif item_looted == "goldfish":
-                            if "fishing rod" in character.inventory:
+                if not current_room.items:
+                    print ("This throughly looted, there is nothing more aside from cobwebs and dust\n")
+                else:
+                    while True:
+                        item_looted = input(
+                            f"Which item would you like to loot: {', '.join(current_room.items)}?" +"\n"
+                        )
+                        if item_looted not in current_room.items:
+                            print("That item isn't here")
+                            continue
+                        elif item_looted in ("toilet", "turtle", "old_boot", "chair", "goldfish"):
+                            if item_looted == "toilet":
+                                print("What are you planning to do with a toilet?!\n"
+                                      "You don't know yet, but hey, a toilet is a toilet!\n")
                                 current_room.loot_item(character,item_looted)
                                 break
-                            else:
-                                print("The goldfish slips through your fingers and swims away. You are still wondering how it got here and managed to survive.\n")
+                            elif item_looted == "turtle":
+                                print("I think the turtle wants to be left alone")
+                                print("You agree with your conscience and leave him at it")
                                 break
-                    else:
-                        current_room.loot_item(character,item_looted)
-                        
-                        break  # Exit the item loot loop
-                # After looting, stay in the same room and allow further actions
+                            elif item_looted == "old boot":
+                                print("Maybe I can find the matching one!\n")
+                                break
+                                current_room.loot_item(character,item_looted)
+                            elif item_looted == "chair":
+                                print("You can't fit this into your bag\n")
+                                break
+                            elif item_looted == "goldfish":
+                                if "fishing rod" in character.inventory:
+                                    current_room.loot_item(character,item_looted)
+                                    break
+                                else:
+                                    print("The goldfish slips through your fingers and swims away. You are still wondering how it got here and managed to survive.\n")
+                                    break
+                        else:
+                            current_room.loot_item(character,item_looted)
+                            if not current_room.items:
+                                print("This room has been thoroughly looted.\n")
+                                break  # Exit the loot loop if no items remain
+                            break  # Exit the loot loop after a successful loot
+                    # After looting, stay in the same room and allow further actions
             elif selection =="3":
                 while True:
-                    if character.inventory ==[]:
-                        print("You have no items in your bag")
+                    if character.inventory =={}:
+                        print("You have no items in your bag\n")
+                        break
+                    print (f"You currently have: {', '.join(character.inventory.keys())}")
+                    selection = input('Would you like to know the quantity of each item? Please enter "y" or "n": \n')
+                    if selection == "y":
+                        for item in character.inventory:
+                            print(f"{item}:{character.inventory[item]}\n")
+                        break
                     else:
-                        print (f"You currently have: {', '.join(character.inventory)}")
-                    break
+                        break
                 
             elif selection == "4" and current_room.characters is not None:
                 combat_encounter(character, current_room.characters)
