@@ -1,7 +1,18 @@
 from rooms import * 
+from classes import Room
 from characters import *
 from combat import *
 from constants_and_utlility_funcs import *
+
+
+""" Current things players can do when they enter a room:
+    # Go to another room
+    #Fight, if enemy is in there
+    #Loot room entierly
+    # Alert message changes if they have already visited
+    """
+#
+
 
 def exploration(character):
     current_room = center_room
@@ -11,9 +22,15 @@ def exploration(character):
                   
             )
         print(f"{current_room.description}\n")
-        print(f"You see on a table beside you: {', '.join(current_room.items)}\n")
+        if current_room.items == []:
+            print( "This room has been thoughly looted\n")
+        else:
+            print(f"You see on a table beside you: {', '.join(current_room.items)}\n")
         if current_room.characters is None:
-            print("You see no enemies....yet.\n")
+            if current_room.visited:
+                print("There are still no enemies in here....whew!\n")
+            else:
+                print("You see no enemies....yet.\n")
         else:
             print(f"You find another adventurer, {current_room.characters.name}\n")
         
@@ -67,26 +84,28 @@ def exploration(character):
                     elif item_looted in ("toilet", "turtle", "old_boot", "chair", "goldfish"):
                         if item_looted == "toilet":
                             print("What are you planning to do with a toilet?!")
-                            current_room.items.remove(item_looted)
-                            character.inventory.append(item_looted)
+                            current_room.loot_item(character,item_looted)
+                            break
                         elif item_looted == "turtle":
                             print("I think the turtle wants to be left alone")
                             print("You agree with your conscience and leave him at it")
                             break
                         elif item_looted == "old_boot":
                             print("Maybe I can find the matching one!")
-                            current_room.items.remove(item_looted)
-                            character.inventory.append(item_looted)
+                            break
+                            current_room.loot_item(character,item_looted)
                         elif item_looted == "chair":
                             print("You can't fit this into your bag")
                             break
                         elif item_looted == "goldfish":
-                            print("The goldfish slips through your fingers and swims away. You are still wondering how it got here and managed to survive.")
-                            break
+                            if "fishing rod" in character.inventory:
+                                current_room.loot_item(character,item_looted)
+                                break
+                            else:
+                                print("The goldfish slips through your fingers and swims away. You are still wondering how it got here and managed to survive.\n")
+                                break
                     else:
-                        print(f"You looted the {item_looted}!")
-                        current_room.items.remove(item_looted)
-                        character.inventory.append(item_looted)
+                        current_room.loot_item(character,item_looted)
                         
                         break  # Exit the item loot loop
                 # After looting, stay in the same room and allow further actions
@@ -107,5 +126,5 @@ def exploration(character):
                 if current_room.characters.health <= 0:
                     print(f"You have defeated {current_room.characters.name}!\n")
                     current_room.characters = None
-                    
+
 

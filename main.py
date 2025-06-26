@@ -1,4 +1,4 @@
-import random
+
 from characters import *
 from combat import *
 from rooms import *
@@ -11,7 +11,7 @@ from classes import *
 def main():
     print ("Welcome adventurer!\nPlease select a character!")
     while True:
-        character = input("Would you like to play as: Toby or Asterion?")
+        character = input("Would you like to play as: Toby or Asterion?\n")
         if character == "Toby":
             print("You have selected the Gnomish Wizard, Toby Sprinkledust!")
             input("Press Enter to Begin!")
@@ -35,8 +35,9 @@ def main():
 main()
     
     
-''' #########################################################################################################
+'''#########################################################################################################
 * Do something with inv? Maybe have ability to drop item into a room and add it to the rooms current item stash
 *Create moar classes and enemies? Maybe some inheritance stuffs
 *Randomize items in each room from a pool of possible items!
+*Create a loot item method for room to tidy up explore logic*
 ################################################################################################################# '''

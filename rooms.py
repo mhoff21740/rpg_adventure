@@ -30,7 +30,7 @@ east_room = Room(
     exits={},  # placeholder
     characters=None,
     visited=False,
-    items=["sweet_roll", "cheesewheel", "old boot"],
+    items=["sweet_roll", "cheesewheel", "old boot","fishing rod"],
 )
 
 west_room = Room(
@@ -49,3 +49,38 @@ west_room.exits = {"east": east_room, "center":center_room}
 center_room.exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room}
 
 rooms_list = [north_room, south_room, east_room, west_room]
+
+
+all_items = [
+    "map",
+    "lantern",
+    "torch",
+    "sword",
+    "shield",
+    "goldcoin",
+    "bread",
+    "turtle",
+    "toilet",
+    "sweet_roll",
+    "cheesewheel",
+    "old boot",
+    "fishing rod",
+    "chair",
+    "goldfish",
+    "magic wand",
+    "rusty key",
+    "healing potion",
+    "silver dagger",
+    "ancient coin",
+    "magic scroll",
+    "rope",
+    "emerald ring",
+    "leather boots",
+    "iron helmet",
+    "mysterious amulet",
+    "crystal orb",
+    "broken shield",
+    "lockpick set",
+    "vial of poison",
+    "map fragment"
+]

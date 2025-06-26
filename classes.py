@@ -117,21 +117,26 @@ class Room:
         print (f"You enter the {self.name} room, it is very dark.\nYou manage to spot{self.items}.\nAlong with those items, you spot {self.characters}!")
         return 
 
-    def randomize_character_spawn(self,rooms_list,target):
-        room_choise = random.choice(rooms_list)
-        room_choise.characters = target
-        
-        
-        
-        
+    def loot_item(self, character, item):
+        self.items.remove(item)
+        character.inventory.append(item)
+        if item =="goldfish":
+            print(f"You have caught the {item}!")
+        else:
+            print(f"You looted the {item}!")
 
 
-    
 
-    
 
-            
 
-           
 
-    
+
+
+
+
+
+
+
+
+
+
