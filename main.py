@@ -62,4 +62,5 @@ grid to do area attacks?
 * Have other NPC's drop items?
 *Random all room attributes 
 *Add ability of ranger to loot arrows and return to quiver
+* Add leveling system 
 ################################################################################################################# '''
