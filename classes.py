@@ -116,9 +116,12 @@ class Ranger(DND_CLASS):
 
     def bow_shot(self, target):
         if self.arrows <= 0:
-            raise Exception ("You do not have enough arrows")
+            print ("You do not have enough arrows")
+            print(f"{self.name} resorts to melee")
+            self.basic_melee(target)
         else:
             self.arrows -= 1
+            print(f"You now have {self.arrows} arrows!")
             damage = round(10 + ((self.dexterity + (.5 * self.strength) * random.uniform(.55,.75))))
             target.health -= damage
             if target.health <= 0:
@@ -166,23 +169,7 @@ class Ranger(DND_CLASS):
     
 
 
-        
-
-
-
     
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 class Room:

@@ -103,18 +103,23 @@ def combat_encounter(player, target):
                 print("You do not have these abilities")
                 continue
             attack_roll = random.randint(1, 20)
-            if selection == 1:
+            if selection == "1":
                 print(f"{player.name} has rolled a {attack_roll}")
                 if attack_roll > 9:
                     player.bow_shot(target)
                     if target.health > 0:
                         target.counter_attack(player)
                 else:
-                    print(boarder)
-                    print(f"{player.name} vision was impaired and he has launched an arrow over {target.name}")
-                    print (boarder)
+                    if player.arrows > 0:
+                        print(boarder)
+                        print(f"{player.name}'s vision was impaired and he has launched an arrow over {target.name}")
+                        player.arrows -= 1
+                        print(f"As a result of that blunder, {player.name} now has {player.arrows} arrows")
+                        print (boarder)
+                    else:
+                        player.basic_melee(target)
            
-            elif selection == 2:
+            elif selection == "2":
                 print(f"{player.name} has rolled a {attack_roll}")
                 if attack_roll > 9:
                     player.basic_melee(target)
@@ -125,19 +130,12 @@ def combat_encounter(player, target):
                     print(f"{player.name} has missed {target.name}")
                     print (boarder) 
 
-            elif selection ==3:
-                player.healingpotion()
+            elif selection =="3":
+                player.healing_potion()
                 if target.health > 0:
                     target.counter_attack(player)
                     target.countrt_attack(player)       
-                
 
-
-
-    
-    
-    
-    
     
     else:
         return

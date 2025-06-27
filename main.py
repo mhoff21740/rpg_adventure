@@ -16,14 +16,14 @@ def main():
             print("You have selected the Gnomish Wizard, Toby Sprinkledust!")
             input("Press Enter to Begin!")
             print (boarder)
-            randomize_character_spawn(rooms_list, Asterion)
+            randomize_character_spawn(rooms_list, character_list, Toby_Sprinkledust)
             randomize_items_in_rooms(all_items,rooms_list)
             exploration(Toby_Sprinkledust)
             break
         elif character == "Asterion":
             print("You have selected the vamperic rogue Asterion!")
             input("Press enter to continue")
-            randomize_character_spawn(rooms_list, Toby_Sprinkledust)
+            randomize_character_spawn(rooms_list, character_list, Asterion)
             randomize_items_in_rooms(all_items,rooms_list)
             exploration(Asterion)
             break
@@ -32,7 +32,7 @@ def main():
             print ("You have selected the human ranger, Minsc!")
             input("Press enter to begin")
             print(boarder)
-            randomize_character_spawn(rooms_list, Asterion)
+            randomize_character_spawn(rooms_list, character_list, Minsc)
             randomize_items_in_rooms(all_items, rooms_list)
             exploration(Minsc)
             break
@@ -49,10 +49,17 @@ main()
     
     
 '''#########################################################################################################
+
+*Create MASTER DUNGEON GENERATOR, that will generate a truley random senerio each time(random rooms numbers, items, character encounters, exits, etc)!
+    *Once that is done, work on expanding dung rooms etc
 *Update readme.
 * Do something with inv? Maybe have ability to drop item into a room and add it to the rooms current item stash
 *Flesh out dnd inheritence classes
 *Enhance combats, with mana, and stam , maybe turn combat into a grid based system. Player initalizes combat, then players enter a positonal
 grid to do area attacks?
 * When I am feeling brave: Implement a system of movement within rooms? Dunno what that would look like, but here we are! 
+*Create random add enemies that can be slain easily, and may drop items which will then populate room. 
+* Have other NPC's drop items?
+*Random all room attributes 
+*Add ability of ranger to loot arrows and return to quiver
 ################################################################################################################# '''

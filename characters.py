@@ -4,4 +4,7 @@ from classes import *
 
 Toby_Sprinkledust = Wizard("Toby Sprinkledust", 75, 16, 12, 0, 0)
 Asterion = Rouge("Asterion", 85, 0, 0, 14, 10 )
-Minsc = Ranger("Minsc", 85, 0, 0, 14, 12, 35)
+Minsc = Ranger("Minsc", 85, 0, 0, 14, 12, 3)
+
+
+character_list = [Toby_Sprinkledust, Asterion,Minsc]
