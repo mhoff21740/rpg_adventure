@@ -93,7 +93,7 @@ def combat_encounter(player, target):
             selection = input(
                 "You need to defend yourself, which action will you take?\n"
                 
-                "1.) Bow Show - deals moderate peirce damage.\n"
+                "1.) Bow Shot - deals moderate peirce damage.\n"
                 
                 "2.) Basic Melee - deals light slash damage.\n"
                 
