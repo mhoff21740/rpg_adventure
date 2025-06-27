@@ -18,14 +18,12 @@ def exploration(character):
     current_room = center_room
     while character.health > 0:
         if current_room.visited:
-            print("You feel like you have been here before\n"
-                  
-            )
+            print("You feel like you have been here before\n")
         print(f"{current_room.description}\n")
         if current_room.items == []:
             print( "This room has been thoughly looted\n")
         else:
-            print(f"You see on a table beside you: {', '.join(current_room.items)}\n")
+            print(f"You see some items strewn throughout: {', '.join(current_room.items)}\n")
         if current_room.characters is None:
             if current_room.visited:
                 print("There are still no enemies in here....whew!\n")
@@ -34,7 +32,7 @@ def exploration(character):
         else:
             print(f"You find another adventurer, {current_room.characters.name}\n")
         
-        print(f"As you look around, you spot a few exits: {', '.join(current_room.exits.keys())}\n")
+        print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
         current_room.visited = True
         # Main action selection loop
         while True:
@@ -61,13 +59,13 @@ def exploration(character):
                 # Exit selection loop
                 while True:
                     exit_choice = input(
-                        f"\nWhich exit would you like to go through: {', '.join(current_room.exits.keys())}?" +"\n"
+                        f"\nWhich exit would you like to go through: {', '.join(current_room.exits)}?" +"\n"
                     )
-                    if exit_choice not in current_room.exits:
+                    if exit_choice not in all_exits:
                         print("You cannot exit through a wall")
                         continue
                     else:
-                        current_room = current_room.exits[exit_choice]
+                        current_room = all_exits[exit_choice]
                         print(f"\n{boarder}\n\n\n")
                         break  # Exit the exit selection loop
                 break  # Exit the main action selection loop to refresh room
@@ -91,8 +89,8 @@ def exploration(character):
                                 current_room.loot_item(character,item_looted)
                                 break
                             elif item_looted == "turtle":
-                                print("I think the turtle wants to be left alone")
-                                print("You agree with your conscience and leave him at it")
+                                print('"I think the turtle wants to be left alone."')
+                                print("You agree with your conscience and leave him at it.")
                                 break
                             elif item_looted == "old boot":
                                 print("Maybe I can find the matching one!\n")
@@ -132,7 +130,7 @@ def exploration(character):
             elif selection == "4" and current_room.characters is not None:
                 combat_encounter(character, current_room.characters)
                 if character.health <= 0:
-                    print("You have been defeated!")
+                    print("You have been defeated! Game Over!")
                     return
                 # Optionally, remove the defeated enemy from the room
                 if current_room.characters.health <= 0:

@@ -115,10 +115,11 @@ def combat_encounter(player, target):
                         print(f"{player.name}'s vision was impaired and he has launched an arrow over {target.name}")
                         player.arrows -= 1
                         print(f"As a result of that blunder, {player.name} now has {player.arrows} arrows")
-                        print (boarder)
+                        print(boarder)
                     else:
-                        player.basic_melee(target)
-           
+                        print(boarder)
+                        print(f"{player.name} tries to shoot, but has no arrows and misses completely!")
+                        print(boarder)
             elif selection == "2":
                 print(f"{player.name} has rolled a {attack_roll}")
                 if attack_roll > 9:
@@ -134,8 +135,7 @@ def combat_encounter(player, target):
                 player.healing_potion()
                 if target.health > 0:
                     target.counter_attack(player)
-                    target.countrt_attack(player)       
-
+                    target.counter_attack(player)       
     
     else:
         return

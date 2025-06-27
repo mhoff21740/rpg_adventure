@@ -2,6 +2,7 @@ import random
 from constants_and_utlility_funcs import boarder
 
 
+
 # This is a collection of classes that will be used thoughout the land of Faerun. 
 
 class DND_CLASS:
@@ -160,18 +161,12 @@ class Ranger(DND_CLASS):
         if attack_option == self.bow_shot:
             if self.arrows > 0:
                 self.bow_shot(target)
-                self.arrows -= 1
             else:
                 print (f"{self.name} has no arrows and resorts to countering with melee")
                 self.basic_melee(target)
         else:
-            self.basic_melee(target)
+            attack_option(target)
     
-
-
-    
-
-
 class Room:
     def __init__ (self, description, exits, characters, visited, items=None):
         self.description = description
@@ -186,19 +181,43 @@ class Room:
 
     def loot_item(self, character, item):
         self.items.remove(item)
-        if item in character.inventory:
-            character.inventory[item] += 1
+        if isinstance(character. Ranger):
+            if item == "arrow":
+                character.arrows += 1
+                print(f"{character.name} now has {character.arrows} arrows!")
         else:
-            character.inventory[item] = 1 
-        if item =="goldfish":
-            print(f"You have caught the elusive {item}, are you proud of yourself?!\n")
-        else:
-            print(f"You looted the {item}!\n")
+            if item in character.inventory:
+                character.inventory[item] += 1
+            else:
+                character.inventory[item] = 1 
+            if item =="goldfish":
+                print(f"You have caught the elusive {item}, are you proud of yourself?!\n")
+            else:
+                print(f"You looted the {item}!\n")
 
+    def randomize_items_in_rooms(self, item_list, n=5):
+         self.items = random.sample(item_list, 5)
+         
+    @staticmethod
+    def randomize_character_spawn(rooms_list,character_list, player):
+        rooms_populated = random.sample(rooms_list, 2)
+        character_options = []
+        for character in character_list:
+                if character != player:
+                        character_options.append(character)
+        for room in rooms_populated:
+                character_in_room = random.choice(character_options)
+                room.characters = character_in_room
 
-
-
-
+    def randomize_room_descriptions(self, room_descriptions):
+            room_description = random.choice(room_descriptions)
+            self.description = room_description
+            
+    def randomize_room_exits(self, all_exits):
+            max_exit_number = random.randint(1,3)
+            exits_in_room = random.sample(list(all_exits.keys()), max_exit_number)
+            self.exits = exits_in_room
+                
 
 
 

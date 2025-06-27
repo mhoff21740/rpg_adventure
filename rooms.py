@@ -42,13 +42,31 @@ west_room = Room(
 )
 
 # Now set the actual exits using room references
-north_room.exits = {"south": south_room, "east": east_room, "center":center_room}
-south_room.exits = {"north": north_room}
-east_room.exits = {"west": west_room, "center":center_room}
-west_room.exits = {"east": east_room, "center":center_room}
-center_room.exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room}
+
+center_room.exits = {"east":east_room}
 
 rooms_list = [north_room, south_room, east_room, west_room]
+
+all_exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room, "center":center_room}
+
+room_descriptions = [
+    "You enter a grand hall lined with faded banners and cracked marble pillars.",
+    "This chamber is filled with the scent of old parchment and shelves of dusty tomes.",
+    "A flickering blue light illuminates a circular room with a mosaic floor.",
+    "You find yourself in a damp cellar, water dripping steadily from the ceiling.",
+    "Broken armor and shattered shields litter the floor of this abandoned armory.",
+    "A spiral staircase winds up the center of this narrow, torch-lit tower.",
+    "The walls here are covered in strange, glowing runes that pulse softly.",
+    "You step into a greenhouse overrun with tangled vines and exotic plants.",
+    "This room is eerily silent, with a single, ancient statue standing in the center.",
+    "A cold draft blows through a corridor lined with barred prison cells.",
+    "You are in a kitchen, pots and pans scattered as if someone left in a hurry.",
+    "A low mist clings to the floor of this crypt, where stone coffins line the walls.",
+    "This chamber is filled with gears and levers, the remnants of a forgotten machine.",
+    "You enter a lavish bedroom, the bed draped in velvet and a cracked mirror on the wall.",
+    "A circular chamber with a domed ceiling, painted with faded constellations."
+]
+
 
 
 all_items = [
@@ -92,5 +110,6 @@ all_items = [
     "potion of invisibility",
     "cursed ring",
     "elven arrow",
-    "wizard's hat"
+    "wizard's hat",
+    "arrow"
 ]
