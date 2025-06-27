@@ -28,7 +28,7 @@ def main():
             exploration(Asterion)
             break
         else:
-            print("That character is not playable")
+            print("That character is not playable.")
             
     
     
@@ -38,8 +38,10 @@ main()
     
     
 '''#########################################################################################################
+*Update readme.
 * Do something with inv? Maybe have ability to drop item into a room and add it to the rooms current item stash
-*Create moar classes and enemies? Maybe some inheritance stuffs
-*Randomize items in each room from a pool of possible items!
-*Create a loot item method for room to tidy up explore logic*
+*Flesh out dnd inheritence classes
+*Enhance combats, with mana, and stam , maybe turn combat into a grid based system. Player initalizes combat, then players enter a positonal
+grid to do area attacks?
+* When I am feeling brave: Implement a system of movement within rooms? Dunno what that would look like, but here we are! 
 ################################################################################################################# '''
