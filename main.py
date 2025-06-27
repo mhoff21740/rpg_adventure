@@ -11,7 +11,7 @@ from classes import *
 def main():
     print ("Welcome adventurer!\nPlease select a character!")
     while True:
-        character = input("Would you like to play as: Toby or Asterion?\n")
+        character = input("Would you like to play as: Toby, Minsc, or Asterion?\n")
         if character == "Toby":
             print("You have selected the Gnomish Wizard, Toby Sprinkledust!")
             input("Press Enter to Begin!")
@@ -20,13 +20,24 @@ def main():
             randomize_items_in_rooms(all_items,rooms_list)
             exploration(Toby_Sprinkledust)
             break
-        if character == "Asterion":
+        elif character == "Asterion":
             print("You have selected the vamperic rogue Asterion!")
             input("Press enter to continue")
             randomize_character_spawn(rooms_list, Toby_Sprinkledust)
             randomize_items_in_rooms(all_items,rooms_list)
             exploration(Asterion)
             break
+        
+        elif character == "Minsc":
+            print ("You have selected the human ranger, Minsc!")
+            input("Press enter to begin")
+            print(boarder)
+            randomize_character_spawn(rooms_list, Asterion)
+            randomize_items_in_rooms(all_items, rooms_list)
+            exploration(Minsc)
+            break
+
+        
         else:
             print("That character is not playable.")
             

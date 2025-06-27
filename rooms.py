@@ -82,5 +82,15 @@ all_items = [
     "broken shield",
     "lockpick set",
     "vial of poison",
-    "map fragment"
+    "map fragment",
+    "enchanted cloak",
+    "dragon scale",
+    "goblet of wine",
+    "ancient tome",
+    "bag of gems",
+    "silver flute",
+    "potion of invisibility",
+    "cursed ring",
+    "elven arrow",
+    "wizard's hat"
 ]

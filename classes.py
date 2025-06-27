@@ -1,4 +1,5 @@
 import random
+from constants_and_utlility_funcs import boarder
 
 
 # This is a collection of classes that will be used thoughout the land of Faerun. 
@@ -17,7 +18,6 @@ class DND_CLASS:
 
 
 
-
 class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
@@ -25,9 +25,9 @@ class Wizard(DND_CLASS):
     def cast_fireball(self, target): 
         damage = int(round( 10 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
         target.health -= damage
-        print("========================================================================")
+        print(boarder)
         print(f"{self.name} casts fireball dealing {damage} damage")
-        print("=======================================================================")
+        print(boarder)
         if target.health <= 0:
             print(f"{target.name} has been made kwispy!")
             return
@@ -39,9 +39,9 @@ class Wizard(DND_CLASS):
     def cast_ice_shard(self, target):
         damage = int(round( 5 + self.intelligence + self.wisdom * random.uniform(.55, .65)))
         target.health -= damage
-        print("========================================================================")
+        print(boarder)
         print(f"{self.name} casts fireball dealing {damage} damage")
-        print("=======================================================================")
+        print(boarder)
         if target.health <= 0:
             print(f"{target.name} has been frozen!")
             return
@@ -71,11 +71,11 @@ class Rouge(DND_CLASS):
     def rapier_stab(self, target):
         stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
         target.health -= stabbie
-        print("========================================================================")
+        print(boarder)
         print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
-        print("=======================================================================")
+        print(boarder)
         if target.health <= 0:
-            print(f"{target.name} has been stabbed to dealth!")
+            print(f"{target.name} has been stabbed to death!")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -84,9 +84,9 @@ class Rouge(DND_CLASS):
     def sly_flurish(self, target):
         damage = int(round( 5 + self.dexterity + self.strength * random.uniform(.45, .55)))
         target.health -= damage
-        print("========================================================================")
+        print(boarder)
         print(f"{self.name} flurishes {target.name} dealing {damage} damage")
-        print("=======================================================================")
+        print(boarder)
         if target.health <= 0:
             print(f"{target.name} has been stabbed to death!")
             return
@@ -106,8 +106,84 @@ class Rouge(DND_CLASS):
         attack = random.choice(counter_option)
         attack(target)
         
-        
+
+
+# Will have a collection of arrows at the start, and will attack based on if arrows in inv, else, resort to Melee, until they pick up some more(if you play them)        
+class Ranger(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, inventory=None,):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+        self.arrows = arrows
+
+    def bow_shot(self, target):
+        if self.arrows <= 0:
+            raise Exception ("You do not have enough arrows")
+        else:
+            self.arrows -= 1
+            damage = round(10 + ((self.dexterity + (.5 * self.strength) * random.uniform(.55,.75))))
+            target.health -= damage
+            if target.health <= 0:
+                print(boarder)
+                print(f"{target.name} has been peirced by and arrow and got a case of the dead")
+                print(boarder)
+                return
+            else:
+                print(f"{target.name}'s health is now {target.health}")
     
+    def basic_melee(self, target):
+        damage = int(round( 10 + self.dexterity + (.5* self.strength) * random.uniform(.55, .65)))
+        target.health -= damage
+        print(boarder)
+        print(f"{self.name} stabs {target.name} dealing {damage} damage")
+        print(boarder)
+        if target.health <= 0:
+            print(f"{target.name} has been slashed to death!")
+            return
+        else:
+            print(f"{target.name}'s health is now {target.health}")
+            return
+        
+
+    def healing_potion(self):
+        heals = round(10 + random.uniform(2,4))
+        self.health += heals
+        print (f"{self.name} heals himself for {heals}")
+        print(f"{self.name}'s health is now {self.health}")
+        return
+        
+
+    def counter_attack(self, target):
+        counter_option = [self.bow_shot, self.basic_melee]
+        attack_option = random.choice(counter_option)
+        if attack_option == self.bow_shot:
+            if self.arrows > 0:
+                self.bow_shot(target)
+                self.arrows -= 1
+            else:
+                print (f"{self.name} has no arrows and resorts to countering with melee")
+                self.basic_melee(target)
+        else:
+            self.basic_melee(target)
+    
+
+
+        
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class Room:
     def __init__ (self, description, exits, characters, visited, items=None):

@@ -1,5 +1,6 @@
 import random
-from characters import Toby_Sprinkledust, Asterion
+from characters import Toby_Sprinkledust, Asterion, Minsc
+from constants_and_utlility_funcs import boarder
 
 
 def combat_encounter(player, target):
@@ -67,9 +68,9 @@ def combat_encounter(player, target):
                     if target.health > 0:
                         target.counter_attack(player)
                 else:
-                    print("==========================================")
+                    print("============================================")
                     print(f"{player.name} accidentally stabbed the air!")
-                    print("==========================================")
+                    print("============================================")
             elif selection == "2":
                 print(f"{player.name} has rolled a {attack}")
                 if attack >= 9:
@@ -77,15 +78,67 @@ def combat_encounter(player, target):
                     if target.health > 0:
                         target.counter_attack(player)
                 else:
-                    print("==========================================")
+                    print("=================================================")
                     print(f"{player.name} couldn't sneak up on {target.name}")
-                    print("==========================================")
+                    print("=================================================")
             elif selection == "3":
                 player.healing_potion()
                 if target.health > 0:
                         target.counter_attack(player)
                         target.counter_attack(player)
                                       
+    
+    elif player == Minsc:
+        while player.health > 0 and target.health > 0:
+            selection = input(
+                "You need to defend yourself, which action will you take?\n"
+                
+                "1.) Bow Show - deals moderate peirce damage.\n"
+                
+                "2.) Basic Melee - deals light slash damage.\n"
+                
+                "3.) Drink a healing potion - restores a small amount of health\n"
+            ).strip()
+            if selection not in ["1", "2", "3"]:
+                print("You do not have these abilities")
+                continue
+            attack_roll = random.randint(1, 20)
+            if selection == 1:
+                print(f"{player.name} has rolled a {attack_roll}")
+                if attack_roll > 9:
+                    player.bow_shot(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(boarder)
+                    print(f"{player.name} vision was impaired and he has launched an arrow over {target.name}")
+                    print (boarder)
+           
+            elif selection == 2:
+                print(f"{player.name} has rolled a {attack_roll}")
+                if attack_roll > 9:
+                    player.basic_melee(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(boarder)
+                    print(f"{player.name} has missed {target.name}")
+                    print (boarder) 
+
+            elif selection ==3:
+                player.healingpotion()
+                if target.health > 0:
+                    target.counter_attack(player)
+                    target.countrt_attack(player)       
+                
+
+
+
+    
+    
+    
+    
+    
     else:
         return
 

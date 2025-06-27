@@ -9,7 +9,7 @@ def randomize_character_spawn(rooms_list,target):
         
 def randomize_items_in_rooms(item_list ,rooms_list):
         for room in rooms_list:
-                room_items = random.sample(item_list, 4)
+                room_items = random.sample(item_list, 5)
                 room.items= room_items
                 
         

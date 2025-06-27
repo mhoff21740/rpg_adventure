@@ -84,7 +84,7 @@ def exploration(character):
                         if item_looted not in current_room.items:
                             print("That item isn't here")
                             continue
-                        elif item_looted in ("toilet", "turtle", "old_boot", "chair", "goldfish"):
+                        elif item_looted in ("toilet", "turtle", "old boot", "chair", "goldfish"):
                             if item_looted == "toilet":
                                 print("What are you planning to do with a toilet?!\n"
                                       "You don't know yet, but hey, a toilet is a toilet!\n")
