@@ -167,6 +167,29 @@ class Ranger(DND_CLASS):
         else:
             attack_option(target)
     
+
+class Enemy(DND_CLASS):
+    
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+
+    def enemy_name_and_stats(self,total_enemies= 3):
+        possible_names =["Goblin", "Orc", "Skeleton", "Zombie", "Bandit", "Giant Rat", "Giant Spider", "Slime", "Wolf", "Troll", "Vampire", "Ghost", "Cultist", "Dark Mage", "Kobold", "Lizardman", "Imp", "Ogre", "Harpy", "Wraith", "Mimic", "Bat", "Bugbear", "Gnoll", "Shadow", "Gargoyle", "Werewolf", "Sorcerer", "Assassin", "Elemental"]
+        enemies_for_encounter = [] 
+        for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
+            name = random.choice(possible_names)
+            health = random.uniform(15,35)
+            intelligence = random.uniform(2, 5)
+            wisdom = random.uniform(2, 5)
+            dexterity = random.uniform(2, 5)
+            strength = random.uniform(2, 5)
+            inventory = None
+            final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, inventory)
+            enemies_for_encounter.append(final_enemy)
+        return enemies_for_encounter
+
+
+
 class Room:
     def __init__ (self, description, exits, characters, visited, items=None):
         self.description = description
@@ -223,14 +246,3 @@ class Room:
         items_dead_will_drop = random.sample(character_drops, 5)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
-
-
-
-
-
-
-
-
-
-
-
