@@ -236,11 +236,6 @@ class Room:
             room_description = random.choice(room_descriptions)
             self.description = room_description
             
-    def randomize_room_exits(self, all_exits):
-            max_exit_number = random.randint(1, 3)
-            exits_in_room = random.sample(list(all_exits.keys()), max_exit_number)
-            self.exits = {direction: all_exits[direction] for direction in exits_in_room}
-
     def random_npc_drops(self):
         character_drops = ["bloody bandage", "torn cloak", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
         items_dead_will_drop = random.sample(character_drops, 5)
@@ -273,7 +268,7 @@ class Room:
         for room in scenario_room_list:
             possible_destinations = [r for r in scenario_room_list if r is not room]
             if not possible_destinations:
-                continue  # Prevents the random.randint(1, 0) error
+                continue  # Prevents crash if 0 rooms exits avaliable 
             num_exits = random.randint(1, min(3, len(possible_destinations)))
             chosen_directions = random.sample(directions, num_exits)
             chosen_rooms = random.sample(possible_destinations, num_exits)
