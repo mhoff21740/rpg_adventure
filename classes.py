@@ -217,7 +217,12 @@ class Room:
             max_exit_number = random.randint(1,3)
             exits_in_room = random.sample(list(all_exits.keys()), max_exit_number)
             self.exits = exits_in_room
-                
+
+    def random_npc_drops(self):
+        character_drops = ["bloody bandage", "torn cloak", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
+        items_dead_will_drop = random.sample(character_drops, 5)
+        self.items.extend(items_dead_will_drop)
+        return items_dead_will_drop
 
 
 

@@ -1,17 +1,9 @@
 from rooms import * 
-from classes import Room
+from classes import *
 from characters import *
 from combat import *
 from constants_and_utlility_funcs import *
 
-
-""" Current things players can do when they enter a room:
-    # Go to another room
-    #Fight, if enemy is in there
-    #Loot room entierly
-    # Alert message changes if they have already visited
-    """
-#
 
 
 def exploration(character):
@@ -135,6 +127,7 @@ def exploration(character):
                 # Optionally, remove the defeated enemy from the room
                 if current_room.characters.health <= 0:
                     print(f"You have defeated {current_room.characters.name}!\n")
+                    print(f"As you marval over your victory, you see that {current_room.characters.name} has dropped {", ".join(current_room.random_npc_drops())}")
                     current_room.characters = None
 
 
