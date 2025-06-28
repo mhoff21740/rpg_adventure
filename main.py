@@ -40,19 +40,3 @@ def main():
     
 main()
 
-
-
-'''#########################################################################################################
-
-*Create MASTER DUNGEON GENERATOR, that will generate a truley random senerio each time(random rooms numbers, items, character encounters, exits, etc)!
-    *Once that is done, work on expanding dung rooms etc
-*Update readme.
-* Do something with inv? Maybe have ability to drop item into a room and add it to the rooms current item stash
-*Flesh out dnd inheritence classes
-*Enhance combats, with mana, and stam , maybe turn combat into a grid based system. Player initalizes combat, then players enter a positonal
-grid to do area attacks?
-* When I am feeling brave: Implement a system of movement within rooms? Dunno what that would look like, but here we are! 
-*Create random add enemies that can be slain easily, and may drop items which will then populate room. 
-* Have other NPC's drop items?
-* Add leveling system 
-################################################################################################################# '''
