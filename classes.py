@@ -246,3 +246,20 @@ class Room:
         items_dead_will_drop = random.sample(character_drops, 5)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
+    
+    def dungeon_room_randomizer(self): # This will be how a random dung is generated each time.
+        room_count = random.randint(5, 25)
+        senerio_room_list = []
+        for i in room_count:
+            description=""
+            exits={},  # will be set later
+            characters=None,
+            visited=False,
+            items=[]
+            dung_room =Room(description,exits,characters,visited,items)
+            senerio_room_list.append(dung_room)
+        return senerio_room_list
+        
+            
+        
+        
