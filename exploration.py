@@ -7,6 +7,9 @@ from constants_and_utlility_funcs import *
 
 
 def exploration(character):
+    """###Rework logic here to account for room randomization 
+    Must Create Random rooms FIRST then start loop to avoid creating new rooms instances in logic
+    #### Maybe put some logic in for the map?"""
     current_room = center_room
     while character.health > 0:
         if current_room.visited:
