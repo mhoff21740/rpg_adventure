@@ -6,11 +6,8 @@ from constants_and_utlility_funcs import *
 
 
 
-def exploration(character):
-    """###Rework logic here to account for room randomization 
-    Must Create Random rooms FIRST then start loop to avoid creating new rooms instances in logic
-    #### Maybe put some logic in for the map?"""
-    current_room = center_room
+def exploration(character, starting_room):
+    current_room = starting_room
     while character.health > 0:
         if current_room.visited:
             print("You feel like you have been here before\n")
@@ -56,11 +53,12 @@ def exploration(character):
                     exit_choice = input(
                         f"\nWhich exit would you like to go through: {', '.join(current_room.exits)}?" +"\n"
                     )
-                    if exit_choice not in all_exits:
+                    if exit_choice not in current_room.exits:
+
                         print("You cannot exit through a wall")
                         continue
                     else:
-                        current_room = all_exits[exit_choice]
+                        current_room = current_room.exits[exit_choice]
                         print(f"\n{boarder}\n\n\n")
                         break  # Exit the exit selection loop
                 break  # Exit the main action selection loop to refresh room

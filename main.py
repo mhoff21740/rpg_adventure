@@ -1,9 +1,11 @@
 from characters import *
 from combat import *
 from rooms import *
-from exploration import *
+import exploration
 from constants_and_utlility_funcs import *
 from classes import *
+
+
 
 
 
@@ -17,7 +19,7 @@ def main():
             selected_character = Toby_Sprinkledust
             break
         elif character == "Asterion":
-            print("You have selected the vamperic rogue Asterion!")
+            print("You have selected the vampiric rogue Asterion!")
             input("Press enter to continue")
             selected_character = Asterion
             break
@@ -29,15 +31,16 @@ def main():
         else:
             print("That character is not playable.")
 
-    # Dungeon setup 
-    Room.randomize_character_spawn(rooms_list, character_list, selected_character)
-    for room in rooms_list:
+    # Dungeon setup
+    scenario_room_list = Room.dungeon_room_randomizer()
+    Room.randomize_character_spawn(scenario_room_list, character_list, selected_character)
+
+    for room in scenario_room_list:
         room.randomize_items_in_rooms(all_items, 5)
         room.randomize_room_descriptions(room_descriptions)
-        room.randomize_room_exits(all_exits)
-    exploration(selected_character)
-    
-    
+    starting_room = scenario_room_list[0]
+    exploration.exploration(selected_character, starting_room)
+
 if __name__ == "__main__":
     main()
 

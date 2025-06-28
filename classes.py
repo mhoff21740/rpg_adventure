@@ -237,9 +237,9 @@ class Room:
             self.description = room_description
             
     def randomize_room_exits(self, all_exits):
-            max_exit_number = random.randint(1,3)
+            max_exit_number = random.randint(1, 3)
             exits_in_room = random.sample(list(all_exits.keys()), max_exit_number)
-            self.exits = exits_in_room
+            self.exits = {direction: all_exits[direction] for direction in exits_in_room}
 
     def random_npc_drops(self):
         character_drops = ["bloody bandage", "torn cloak", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
@@ -247,19 +247,45 @@ class Room:
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
     
-    def dungeon_room_randomizer(self): # This will be how a random dung is generated each time.
+    @staticmethod
+    def dungeon_room_randomizer():  # This will be how a random dungeon is generated each time.
         room_count = random.randint(5, 25)
-        senerio_room_list = []
-        for i in room_count:
-            description=""
-            exits={},  # will be set later
-            characters=None,
-            visited=False,
-            items=[]
-            dung_room =Room(description,exits,characters,visited,items)
-            senerio_room_list.append(dung_room)
-        return senerio_room_list
-        
-            
-        
-        
+        scenario_room_list = []
+
+        for _ in range(room_count):
+            description = ""
+            exits = {}  # Set later
+            characters = None
+            visited = False
+            items = []
+            dung_room = Room(description, exits, characters, visited, items)
+            scenario_room_list.append(dung_room)
+
+        reverse_direction = {
+            "north": "south",
+            "south": "north",
+            "east": "west",
+            "west": "east"
+        }
+
+        directions = ["north", "south", "east", "west"]
+
+        for room in scenario_room_list:
+            possible_destinations = [r for r in scenario_room_list if r is not room]
+            if not possible_destinations:
+                continue  # Prevents the random.randint(1, 0) error
+            num_exits = random.randint(1, min(3, len(possible_destinations)))
+            chosen_directions = random.sample(directions, num_exits)
+            chosen_rooms = random.sample(possible_destinations, num_exits)
+
+            for direction, dest_room in zip(chosen_directions, chosen_rooms):
+                room.exits[direction] = dest_room
+                rev_dir = reverse_direction[direction]
+                if rev_dir not in dest_room.exits:
+                    dest_room.exits[rev_dir] = room
+
+        return scenario_room_list
+
+
+
+
