@@ -38,5 +38,6 @@ def main():
     exploration(selected_character)
     
     
-main()
+if __name__ == "__main__":
+    main()
 
