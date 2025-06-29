@@ -22,7 +22,7 @@ def exploration(character, starting_room):
             else:
                 print("You see no enemies....yet.\n")
         else:
-            print(f"You find another adventurer, {current_room.characters.name}\n")
+            print(f"You see some enemies:, {', '.join([char.name for char in current_room.characters])}!\n")
         
         print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
         current_room.visited = True

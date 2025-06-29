@@ -173,7 +173,9 @@ class Enemy(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
 
-    def enemy_name_and_stats(self,total_enemies= 3):
+    @staticmethod
+    def enemy_name_and_stats():
+        total_enemies = random.randint(3, 15)
         possible_names =["Goblin", "Orc", "Skeleton", "Zombie", "Bandit", "Giant Rat", "Giant Spider", "Slime", "Wolf", "Troll", "Vampire", "Ghost", "Cultist", "Dark Mage", "Kobold", "Lizardman", "Imp", "Ogre", "Harpy", "Wraith", "Mimic", "Bat", "Bugbear", "Gnoll", "Shadow", "Gargoyle", "Werewolf", "Sorcerer", "Assassin", "Elemental"]
         enemies_for_encounter = [] 
         for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
@@ -229,15 +231,22 @@ class Room:
          self.items = random.sample(item_list, 5)
          
     @staticmethod
-    def randomize_character_spawn(rooms_list,character_list, player):
-        rooms_populated = random.sample(rooms_list, 2)
+    def randomize_character_spawn(rooms_list,character_list,player):
+        enemies_for_encounter = Enemy.enemy_name_and_stats()
+        rooms_populated = random.sample(rooms_list, len(rooms_list))
         character_options = []
+        npc_options = []
         for character in character_list:
                 if character != player:
                         character_options.append(character)
         for room in rooms_populated:
                 character_in_room = random.choice(character_options)
-                room.characters = character_in_room
+                npcs_in_room = random.sample(enemies_for_encounter,3)
+                room.characters = [character_in_room] + npcs_in_room
+
+        
+
+        
 
     def randomize_room_descriptions(self, room_descriptions):
             room_description = random.choice(room_descriptions)
