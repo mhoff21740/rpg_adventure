@@ -200,7 +200,8 @@ class Enemy(DND_CLASS):
         else:
             print(f"{target.name}'s health is now {target.health}")
 
-
+     def counter_attack(self, target):
+        basic_attack(target)
 
 class Room:
     def __init__ (self, description, exits, characters, visited, items=None):
