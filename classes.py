@@ -187,6 +187,16 @@ class Enemy(DND_CLASS):
             final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, inventory)
             enemies_for_encounter.append(final_enemy)
         return enemies_for_encounter
+    
+    def basic_attack(self, target): # Just weak attacks to help player feel better about themselves as they go along, or to farm xp.
+        # Weak attack: base damage plus a little randomness, scaled by strength and dexterity
+        damage = int(round(3 + (self.strength * 0.7) + (self.dexterity * 0.3) + random.uniform(0, 2)))
+        target.health -= damage
+        print(f"{self.name} attacks {target.name} for {damage} damage!")
+        if target.health <= 0:
+            print(f"{target.name} has been defeated!")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
 
 
 
@@ -198,9 +208,6 @@ class Room:
         self.characters = characters
         self.visited = visited
 
-    def describe_room(self):
-        print (f"You enter the {self.name} room, it is very dark.\nYou manage to spot{self.items}.\nAlong with those items, you spot {self.characters}!")
-        return 
 
     def loot_item(self, character, item):
         self.items.remove(item)
@@ -237,7 +244,7 @@ class Room:
             self.description = room_description
             
     def random_npc_drops(self):
-        character_drops = ["bloody bandage", "torn cloak", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
+        character_drops = ["bloody bandage", "torn cloak", "healing potion" "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
         items_dead_will_drop = random.sample(character_drops, 5)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
