@@ -22,7 +22,7 @@ def exploration(character, starting_room):
             else:
                 print("You see no enemies....yet.\n")
         else:
-            print(f"You see some enemies:, {', '.join([char.name for char in current_room.characters])}!\n")
+            print(f"You see some enemies:, {', '.join(current_room.characters)}!\n")
         
         print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
         current_room.visited = True
@@ -121,15 +121,21 @@ def exploration(character, starting_room):
                         break
                 
             elif selection == "4" and current_room.characters is not None:
-                combat_encounter(character, current_room.characters)
+                combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
+                if combantant not in ', '.join( current_room.characters):
+                    print(" This enemey is not here")
+                    continue
+                else:
+                    combantant = current_room.characters[combantant]
+                combat_encounter(character, combantant)
                 if character.health <= 0:
                     print("You have been defeated! Game Over!")
                     return
                 # Optionally, remove the defeated enemy from the room
-                if current_room.characters.health <= 0:
-                    print(f"You have defeated {current_room.characters.name}!\n")
-                    print (f"You are wounded from that fight and left with only {character.health} You will need to heal at some point!\n")
-                    print(f"As you marval over your victory, you see that {current_room.characters.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
-                    current_room.characters = None
+                if combantant.health >= 0:
+                    print(f"You have defeated {combantant.name}!\n")
+                    print (f"You are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
+                    print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
+                    del current_room.characters[combantant.name]
 
 

@@ -200,8 +200,8 @@ class Enemy(DND_CLASS):
         else:
             print(f"{target.name}'s health is now {target.health}")
 
-     def counter_attack(self, target):
-        basic_attack(target)
+    def counter_attack(self, target):
+        self.basic_attack(target)
 
 class Room:
     def __init__ (self, description, exits, characters, visited, items=None):
@@ -214,7 +214,7 @@ class Room:
 
     def loot_item(self, character, item):
         self.items.remove(item)
-        if isinstance(character. Ranger):
+        if isinstance(character, Ranger):
             if item == "arrow":
                 character.arrows += 1
                 print(f"{character.name} now has {character.arrows} arrows!")
@@ -236,14 +236,19 @@ class Room:
         enemies_for_encounter = Enemy.enemy_name_and_stats()
         rooms_populated = random.sample(rooms_list, len(rooms_list))
         character_options = []
-        npc_options = []
         for character in character_list:
                 if character != player:
                         character_options.append(character)
         for room in rooms_populated:
+                enemy_maping = {}
                 character_in_room = random.choice(character_options)
                 npcs_in_room = random.sample(enemies_for_encounter,3)
-                room.characters = [character_in_room] + npcs_in_room
+                combined_enemy_list = [character_in_room] + npcs_in_room
+                for enemy in combined_enemy_list:
+                    enemy_maping[enemy.name] = enemy
+                room.characters = enemy_maping
+                    
+                
 
         
 

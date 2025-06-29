@@ -45,7 +45,7 @@ west_room = Room(
 
 center_room.exits = {"east":east_room}
 
-rooms_list = [north_room, south_room, east_room, west_room]
+old_rooms_list = [north_room, south_room, east_room, west_room]
 
 all_exits = {"north":north_room, "south":south_room, "east":east_room, "west":west_room, "center":center_room}
 
