@@ -1,5 +1,5 @@
 
-boarder = "=" * 70
+border = "=" * 70
 
 
 """Random dung generator?"""

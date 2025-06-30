@@ -1,9 +1,9 @@
 import random
-from constants_and_utlility_funcs import boarder
+from constants_and_utlility_funcs import border
 
 
 
-# This is a collection of classes that will be used thoughout the land of Faerun. 
+# This is a collection of classes that will be used throughoutthe land of Faerun. 
 
 class DND_CLASS:
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
@@ -24,11 +24,11 @@ class Wizard(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
 
     def cast_fireball(self, target): 
-        damage = int(round( 10 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
+        damage = int(round( 3 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
         target.health -= damage
-        print(boarder)
+        print(border)
         print(f"{self.name} casts fireball dealing {damage} damage")
-        print(boarder)
+        print(border)
         if target.health <= 0:
             print(f"{target.name} has been made kwispy!")
             return
@@ -38,11 +38,11 @@ class Wizard(DND_CLASS):
         
     
     def cast_ice_shard(self, target):
-        damage = int(round( 5 + self.intelligence + self.wisdom * random.uniform(.55, .65)))
+        damage = int(round( 2 + self.intelligence + self.wisdom * random.uniform(.55, .65)))
         target.health -= damage
-        print(boarder)
+        print(border)
         print(f"{self.name} casts fireball dealing {damage} damage")
-        print(boarder)
+        print(border)
         if target.health <= 0:
             print(f"{target.name} has been frozen!")
             return
@@ -65,16 +65,16 @@ class Wizard(DND_CLASS):
         
 
 
-class Rouge(DND_CLASS):
+class Rogue(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
 
     def rapier_stab(self, target):
-        stabbie = round(10 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
+        stabbie = round(3 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
         target.health -= stabbie
-        print(boarder)
+        print(border)
         print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
-        print(boarder)
+        print(border)
         if target.health <= 0:
             print(f"{target.name} has been stabbed to death!")
             return
@@ -83,11 +83,11 @@ class Rouge(DND_CLASS):
             return
         
     def sly_flurish(self, target):
-        damage = int(round( 5 + self.dexterity + self.strength * random.uniform(.45, .55)))
+        damage = int(round( 2 + self.dexterity + self.strength * random.uniform(.45, .55)))
         target.health -= damage
-        print(boarder)
+        print(border)
         print(f"{self.name} flurishes {target.name} dealing {damage} damage")
-        print(boarder)
+        print(border)
         if target.health <= 0:
             print(f"{target.name} has been stabbed to death!")
             return
@@ -123,22 +123,22 @@ class Ranger(DND_CLASS):
         else:
             self.arrows -= 1
             print(f"You now have {self.arrows} arrows!")
-            damage = round(10 + ((self.dexterity + (.5 * self.strength) * random.uniform(.55,.75))))
+            damage = round(3+ ((self.dexterity + (.5 * self.strength) * random.uniform(.55,.75))))
             target.health -= damage
             if target.health <= 0:
-                print(boarder)
-                print(f"{target.name} has been peirced by and arrow and got a case of the dead")
-                print(boarder)
+                print(border)
+                print(f"{target.name} has been pierced by and arrow and got a case of the dead")
+                print(border)
                 return
             else:
                 print(f"{target.name}'s health is now {target.health}")
     
     def basic_melee(self, target):
-        damage = int(round( 10 + self.dexterity + (.5* self.strength) * random.uniform(.55, .65)))
+        damage = int(round( 2 + self.dexterity + (.5* self.strength) * random.uniform(.55, .65)))
         target.health -= damage
-        print(boarder)
+        print(border)
         print(f"{self.name} stabs {target.name} dealing {damage} damage")
-        print(boarder)
+        print(border)
         if target.health <= 0:
             print(f"{target.name} has been slashed to death!")
             return
@@ -175,7 +175,7 @@ class Enemy(DND_CLASS):
 
     @staticmethod
     def enemy_name_and_stats():
-        total_enemies = random.randint(3, 15)
+        total_enemies = random.randint(20, 30)
         possible_names =["Goblin", "Orc", "Skeleton", "Zombie", "Bandit", "Giant Rat", "Giant Spider", "Slime", "Wolf", "Troll", "Vampire", "Ghost", "Cultist", "Dark Mage", "Kobold", "Lizardman", "Imp", "Ogre", "Harpy", "Wraith", "Mimic", "Bat", "Bugbear", "Gnoll", "Shadow", "Gargoyle", "Werewolf", "Sorcerer", "Assassin", "Elemental"]
         enemies_for_encounter = [] 
         for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
@@ -248,25 +248,19 @@ class Room:
                     enemy_maping[enemy.name] = enemy
                 room.characters = enemy_maping
                     
-                
-
-        
-
-        
-
     def randomize_room_descriptions(self, room_descriptions):
             room_description = random.choice(room_descriptions)
             self.description = room_description
             
     def random_npc_drops(self):
-        character_drops = ["bloody bandage", "torn cloak", "healing potion" "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
+        character_drops = ["bloody bandage", "torn cloak", "healing potion", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
         items_dead_will_drop = random.sample(character_drops, 5)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
     
     @staticmethod
     def dungeon_room_randomizer():  # This will be how a random dungeon is generated each time.
-        room_count = random.randint(5, 25)
+        room_count = random.randint(10, 25)
         scenario_room_list = []
 
         for _ in range(room_count):
@@ -290,7 +284,7 @@ class Room:
         for room in scenario_room_list:
             possible_destinations = [r for r in scenario_room_list if r is not room]
             if not possible_destinations:
-                continue  # Prevents crash if 0 rooms exits avaliable 
+                continue  # Prevents crash if 0 rooms exits available 
             num_exits = random.randint(1, min(3, len(possible_destinations)))
             chosen_directions = random.sample(directions, num_exits)
             chosen_rooms = random.sample(possible_destinations, num_exits)

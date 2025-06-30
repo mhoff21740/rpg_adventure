@@ -15,17 +15,17 @@ def main():
         character = input("Would you like to play as: Toby, Minsc, or Asterion?\n")
         if character == "Toby":
             print("You have selected the Gnomish Wizard, Toby Sprinkledust!")
-            input("Press Enter to Begin!")
+            input("Press Enter to Begin!\n")
             selected_character = Toby_Sprinkledust
             break
         elif character == "Asterion":
             print("You have selected the vampiric rogue Asterion!")
-            input("Press enter to continue")
+            input("Press enter to begin!\n")
             selected_character = Asterion
             break
         elif character == "Minsc":
             print("You have selected the human ranger, Minsc!")
-            input("Press enter to begin")
+            input("Press enter to begin\n")
             selected_character = Minsc
             break
         else:

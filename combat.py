@@ -1,6 +1,6 @@
 import random
 from characters import Toby_Sprinkledust, Asterion, Minsc
-from constants_and_utlility_funcs import boarder
+from constants_and_utlility_funcs import border
 
 
 def combat_encounter(player, target):
@@ -111,15 +111,15 @@ def combat_encounter(player, target):
                         target.counter_attack(player)
                 else:
                     if player.arrows > 0:
-                        print(boarder)
+                        print(border)
                         print(f"{player.name}'s vision was impaired and he has launched an arrow over {target.name}")
                         player.arrows -= 1
                         print(f"As a result of that blunder, {player.name} now has {player.arrows} arrows")
-                        print(boarder)
+                        print(border)
                     else:
-                        print(boarder)
+                        print(border)
                         print(f"{player.name} tries to shoot, but has no arrows and misses completely!")
-                        print(boarder)
+                        print(border)
             elif selection == "2":
                 print(f"{player.name} has rolled a {attack_roll}")
                 if attack_roll > 9:
@@ -127,9 +127,9 @@ def combat_encounter(player, target):
                     if target.health > 0:
                         target.counter_attack(player)
                 else:
-                    print(boarder)
+                    print(border)
                     print(f"{player.name} has missed {target.name}")
-                    print (boarder) 
+                    print (border) 
 
             elif selection =="3":
                 player.healing_potion()

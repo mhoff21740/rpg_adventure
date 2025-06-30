@@ -22,7 +22,7 @@ def exploration(character, starting_room):
             else:
                 print("You see no enemies....yet.\n")
         else:
-            print(f"You see some enemies:, {', '.join(current_room.characters)}!\n")
+            print(f"You see some enemies:{', '.join(current_room.characters)}!\n")
         
         print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
         current_room.visited = True
@@ -59,7 +59,7 @@ def exploration(character, starting_room):
                         continue
                     else:
                         current_room = current_room.exits[exit_choice]
-                        print(f"\n{boarder}\n\n\n")
+                        print(f"\n{border}\n\n\n")
                         break  # Exit the exit selection loop
                 break  # Exit the main action selection loop to refresh room
 
@@ -131,8 +131,8 @@ def exploration(character, starting_room):
                 if character.health <= 0:
                     print("You have been defeated! Game Over!")
                     return
-                # Optionally, remove the defeated enemy from the room
-                if combantant.health >= 0:
+                # Remove the defeated enemy from the room
+                if combantant.health <= 0:
                     print(f"You have defeated {combantant.name}!\n")
                     print (f"You are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
                     print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
