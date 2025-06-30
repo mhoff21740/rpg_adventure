@@ -1,5 +1,3 @@
-
-
 room_descriptions = [
     "You enter a grand hall lined with faded banners and cracked marble pillars.",
     "You step into a chamber filled with the scent of old parchment and shelves of dusty tomes.",
@@ -40,49 +38,7 @@ room_descriptions = [
 
 
 
-
-
 all_items = [
-    "map",
-    "lantern",
-    "torch",
-    "sword",
-    "shield",
-    "goldcoin",
-    "bread",
-    "turtle",
-    "toilet",
-    "sweet_roll",
-    "cheesewheel",
-    "old boot",
-    "fishing rod",
-    "chair",
-    "goldfish",
-    "magic wand",
-    "rusty key",
-    "healing potion",
-    "silver dagger",
-    "ancient coin",
-    "magic scroll",
-    "rope",
-    "emerald ring",
-    "leather boots",
-    "iron helmet",
-    "mysterious amulet",
-    "crystal orb",
-    "broken shield",
-    "lockpick set",
-    "vial of poison",
-    "map fragment",
-    "enchanted cloak",
-    "dragon scale",
-    "goblet of wine",
-    "ancient tome",
-    "bag of gems",
-    "silver flute",
-    "potion of invisibility",
-    "cursed ring",
-    "elven arrow",
-    "wizard's hat",
-    "arrow"
+    "map", "lantern", "torch", "sword", "shield", "goldcoin", "bread", "turtle", "toilet", "sweet_roll", "cheesewheel", "old boot", "fishing rod", "chair", "goldfish", "magic wand", "rusty key", "healing potion", "silver dagger", "ancient coin", "magic scroll", "rope", "emerald ring", "leather boots", "iron helmet", "mysterious amulet", "crystal orb", "broken shield", "lockpick set", "vial of poison", "map fragment", "enchanted cloak", "dragon scale", "goblet of wine", "ancient tome", "bag of gems", "silver flute", "potion of invisibility", "cursed ring", "elven arrow", "wizard's hat", "arrow",
+    "grappling hook", "oil flask", "tinderbox", "waterskin", "crowbar", "shovel", "hammer", "nails", "chalk", "mirror", "bell", "whistle", "spool of thread", "needle", "empty vial", "bucket", "blanket", "piton", "spyglass", "signal whistle"
 ]

@@ -1,5 +1,5 @@
 import random
-from characters import Toby_Sprinkledust, Asterion, Minsc
+from characters import Toby_Sprinkledust, Asterion, Minsc, Karlach, Laezel, Shadowheart
 from constants_and_utlility_funcs import border
 
 
@@ -135,8 +135,122 @@ def combat_encounter(player, target):
                 player.healing_potion()
                 if target.health > 0:
                     target.counter_attack(player)
-                    target.counter_attack(player)       
-    
+                    target.counter_attack(player) 
+                    
+    elif player == Karlach:
+        while player.health > 0 and target.health > 0:
+            selection = input(
+                "You need to defend yourself, which action will you take?\n"
+                "1.) Raging Strike - deals heavy melee damage.\n"
+                "2.) Reckless Swing - deals light melee damage.\n"
+                "3.) Drink a healing potion - restores a moderate amount of health\n"
+            ).strip()
+            if selection not in ("1", "2", "3"):
+                print("You do not have these abilities.")
+                continue
+            attack = random.randint(1, 20)
+            if selection == "1":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.raging_strike(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name} swings wildly and misses {target.name}!")
+                    print(border)
+            elif selection == "2":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.reckless_swing(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name}'s reckless swing misses {target.name}!")
+                    print(border)
+            elif selection == "3":
+                player.healing_potion()
+                if target.health > 0:
+                    target.counter_attack(player)
+                    target.counter_attack(player)
+
+    elif player == Laezel:
+        while player.health > 0 and target.health > 0:
+            selection = input(
+                "You need to defend yourself, which action will you take?\n"
+                "1.) Power Thrust - deals heavy melee damage.\n"
+                "2.) Quick Slash - deals light melee damage.\n"
+                "3.) Use a healing salve - restores a moderate amount of health\n"
+            ).strip()
+            if selection not in ("1", "2", "3"):
+                print("You do not have these abilities.")
+                continue
+            attack = random.randint(1, 20)
+            if selection == "1":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.power_thrust(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name}'s power thrust misses {target.name}!")
+                    print(border)
+            elif selection == "2":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.quick_slash(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name}'s quick slash misses {target.name}!")
+                    print(border)
+            elif selection == "3":
+                player.healing_potion()
+                if target.health > 0:
+                    target.counter_attack(player)
+                    target.counter_attack(player)
+
+    elif player == Shadowheart:
+        while player.health > 0 and target.health > 0:
+            selection = input(
+                "You need to defend yourself, which action will you take?\n"
+                "1.) Divine Smite - deals heavy radiant damage.\n"
+                "2.) Radiant Strike - deals light radiant damage.\n"
+                "3.) Call upon divine energy - restores a large amount of health\n"
+            ).strip()
+            if selection not in ("1", "2", "3"):
+                print("You do not have these abilities.")
+                continue
+            attack = random.randint(1, 20)
+            if selection == "1":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.divine_smite(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name}'s divine smite misses {target.name}!")
+                    print(border)
+            elif selection == "2":
+                print(f"{player.name} has rolled a {attack}")
+                if attack >= 9:
+                    player.radiant_strike(target)
+                    if target.health > 0:
+                        target.counter_attack(player)
+                else:
+                    print(border)
+                    print(f"{player.name}'s radiant strike misses {target.name}!")
+                    print(border)
+            elif selection == "3":
+                player.healing_potion()
+                if target.health > 0:
+                    target.counter_attack(player)
+                    target.counter_attack(player)      
+        
     else:
         return
 

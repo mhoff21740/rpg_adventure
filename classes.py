@@ -26,14 +26,17 @@ class DND_CLASS:
         new_level = self.current_level()
         if new_level > self.level:
             self.health += random.randint(4,10)
-            print(f"Congratulations! {self.name} has reached level {new_level} and your health has increased to {self.hea}!")
+            print(f"Congratulations! {self.name} has reached level {new_level} and your health has increased to {self.health}!")
             self.level = new_level
-            if self.level // 2 == 0 and self.level > 3:
-                print("You have now unlocked a random ability point increase!")
-                ability_to_increase = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?")
-                
-                (self.health, self.intelligence, self.wisdom, self.dexterity, self.strength)
-                
+            if self.level // 2 != 0 and self.level >= 3:
+                print("You have now unlocked an ability point increase!")
+                chosen_ability = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?")
+                if chosen_ability in ["intelligence", "wisdom", "dexterity", "strength"]:
+                    current_value = getattr(self, chosen_ability)
+                    setattr(self, chosen_ability, current_value + 2)
+                    print(f"{self.name}'s {chosen_ability} is now {getattr(self, chosen_ability)}")
+                else:
+                    print("Invalid ability name.")
         else:
             print(f"{self.name} now has {self.xp} XP (Level {self.level})")
         
@@ -212,6 +215,108 @@ class Ranger(DND_CLASS):
         else:
             attack_option(target)
     
+class Barbarian(DND_CLASS):
+    # ... __init__ unchanged ...
+    def raging_strike(self, target):
+        damage = int(round(6 + self.strength * 1.2 + random.uniform(2, 5)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} unleashes a Raging Strike on {target.name}, dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been crushed by the Barbarian's might!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def reckless_swing(self, target):
+        damage = int(round(3 + self.strength * 0.7 + self.dexterity * 0.3 + random.uniform(1, 3)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} performs a Reckless Swing at {target.name}, dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been felled by a wild blow!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def healing_potion(self):
+        heals = int(round(8 + self.strength * 0.5 + random.uniform(2, 6)))
+        self.health += heals
+        print(f"{self.name} drinks a hearty brew and heals for {heals}!")
+        print(f"{self.name}'s health is now {int(self.health)}")
+
+    def counter_attack(self, target):
+        attack = random.choice([self.raging_strike, self.reckless_swing])
+        attack(target)
+
+class Fighter(DND_CLASS):
+    # ... __init__ unchanged ...
+    def power_thrust(self, target):
+        damage = int(round(5 + self.strength + self.dexterity * 0.5 + random.uniform(2, 4)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} delivers a Power Thrust to {target.name}, dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been defeated by the Fighter's skill!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def quick_slash(self, target):
+        damage = int(round(2 + self.dexterity + self.strength * 0.5 + random.uniform(1, 2)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} lands a Quick Slash on {target.name}, dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been knocked out!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def healing_potion(self):
+        heals = int(round(7 + self.wisdom * 0.5 + random.uniform(2, 5)))
+        self.health += heals
+        print(f"{self.name} uses a healing salve and recovers {heals} health!\n")
+        print(f"{self.name}'s health is now {int(self.health)}")
+
+    def counter_attack(self, target):
+        attack = random.choice([self.power_thrust, self.quick_slash])
+        attack(target)
+
+class Paladin(DND_CLASS):
+    # ... __init__ unchanged ...
+    def divine_smite(self, target):
+        damage = int(round(5 + self.strength + self.wisdom * 0.5 + random.uniform(2, 4)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} calls down a Divine Smite on {target.name}, dealing {damage} damage!\n")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been vanquished by holy might!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def radiant_strike(self, target):
+        damage = int(round(2 + self.strength * 0.5 + self.dexterity * 0.5 + random.uniform(1, 2)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} delivers a Radiant Strike to {target.name}, dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has fallen to the Paladin's blade!\n")
+        else:
+            print(f"{target.name}'s health is now {int(target.health)}")
+
+    def healing_potion(self):
+        heals = int(round(10 + self.wisdom + random.uniform(3, 7)))
+        self.health += heals
+        print(f"{self.name} calls upon divine energy and heals for {heals}!\n")
+        print(f"{self.name}'s health is now {int(self.health)}")
+
+    def counter_attack(self, target):
+        attack = random.choice([self.divine_smite, self.radiant_strike])
+        attack(target)
+
 
 class Enemy(DND_CLASS):
     
@@ -221,7 +326,13 @@ class Enemy(DND_CLASS):
     @staticmethod
     def enemy_name_and_stats():
         total_enemies = random.randint(20, 30)
-        possible_names =["Goblin", "Orc", "Skeleton", "Zombie", "Bandit", "Giant Rat", "Giant Spider", "Slime", "Wolf", "Troll", "Vampire", "Ghost", "Cultist", "Dark Mage", "Kobold", "Lizardman", "Imp", "Ogre", "Harpy", "Wraith", "Mimic", "Bat", "Bugbear", "Gnoll", "Shadow", "Gargoyle", "Werewolf", "Sorcerer", "Assassin", "Elemental"]
+        possible_names = [
+    "Goblin", "Orc", "Skeleton", "Zombie", "Bandit", "Giant Rat", "Giant Spider", "Slime", "Wolf", "Troll",
+    "Vampire", "Ghost", "Cultist", "Dark Mage", "Kobold", "Lizardman", "Imp", "Ogre", "Harpy", "Wraith",
+    "Mimic", "Bat", "Bugbear", "Gnoll", "Shadow", "Gargoyle", "Werewolf", "Sorcerer", "Assassin", "Elemental",
+    "Hobgoblin", "Banshee", "Basilisk", "Chimera", "Drider", "Ettercap", "Ghoul", "Hag", "Hydra", "Lamia",
+    "Manticore", "Medusa", "Minotaur", "Myconid", "Otyugh", "Quasit", "Rakshasa", "Sahuagin", "Specter", "Yuan-ti"
+]
         enemies_for_encounter = [] 
         for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
             name = random.choice(possible_names)
@@ -230,7 +341,7 @@ class Enemy(DND_CLASS):
             wisdom = random.uniform(2, 5)
             dexterity = random.uniform(2, 5)
             strength = random.uniform(2, 5)
-            xp = random.randint(20,45)
+            xp = random.randint(5,20)
             level = 1
             inventory = None
             final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, xp, level, inventory)
@@ -254,7 +365,7 @@ class Room:
     def __init__ (self, description, exits, characters, visited, items=None):
         self.description = description
         self.exits = exits
-        self.items = items if items is not None else ["key", "bottle", "gold coin"] 
+        self.items = []
         self.characters = characters
         self.visited = visited
 
@@ -275,8 +386,8 @@ class Room:
             else:
                 print(f"You looted the {item}!\n")
 
-    def randomize_items_in_rooms(self, item_list, n=5):
-         self.items = random.sample(item_list, 5)
+    def randomize_items_in_rooms(self, item_list, n=3):
+         self.items = random.sample(item_list, 4)
          
     @staticmethod
     def randomize_character_spawn(rooms_list,character_list,player):
@@ -300,8 +411,8 @@ class Room:
             self.description = room_description
             
     def random_npc_drops(self):
-        character_drops = ["bloody bandage", "torn cloak", "healing potion", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
-        items_dead_will_drop = random.sample(character_drops, 5)
+        character_drops = ["bloody bandage","crystal key", "torn cloak", "healing potion", "mysterious locket", "engraved dog tag", "worn diary", "silver tooth", "broken spectacles", "family crest ring", "old photograph", "strange coin", "war medal", "faded love letter", "bone charm", "lucky rabbit's foot", "pocket watch", "crumpled wanted poster", "empty flask", "singed feather", "carved bone dice", "embroidered handkerchief"]
+        items_dead_will_drop = random.sample(character_drops, 2)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
     

@@ -7,12 +7,10 @@ from classes import *
 
 
 
-
-
 def main():
     print("Welcome adventurer!\nPlease select a character!")
     while True:
-        character = input("Would you like to play as: Toby, Minsc, or Asterion?\n")
+        character = input(f"Would you like to play as: {', '.join(character_names)}\n")
         if character == "Toby":
             print("You have selected the Gnomish Wizard, Toby Sprinkledust!")
             input("Press Enter to Begin!\n")
@@ -27,6 +25,21 @@ def main():
             print("You have selected the human ranger, Minsc!")
             input("Press enter to begin\n")
             selected_character = Minsc
+            break
+        elif character == "Karlach":
+            print("You have selected Karlach, the fierce Tiefling Barbarian!")
+            input("Press enter to begin\n")
+            selected_character = Karlach
+            break
+        elif character == "Lae'zel":
+            print("You have selected Lae'zel, the relentless Githyanki Fighter!")
+            input("Press enter to begin\n")
+            selected_character = Laezel
+            break
+        elif character == "Shadowheart":
+            print("You have selected Shadowheart, the mysterious Elf Paladin!")
+            input("Press enter to begin\n")
+            selected_character = Shadowheart
             break
         else:
             print("That character is not playable.")

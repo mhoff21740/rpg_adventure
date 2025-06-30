@@ -33,14 +33,14 @@ def exploration(character, starting_room):
                 "2.) Loot some items?\n"
                 "3.) Check inventory"
             ]
-            if current_room.characters is not None:
+            if current_room.characters:
                 options.append("4.) Engage in combat?")
             selection = input(
                 "What would you like to do?\n\n" + "\n".join(options) + "\n"
             )
 
             valid_choices = ["1", "2", "3"]
-            if current_room.characters is not None:
+            if current_room.characters:
                 valid_choices.append("4")
 
             if selection not in valid_choices:
@@ -120,7 +120,7 @@ def exploration(character, starting_room):
                     else:
                         break
                 
-            elif selection == "4" and current_room.characters is not None:
+            elif selection == "4" and current_room.characters:
                 combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
                 if combantant not in ', '.join( current_room.characters):
                     print(" This enemey is not here\n")
@@ -134,9 +134,14 @@ def exploration(character, starting_room):
                 # Remove the defeated enemy from the room
                 if combantant.health <= 0:
                     print(f"You have defeated {combantant.name}!\n")
-                    character.gain_xp(combantant.xp)
+                    if combantant in character_list:
+                        character.gain_xp(int(round(combantant.level * 35)))    
+                    else:
+                        character.gain_xp(combantant.xp)
                     print (f"\nYou are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
                     print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
                     del current_room.characters[combantant.name]
+                    
+                
 
 
