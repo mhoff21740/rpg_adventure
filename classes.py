@@ -25,8 +25,15 @@ class DND_CLASS:
         self.xp += xp_dropped
         new_level = self.current_level()
         if new_level > self.level:
-            print(f"Congratulations! {self.name} has reached level {new_level}!")
+            self.health += random.randint(4,10)
+            print(f"Congratulations! {self.name} has reached level {new_level} and your health has increased to {self.hea}!")
             self.level = new_level
+            if self.level // 2 == 0 and self.level > 3:
+                print("You have now unlocked a random ability point increase!")
+                ability_to_increase = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?")
+                
+                (self.health, self.intelligence, self.wisdom, self.dexterity, self.strength)
+                
         else:
             print(f"{self.name} now has {self.xp} XP (Level {self.level})")
         
@@ -42,6 +49,10 @@ class DND_CLASS:
             return 2
         else:
             return 1
+        
+   
+   
+                
         
         
  # """ Work on scaling players up, and enemies to adjust for level of player. Also work on scaling player hp as they level!"""      
