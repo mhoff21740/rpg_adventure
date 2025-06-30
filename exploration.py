@@ -16,9 +16,9 @@ def exploration(character, starting_room):
             print( "This room has been thoughly looted\n")
         else:
             print(f"You see some items strewn throughout: {', '.join(current_room.items)}\n")
-        if current_room.characters is None:
+        if not current_room.characters:
             if current_room.visited:
-                print("There are still no enemies in here....whew!\n")
+                print("You see the remains of your previous fights in here, it's quite smelly!\n")
             else:
                 print("You see no enemies....yet.\n")
         else:
