@@ -6,22 +6,56 @@ from constants_and_utlility_funcs import border
 # This is a collection of classes that will be used throughoutthe land of Faerun. 
 
 class DND_CLASS:
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory=None):
         self.name = name
         self.health = health
         self.intelligence = intelligence
         self.wisdom = wisdom
         self.dexterity = dexterity
         self.strength = strength
+        self.xp = xp
+        self.level = level
         self.inventory = inventory if inventory is not None else {}
+        
+    def total_level_and_xp(self): #Needed? Maybe if player just wants to remember what their level is 
+        print(f"You have {self.xp} xp, you are level {self.level}!")
+        return self.xp
+    
+    def gain_xp(self, xp_dropped):
+        self.xp += xp_dropped
+        new_level = self.current_level()
+        if new_level > self.level:
+            print(f"Congratulations! {self.name} has reached level {new_level}!")
+            self.level = new_level
+        else:
+            print(f"{self.name} now has {self.xp} XP (Level {self.level})")
+        
+    def current_level(self):
+        # Determine level based on XP thresholds
+        if self.xp >= 400:
+            return 5
+        elif self.xp >= 250:
+            return 4
+        elif self.xp >= 150:
+            return 3
+        elif self.xp >= 50:
+            return 2
+        else:
+            return 1
+        
+        
+ # """ Work on scaling players up, and enemies to adjust for level of player. Also work on scaling player hp as they level!"""      
+    
+                
+        
 
 
 
 
 
 class Wizard(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength,xp, level, inventory)
 
     def cast_fireball(self, target): 
         damage = int(round( 3 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
@@ -66,8 +100,8 @@ class Wizard(DND_CLASS):
 
 
 class Rogue(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
 
     def rapier_stab(self, target):
         stabbie = round(3 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
@@ -111,8 +145,8 @@ class Rogue(DND_CLASS):
 
 # Will have a collection of arrows at the start, and will attack based on if arrows in inv, else, resort to Melee, until they pick up some more(if you play them)        
 class Ranger(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, inventory=None,):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, xp, level= 1, inventory=None,):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.arrows = arrows
 
     def bow_shot(self, target):
@@ -170,8 +204,8 @@ class Ranger(DND_CLASS):
 
 class Enemy(DND_CLASS):
     
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, inventory=None):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength, inventory)
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1 , inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
 
     @staticmethod
     def enemy_name_and_stats():
@@ -180,19 +214,21 @@ class Enemy(DND_CLASS):
         enemies_for_encounter = [] 
         for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
             name = random.choice(possible_names)
-            health = random.uniform(15,35)
+            health = random.randint(15,35)
             intelligence = random.uniform(2, 5)
             wisdom = random.uniform(2, 5)
             dexterity = random.uniform(2, 5)
             strength = random.uniform(2, 5)
+            xp = random.randint(20,45)
+            level = 1
             inventory = None
-            final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, inventory)
+            final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, xp, level, inventory)
             enemies_for_encounter.append(final_enemy)
         return enemies_for_encounter
     
     def basic_attack(self, target): # Just weak attacks to help player feel better about themselves as they go along, or to farm xp.
         # Weak attack: base damage plus a little randomness, scaled by strength and dexterity
-        damage = int(round(3 + (self.strength * 0.7) + (self.dexterity * 0.3) + random.uniform(0, 2)))
+        damage = int(round(3 + (self.strength * 0.7) + (self.dexterity * 0.3) + random.randint(0, 2)))
         target.health -= damage
         print(f"{self.name} attacks {target.name} for {damage} damage!")
         if target.health <= 0:

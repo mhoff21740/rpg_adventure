@@ -134,7 +134,8 @@ def exploration(character, starting_room):
                 # Remove the defeated enemy from the room
                 if combantant.health <= 0:
                     print(f"You have defeated {combantant.name}!\n")
-                    print (f"You are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
+                    character.gain_xp(combantant.xp)
+                    print (f"\nYou are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
                     print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
                     del current_room.characters[combantant.name]
 
