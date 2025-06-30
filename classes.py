@@ -67,255 +67,238 @@ class DND_CLASS:
 
 
 
-class Wizard(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1, inventory=None):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength,xp, level, inventory)
+import random
 
-    def cast_fireball(self, target): 
-        damage = int(round( 3 + self.intelligence + self.wisdom * random.uniform(.65, .85)))
+# Rebalanced level-1 damage formulas for each class
+
+class Wizard(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+
+    def cast_fireball(self, target):
+        # Level-1 fireball: lower base, scaled by stats
+        damage = int(round(1 + self.intelligence * 0.5 + self.wisdom * random.uniform(0.3, 0.5)))
         target.health -= damage
         print(border)
-        print(f"{self.name} casts fireball dealing {damage} damage")
+        print(f"{self.name} casts Fireball dealing {damage} damage")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been made kwispy!\n")
-            return
         else:
             print(f"{target.name}'s health is now {target.health}")
-            return
-        
-    
+
     def cast_ice_shard(self, target):
-        damage = int(round( 2 + self.intelligence + self.wisdom * random.uniform(.55, .65)))
+        # Level-1 ice shard: even lighter
+        damage = int(round(1 + self.intelligence * 0.4 + self.wisdom * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} casts fireball dealing {damage} damage")
+        print(f"{self.name} casts Ice Shard dealing {damage} damage")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been frozen!")
-            return
         else:
             print(f"{target.name}'s health is now {target.health}")
-            return
-        
+
     def healing_word(self):
-        heals = round(6 + (self.wisdom * random.uniform(1,4)))
+        heals = round(6 + (self.wisdom * random.uniform(1, 4)))
         self.health += heals
-        print (f"{self.name} has been healed for {heals}!")
+        print(f"{self.name} has been healed for {heals}!")
         print(f"{self.name}'s health is now {self.health}")
-        return 
-    
+
     def counter_attack(self, target):
-        counter_option = [self.cast_fireball, self.cast_ice_shard]
-        attack = random.choice(counter_option)
+        attack = random.choice([self.cast_fireball, self.cast_ice_shard])
         attack(target)
-        
-        
 
 
 class Rogue(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1, inventory=None):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
 
     def rapier_stab(self, target):
-        stabbie = round(3 + ((self.dexterity + self.strength) * random.uniform(.55,.75)))
-        target.health -= stabbie
-        print(border)
-        print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
-        print(border)
-        if target.health <= 0:
-            print(f"{target.name} has been stabbed to death!\n")
-            return
-        else:
-            print(f"{target.name}'s health is now {target.health}")
-            return
-        
-    def sly_flurish(self, target):
-        damage = int(round( 2 + self.dexterity + self.strength * random.uniform(.45, .55)))
-        target.health -= damage
-        print(border)
-        print(f"{self.name} flurishes {target.name} dealing {damage} damage")
-        print(border)
-        if target.health <= 0:
-            print(f"{target.name} has been florished to death!\n")
-            return
-        else:
-            print(f"{target.name}'s health is now {target.health}")
-            return
-
-    def healing_potion(self):
-        heals = round(10 + random.uniform(2,4))
-        self.health += heals
-        print (f"{self.name} heals himself for {heals}")
-        print(f"{self.name}'s health is now {self.health}")
-        return   
-    
-    def counter_attack(self, target):
-        counter_option = [self.rapier_stab, self.sly_flurish]
-        attack = random.choice(counter_option)
-        attack(target)
-        
-
-
-# Will have a collection of arrows at the start, and will attack based on if arrows in inv, else, resort to Melee, until they pick up some more(if you play them)        
-class Ranger(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, xp, level= 1, inventory=None,):
-        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
-        self.arrows = arrows
-
-    def bow_shot(self, target):
-        if self.arrows <= 0:
-            print ("You do not have enough arrows")
-            print(f"{self.name} resorts to melee")
-            self.basic_melee(target)
-        else:
-            self.arrows -= 1
-            print(f"You now have {self.arrows} arrows!")
-            damage = round(3+ ((self.dexterity + (.5 * self.strength) * random.uniform(.55,.75))))
-            target.health -= damage
-            if target.health <= 0:
-                print(border)
-                print(f"{target.name} has been pierced by and arrow and got a case of the dead\n")
-                print(border)
-                return
-            else:
-                print(f"{target.name}'s health is now {target.health}")
-    
-    def basic_melee(self, target):
-        damage = int(round( 2 + self.dexterity + (.5* self.strength) * random.uniform(.55, .65)))
+        # Level-1 stab: focused on dexterity
+        damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + self.strength * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
         print(f"{self.name} stabs {target.name} dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been slashed to death!\n")
-            return
+            print(f"{target.name} has been stabbed to death!\n")
         else:
             print(f"{target.name}'s health is now {target.health}")
-            return
-        
+
+    def sly_flurish(self, target):
+        # Level-1 flourish: lighter finesse
+        damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + self.strength * random.uniform(0.2, 0.3)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} flourishes {target.name} dealing {damage} damage")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been flourished to death!\n")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
 
     def healing_potion(self):
-        heals = round(10 + random.uniform(2,4))
+        heals = round(10 + random.uniform(2, 4))
         self.health += heals
-        print (f"{self.name} heals himself for {heals}")
+        print(f"{self.name} heals for {heals}")
         print(f"{self.name}'s health is now {self.health}")
-        return
-        
 
     def counter_attack(self, target):
-        counter_option = [self.bow_shot, self.basic_melee]
-        attack_option = random.choice(counter_option)
-        if attack_option == self.bow_shot:
-            if self.arrows > 0:
-                self.bow_shot(target)
-            else:
-                print (f"{self.name} has no arrows and resorts to countering with melee")
-                self.basic_melee(target)
-        else:
-            attack_option(target)
-    
-class Barbarian(DND_CLASS):
-    # ... __init__ unchanged ...
-    def raging_strike(self, target):
-        damage = int(round(6 + self.strength * 1.2 + random.uniform(2, 5)))
+        attack = random.choice([self.rapier_stab, self.sly_flurish])
+        attack(target)
+
+
+class Ranger(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, xp, level=1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+        self.arrows = arrows
+
+    def bow_shot(self, target):
+        if self.arrows <= 0:
+            print("Not enough arrows. Resorting to melee.")
+            return self.basic_melee(target)
+        self.arrows -= 1
+        print(f"Arrows left: {self.arrows}")
+        damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + 0.3 * self.strength))
         target.health -= damage
         print(border)
-        print(f"{self.name} unleashes a Raging Strike on {target.name}, dealing {damage} damage!")
+        print(f"{self.name} fires an arrow dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been crushed by the Barbarian's might!\n")
+            print(f"{target.name} has been pierced by an arrow and died!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
+
+    def basic_melee(self, target):
+        damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + 0.2 * self.strength))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} strikes {target.name} with a melee attack dealing {damage} damage")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been slashed to death!\n")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
+
+    def healing_potion(self):
+        heals = round(10 + random.uniform(2, 4))
+        self.health += heals
+        print(f"{self.name} heals for {heals}")
+        print(f"{self.name}'s health is now {self.health}")
+
+    def counter_attack(self, target):
+        attack = random.choice([self.bow_shot, self.basic_melee])
+        if attack == self.bow_shot and self.arrows <= 0:
+            print(f"{self.name} has no arrows; using melee counter.")
+            return self.basic_melee(target)
+        return attack(target)
+
+
+class Barbarian(DND_CLASS):
+    def raging_strike(self, target):
+        # Level-1 rage: moderate strength scaling
+        damage = int(round(4 + self.strength * random.uniform(0.5, 0.8)))
+        target.health -= damage
+        print(border)
+        print(f"{self.name} unleashes Raging Strike dealing {damage} damage!")
+        print(border)
+        if target.health <= 0:
+            print(f"{target.name} has been crushed by might!\n")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
 
     def reckless_swing(self, target):
-        damage = int(round(3 + self.strength * 0.7 + self.dexterity * 0.3 + random.uniform(1, 3)))
+        damage = int(round(2 + self.strength * random.uniform(0.3, 0.5) + self.dexterity * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} performs a Reckless Swing at {target.name}, dealing {damage} damage!")
+        print(f"{self.name} performs Reckless Swing dealing {damage} damage!")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been felled by a wild blow!\n")
+            print(f"{target.name} has been felled!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
 
     def healing_potion(self):
         heals = int(round(8 + self.strength * 0.5 + random.uniform(2, 6)))
         self.health += heals
-        print(f"{self.name} drinks a hearty brew and heals for {heals}!")
-        print(f"{self.name}'s health is now {int(self.health)}")
+        print(f"{self.name} heals for {heals}!")
+        print(f"{self.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.raging_strike, self.reckless_swing])
         attack(target)
 
+
 class Fighter(DND_CLASS):
-    # ... __init__ unchanged ...
     def power_thrust(self, target):
-        damage = int(round(5 + self.strength + self.dexterity * 0.5 + random.uniform(2, 4)))
+        # Level-1 thrust: balanced strength and dex
+        damage = int(round(4 + 0.5 * self.strength + 0.3 * self.dexterity))
         target.health -= damage
         print(border)
-        print(f"{self.name} delivers a Power Thrust to {target.name}, dealing {damage} damage!")
+        print(f"{self.name} delivers Power Thrust dealing {damage} damage!")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been defeated by the Fighter's skill!\n")
+            print(f"{target.name} has been defeated!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
 
     def quick_slash(self, target):
-        damage = int(round(2 + self.dexterity + self.strength * 0.5 + random.uniform(1, 2)))
+        damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + self.strength * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} lands a Quick Slash on {target.name}, dealing {damage} damage!")
+        print(f"{self.name} lands Quick Slash dealing {damage} damage!")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been knocked out!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
 
     def healing_potion(self):
         heals = int(round(7 + self.wisdom * 0.5 + random.uniform(2, 5)))
         self.health += heals
-        print(f"{self.name} uses a healing salve and recovers {heals} health!\n")
-        print(f"{self.name}'s health is now {int(self.health)}")
+        print(f"{self.name} uses healing salve for {heals} health!\n")
+        print(f"{target.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.power_thrust, self.quick_slash])
         attack(target)
 
+
 class Paladin(DND_CLASS):
-    # ... __init__ unchanged ...
     def divine_smite(self, target):
-        damage = int(round(5 + self.strength + self.wisdom * 0.5 + random.uniform(2, 4)))
+        # Level-1 smite: moderate scaling
+        damage = int(round(4 + 0.5 * self.strength + 0.3 * self.wisdom))
         target.health -= damage
         print(border)
-        print(f"{self.name} calls down a Divine Smite on {target.name}, dealing {damage} damage!\n")
+        print(f"{self.name} calls Divine Smite dealing {damage} damage!\n")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been vanquished by holy might!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
 
     def radiant_strike(self, target):
-        damage = int(round(2 + self.strength * 0.5 + self.dexterity * 0.5 + random.uniform(1, 2)))
+        damage = int(round(1 + self.strength * random.uniform(0.2, 0.3) + self.dexterity * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} delivers a Radiant Strike to {target.name}, dealing {damage} damage!")
+        print(f"{self.name} delivers Radiant Strike dealing {damage} damage!")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has fallen to the Paladin's blade!\n")
+            print(f"{target.name} has fallen to the blade!\n")
         else:
-            print(f"{target.name}'s health is now {int(target.health)}")
+            print(f"{target.name}'s health is now {target.health}")
 
     def healing_potion(self):
         heals = int(round(10 + self.wisdom + random.uniform(3, 7)))
         self.health += heals
         print(f"{self.name} calls upon divine energy and heals for {heals}!\n")
-        print(f"{self.name}'s health is now {int(self.health)}")
+        print(f"{self.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.divine_smite, self.radiant_strike])
         attack(target)
+
 
 
 class Enemy(DND_CLASS):
@@ -333,24 +316,29 @@ class Enemy(DND_CLASS):
     "Hobgoblin", "Banshee", "Basilisk", "Chimera", "Drider", "Ettercap", "Ghoul", "Hag", "Hydra", "Lamia",
     "Manticore", "Medusa", "Minotaur", "Myconid", "Otyugh", "Quasit", "Rakshasa", "Sahuagin", "Specter", "Yuan-ti"
 ]
-        enemies_for_encounter = [] 
-        for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
+        enemies_for_encounter = []
+        for _ in range(total_enemies):
             name = random.choice(possible_names)
-            health = random.randint(15,35)
-            intelligence = random.randint(2, 5)
-            wisdom = random.randint(2, 5)
-            dexterity = random.randinit(2, 5)
-            strength = random.randint(2, 5)
-            xp = random.randint(5,20)
+            health = random.randint(12, 18)           
+            intelligence = random.randint(1, 3)
+            wisdom = random.randint(1, 3)
+            dexterity = random.randint(1, 3)
+            strength = random.randint(1, 3)
+            xp = random.randint(3, 8)
             level = 1
             inventory = None
-            final_enemy = Enemy(name, health, intelligence,wisdom, dexterity, strength, xp, level, inventory)
+            final_enemy = Enemy(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
             enemies_for_encounter.append(final_enemy)
         return enemies_for_encounter
     
-    def basic_attack(self, target): # Just weak attacks to help player feel better about themselves as they go along, or to farm xp.
-        # Weak attack: base damage plus a little randomness, scaled by strength and dexterity
-        damage = int(round(3 + (self.strength * 0.7) + (self.dexterity * 0.3) + random.randint(0, 2)))
+    
+    def basic_attack(self, target):
+        """Weaker NPC attack: small base + light stat scaling + minor randomness"""
+        damage = int(round(
+            2 + self.strength * random.uniform(0.3, 0.5)
+            + self.dexterity * random.uniform(0.2, 0.4)
+            + random.uniform(0, 1)
+        ))
         target.health -= damage
         print(f"{self.name} attacks {target.name} for {damage} damage!")
         if target.health <= 0:
@@ -359,6 +347,7 @@ class Enemy(DND_CLASS):
             print(f"{target.name}'s health is now {target.health}")
 
     def counter_attack(self, target):
+        # NPCs simply use their basic attack when countering
         self.basic_attack(target)
 
 class Room:
