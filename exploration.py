@@ -123,7 +123,7 @@ def exploration(character, starting_room):
             elif selection == "4" and current_room.characters is not None:
                 combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
                 if combantant not in ', '.join( current_room.characters):
-                    print(" This enemey is not here")
+                    print(" This enemey is not here\n")
                     continue
                 else:
                     combantant = current_room.characters[combantant]
