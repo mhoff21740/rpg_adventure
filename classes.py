@@ -18,8 +18,7 @@ class DND_CLASS:
         self.inventory = inventory if inventory is not None else {}
         
 
-    def create_vars(self):
-        
+    def create_class_variable(self):
         self.vars = {
             key: value
             for key, value in self.__dict__.items()
@@ -65,17 +64,21 @@ class DND_CLASS:
         else:
             return 1
         
-   
-   
-        
-    
+
 
 # Rebalanced level-1 damage formulas for each class
 
 class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
-
+        self.attack1 = self.cast_fireball
+        self.attack1_descrip = "1.)ast Fireball - deals moderate fire damage\n" 
+        self.attack2 = self.cast_ice_shard
+        self.attack2_descrip ="2.) Cast Ice Shard - deals light cold damage.\n"
+        self.heal1 = self.healing_word
+        self.heal1_descrip =  "3.) Cast Healing Word - restores a small amount of health\n"
+        self.counter = self.counter_attack
+        
     def cast_fireball(self, target):
         # Level-1 fireball: lower base, scaled by stats
         damage = int(round(1 + self.intelligence * 0.5 + self.wisdom * random.uniform(0.3, 0.5)))
@@ -109,12 +112,23 @@ class Wizard(DND_CLASS):
     def counter_attack(self, target):
         attack = random.choice([self.cast_fireball, self.cast_ice_shard])
         attack(target)
+        
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Rogue(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
-
+        self.attack1 = self.rapier_stab
+        self.attack1_descrip = "1.) Stab with your rapier - deals moderate stab damage."
+        self.attack2 = self.sly_flurish
+        self.attack2_descrip = "2.) Sly Flurish - deals light stab damage."
+        self.heal1 = self.healing_potion
+        self.heal1_descrip =  "3.) Drink a healing potion - restores a small amount of health"
+        self.counter = self.counter_attack
+        
     def rapier_stab(self, target):
         # Level-1 stab: focused on dexterity
         damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + self.strength * random.uniform(0.2, 0.3)))
@@ -148,12 +162,23 @@ class Rogue(DND_CLASS):
     def counter_attack(self, target):
         attack = random.choice([self.rapier_stab, self.sly_flurish])
         attack(target)
+    
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Ranger(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, arrows, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.arrows = arrows
+        self.attack1 = self.bow_shot
+        self.attack1_descrip = "1.) Bow Shot - deals moderate peirce damage."
+        self.attack2 = self.basic_melee
+        self.attack2_descrip ="2.) Basic Melee - deals light slash damage." 
+        self.heal1 = self.healing_potion
+        self.heal1_descrip =  "3.) Drink a healing potion - restores a small amount of health"
+        self.counter = self.counter_attack
 
     def bow_shot(self, target):
         if self.arrows <= 0:
@@ -194,9 +219,23 @@ class Ranger(DND_CLASS):
             print(f"{self.name} has no arrows; using melee counter.")
             return self.basic_melee(target)
         return attack(target)
+    
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Barbarian(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+        self.attack1 = self.raging_strike
+        self.attack1_descrip = "1.) Raging Strike - deals heavy melee damage."
+        self.attack2 = self.reckless_swing
+        self.attack2_descrip = "2.) Reckless Swing - deals light melee damage."
+        self.heal1 = self.healing_potion
+        self.heal1_descrip ="3.) Drink a healing potion - restores a moderate amount of health"
+        self.counter = self.counter_attack
+        
     def raging_strike(self, target):
         # Level-1 rage: moderate strength scaling
         damage = int(round(4 + self.strength * random.uniform(0.5, 0.8)))
@@ -229,9 +268,25 @@ class Barbarian(DND_CLASS):
     def counter_attack(self, target):
         attack = random.choice([self.raging_strike, self.reckless_swing])
         attack(target)
+        
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Fighter(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+        self.attack1 = self.power_thrust
+        self.attack1_descrip = "1.) Power Thrust - deals heavy melee damage."
+        self.attack2 = self.quick_slash
+        self.attack2_descrip = "2.) Quick Slash - deals light melee damage."
+        self.heal1 = self.healing_potion
+        self.heal1_descrip ="3.) Use a healing salve - restores a moderate amount of health"
+        self.counter = self.counter_attack
+    
+    
+    
     def power_thrust(self, target):
         # Level-1 thrust: balanced strength and dex
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.dexterity))
@@ -264,9 +319,24 @@ class Fighter(DND_CLASS):
     def counter_attack(self, target):
         attack = random.choice([self.power_thrust, self.quick_slash])
         attack(target)
+        
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Paladin(DND_CLASS):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+        self.attack1 = self.divine_smite
+        self.attack1_descrip = "1.) Divine Smite - deals heavy radiant damage."
+        self.attack2 = self.radiant_strike
+        self.attack2_descrip = "2.) Radiant Strike - deals light radiant damage."
+        self.heal1 = self.healing_potion
+        self.heal1_descrip ="3.) Call upon divine energy - restores a large amount of health."
+        self.counter = self.counter_attack
+    
+    
     def divine_smite(self, target):
         # Level-1 smite: moderate scaling
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.wisdom))
@@ -291,7 +361,7 @@ class Paladin(DND_CLASS):
             print(f"{target.name}'s health is now {target.health}")
 
     def healing_potion(self):
-        heals = int(round(10 + self.wisdom + random.uniform(3, 7)))
+        heals = int(round(3 + self.wisdom + random.uniform(3, 5)))
         self.health += heals
         print(f"{self.name} calls upon divine energy and heals for {heals}!\n")
         print(f"{self.name}'s health is now {self.health}")
@@ -300,13 +370,19 @@ class Paladin(DND_CLASS):
         attack = random.choice([self.divine_smite, self.radiant_strike])
         attack(target)
 
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
 
 
 class Enemy(DND_CLASS):
-    
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1 , inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
-
+        self.attack1 = self.basic_attack
+        self.attack1_descrip = "A basic slashing attack." 
+        self.counter = self.counter_attack
+        
+        
     @staticmethod
     def enemy_name_and_stats():
         total_enemies = random.randint(20, 30)
@@ -332,6 +408,9 @@ class Enemy(DND_CLASS):
             enemies_for_encounter.append(final_enemy)
         return enemies_for_encounter
     
+    def create_class_variables(self):
+        self.vars = dict(self.__dict__)
+        return self.vars
     
     def basic_attack(self, target):
         """Weaker NPC attack: small base + light stat scaling + minor randomness"""

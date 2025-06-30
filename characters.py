@@ -12,5 +12,8 @@ Laezel  = Fighter("Lae'zel", 18, 2, 2, 5, 5, 0, 1)
 Shadowheart = Paladin("Shadowheart", 18, 2, 5, 3, 4, 0, 1)
 
 
+
 character_list = [Toby_Sprinkledust, Asterion,Minsc, Karlach, Laezel, Shadowheart]
 character_names = [ c.name for c in character_list]
+
+print(Toby_Sprinkledust.create_class_variable())
