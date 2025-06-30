@@ -17,6 +17,18 @@ class DND_CLASS:
         self.level = level
         self.inventory = inventory if inventory is not None else {}
         
+
+    def create_vars(self):
+        
+        self.vars = {
+            key: value
+            for key, value in self.__dict__.items()
+            if not callable(value)
+        }
+        return self.vars
+
+    
+    
     def total_level_and_xp(self): #Needed? Maybe if player just wants to remember what their level is 
         print(f"You have {self.xp} xp, you are level {self.level}!")
         return self.xp
@@ -55,19 +67,8 @@ class DND_CLASS:
         
    
    
-                
         
-        
- # """ Work on scaling players up, and enemies to adjust for level of player. Also work on scaling player hp as they level!"""      
     
-                
-        
-
-
-
-
-
-import random
 
 # Rebalanced level-1 damage formulas for each class
 
