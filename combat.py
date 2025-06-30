@@ -118,7 +118,8 @@ def combat_encounter(player, target):
                         print(border)
                     else:
                         print(border)
-                        print(f"{player.name} tries to shoot, but has no arrows and misses completely!")
+                        print(f"{player.name} has no arrows and resorts to melee!")
+                        player.basic_melee(target)
                         print(border)
             elif selection == "2":
                 print(f"{player.name} has rolled a {attack_roll}")

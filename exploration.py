@@ -133,13 +133,15 @@ def exploration(character, starting_room):
                     return
                 # Remove the defeated enemy from the room
                 if combantant.health <= 0:
+                    drop_chance = random.randint(1,2)
                     print(f"You have defeated {combantant.name}!\n")
                     if combantant in character_list:
                         character.gain_xp(int(round(combantant.level * 35)))    
                     else:
                         character.gain_xp(combantant.xp)
                     print (f"\nYou are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
-                    print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
+                    if drop_chance == 1:
+                        print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")
                     del current_room.characters[combantant.name]
                     
                 

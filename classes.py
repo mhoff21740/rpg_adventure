@@ -78,7 +78,7 @@ class Wizard(DND_CLASS):
         print(f"{self.name} casts fireball dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been made kwispy!")
+            print(f"{target.name} has been made kwispy!\n")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -124,7 +124,7 @@ class Rogue(DND_CLASS):
         print(f"{self.name} stabs {target.name} dealing {stabbie} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been stabbed to death!")
+            print(f"{target.name} has been stabbed to death!\n")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -137,7 +137,7 @@ class Rogue(DND_CLASS):
         print(f"{self.name} flurishes {target.name} dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been stabbed to death!")
+            print(f"{target.name} has been florished to death!\n")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -175,7 +175,7 @@ class Ranger(DND_CLASS):
             target.health -= damage
             if target.health <= 0:
                 print(border)
-                print(f"{target.name} has been pierced by and arrow and got a case of the dead")
+                print(f"{target.name} has been pierced by and arrow and got a case of the dead\n")
                 print(border)
                 return
             else:
@@ -188,7 +188,7 @@ class Ranger(DND_CLASS):
         print(f"{self.name} stabs {target.name} dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been slashed to death!")
+            print(f"{target.name} has been slashed to death!\n")
             return
         else:
             print(f"{target.name}'s health is now {target.health}")
@@ -337,10 +337,10 @@ class Enemy(DND_CLASS):
         for enemy in range(total_enemies): # Make sure to create an enemy object and then store the OBJECT in the list, not the name and everything 
             name = random.choice(possible_names)
             health = random.randint(15,35)
-            intelligence = random.uniform(2, 5)
-            wisdom = random.uniform(2, 5)
-            dexterity = random.uniform(2, 5)
-            strength = random.uniform(2, 5)
+            intelligence = random.randint(2, 5)
+            wisdom = random.randint(2, 5)
+            dexterity = random.randinit(2, 5)
+            strength = random.randint(2, 5)
             xp = random.randint(5,20)
             level = 1
             inventory = None
@@ -415,6 +415,7 @@ class Room:
         items_dead_will_drop = random.sample(character_drops, 2)
         self.items.extend(items_dead_will_drop)
         return items_dead_will_drop
+    
     
     @staticmethod
     def dungeon_room_randomizer():  # This will be how a random dungeon is generated each time.
