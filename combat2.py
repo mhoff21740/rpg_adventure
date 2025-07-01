@@ -103,7 +103,7 @@ def combat_encounter3(player, target):
 
         # combat begin
         prompt = "You need to defend yourself, which action will you take?\n"
-        for i, action in enumerate(actions, start=1):
+        for i, action in enumerate(actions):
             prompt += f"{action['desc']}\n"
         selection = input(prompt).strip()
         if not selection.isdigit() or not (1 <= int(selection) <= len(actions)):
