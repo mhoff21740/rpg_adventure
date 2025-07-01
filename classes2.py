@@ -80,50 +80,46 @@ class Wizard(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         # Level-1 spells
         self.attack1 = self.cast_firebolt
-        self.attack1_descrip = "1.) Cast Firebolt – moderate fire damage"
+        self.attack1_descrip = "1.) Cast Firebolt - moderate fire damage"
         self.attack1_fail = "accidentally launched a fireball over"
         self.attack2 = self.cast_ice_shard
-        self.attack2_descrip = "2.) Cast Ice Shard – light cold damage"
+        self.attack2_descrip = "2.) Cast Ice Shard - light cold damage"
         self.attack2_fail = "accidentally launched an ice shard over"
         self.heal1 = self.healing_word
-        self.heal1_descrip = "3.) Cast Healing Word – restores a small amount of health"
+        self.heal1_descrip = "3.) Cast Healing Word - restores a small amount of health"
         self.counter = self.counter_attack
 
-        # Level-2 spells
-        if self.level >= 2:
-            self.attack3 = self.cast_scorching_ray
-            self.attack3_descrip = "4.) Cast Scorching Ray – two rays of fire"
-            self.attack3_fail = "scorching rays sputter harmlessly"
-            self.attack4 = self.cast_mirror_image
-            self.attack4_descrip = "5.) Cast Mirror Image – create illusory duplicates"
-            self.attack4_fail = "images fail to form"
+    # Level-2 spells
+        self.attack3 = self.cast_scorching_ray
+        self.attack3_descrip = "4.) Cast Scorching Ray - two rays of fire"
+        self.attack3_fail = "scorching rays sputter harmlessly"
+        self.attack4 = self.cast_mirror_image
+        self.attack4_descrip = "5.) Cast Mirror Image - create illusory duplicates"
+        self.attack4_fail = "images fail to form"
 
-        # Level-3 spells
-        if self.level >= 3:
-            self.attack5 = self.cast_lightning_bolt
-            self.attack5_descrip = "6.) Cast Lightning Bolt – line of lightning damage"
-            self.attack5_fail = "bolt fizzles out"
-            self.attack6 = self.cast_invisibility
-            self.attack6_descrip = "7.) Cast Invisibility – become unseen"
-            self.attack6_fail = "spell fizzles"
+    # Level-3 spells
+        self.attack5 = self.cast_lightning_bolt
+        self.attack5_descrip = "6.) Cast Lightning Bolt - line of lightning damage"
+        self.attack5_fail = "bolt fizzles out"
+        self.attack6 = self.cast_invisibility
+        self.attack6_descrip = "7.) Cast Invisibility - become unseen"
+        self.attack6_fail = "spell fizzles"
 
-        # Level-4 spells
-        if self.level >= 4:
-            self.attack7 = self.cast_ice_storm
-            self.attack7_descrip = "8.) Cast Ice Storm – area cold damage"
-            self.attack7_fail = "storm collapses"
-            self.attack8 = self.cast_greater_healing
-            self.attack8_descrip = "9.) Cast Greater Healing – restores significant health"
-            self.attack8_fail = "healing energy falters"
+    # Level-4 spells
+        self.attack7 = self.cast_ice_storm
+        self.attack7_descrip = "8.) Cast Ice Storm - area cold damage"
+        self.attack7_fail = "storm collapses"
+        self.attack8 = self.cast_greater_healing
+        self.attack8_descrip = "9.) Cast Greater Healing - restores significant health"
+        self.attack8_fail = "healing energy falters"
 
-        # Level-5 spells
-        if self.level >= 5:
-            self.attack9 = self.cast_cone_of_cold
-            self.attack9_descrip = "10.) Cast Cone of Cold – cone of extreme cold"
-            self.attack9_fail = "cone dissipates"
-            self.attack10 = self.cast_wall_of_force
-            self.attack10_descrip = "11.) Cast Wall of Force – create impassable barrier"
-            self.attack10_fail = "barrier fails to materialize"
+    # Level-5 spells
+        self.attack9 = self.cast_cone_of_cold
+        self.attack9_descrip = "10.) Cast Cone of Cold - cone of extreme cold"
+        self.attack9_fail = "cone dissipates"
+        self.attack10 = self.cast_wall_of_force
+        self.attack10_descrip = "11.) Cast Wall of Force - create impassable barrier"
+        self.attack10_fail = "barrier fails to materialize"
 
     # Level-1
     def cast_firebolt(self, target):
@@ -227,50 +223,43 @@ class Rogue(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.rapier_stab
-        self.attack1_descrip = "1.) Rapier Stab – moderate stab damage"
+        self.attack1_descrip = "1.) Rapier Stab - moderate stab damage"
         self.attack1_fail = "accidentally stabbed the air!"
         self.attack2 = self.sly_flourish
-        self.attack2_descrip = "2.) Sly Flourish – light finesse damage"
+        self.attack2_descrip = "2.) Sly Flourish - light finesse damage"
         self.attack2_fail = "flourish missed its mark!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip = "3.) Healing Potion – restores a small amount of health"
+        self.heal1_descrip = "3.) Healing Potion - restores a small amount of health"
         self.counter = self.counter_attack
 
-        # Level-2
-        if self.level >= 2:
-            self.attack3 = self.sneak_attack
-            self.attack3_descrip = "4.) Sneak Attack – bonus precision damage"
-            self.attack3_fail = "failed to find a weak spot"
-            self.attack4 = self.cunning_dash
-            self.attack4_descrip = "5.) Cunning Dash – reposition quickly"
-            self.attack4_fail = "tripped while dashing"
-
-        # Level-3
-        if self.level >= 3:
-            self.attack5 = self.evade
-            self.attack5_descrip = "6.) Evasion – avoid area attacks"
-            self.attack5_fail = "couldn't dodge in time"
-            self.attack6 = self.uncanny_dodge
-            self.attack6_descrip = "7.) Uncanny Dodge – halve incoming damage"
-            self.attack6_fail = "failed to react in time"
-
-        # Level-4
-        if self.level >= 4:
-            self.attack7 = self.fourth_level_focus
-            self.attack7_descrip = "8.) Focused Strike – extra precise hit"
-            self.attack7_fail = "overfocused and missed"
-            self.attack8 = self.shadow_strike
-            self.attack8_descrip = "9.) Shadow Strike – bonus damage from darkness"
-            self.attack8_fail = "couldn't vanish into shadows"
-
-        # Level-5
-        if self.level >= 5:
-            self.attack9 = self.death_blow
-            self.attack9_descrip = "10.) Death Blow – massive critical damage"
-            self.attack9_fail = "attack was too slow"
-            self.attack10 = self.flurry_of_blades
-            self.attack10_descrip = "11.) Flurry of Blades – two rapid strikes"
-            self.attack10_fail = "blades moved too quickly"
+    # Level-2
+        self.attack3 = self.sneak_attack
+        self.attack3_descrip = "4.) Sneak Attack - bonus precision damage"
+        self.attack3_fail = "failed to find a weak spot"
+        self.attack4 = self.cunning_dash
+        self.attack4_descrip = "5.) Cunning Dash - reposition quickly"
+        self.attack4_fail = "tripped while dashing"
+    # Level-3
+        self.attack5 = self.evade
+        self.attack5_descrip = "6.) Evasion - avoid area attacks"
+        self.attack5_fail = "couldn't dodge in time"
+        self.attack6 = self.uncanny_dodge
+        self.attack6_descrip = "7.) Uncanny Dodge - halve incoming damage"
+        self.attack6_fail = "failed to react in time"
+    # Level-4
+        self.attack7 = self.fourth_level_focus
+        self.attack7_descrip = "8.) Focused Strike - extra precise hit"
+        self.attack7_fail = "overfocused and missed"
+        self.attack8 = self.shadow_strike
+        self.attack8_descrip = "9.) Shadow Strike - bonus damage from darkness"
+        self.attack8_fail = "couldn't vanish into shadows"
+    # Level-5
+        self.attack9 = self.death_blow
+        self.attack9_descrip = "10.) Death Blow - massive critical damage"
+        self.attack9_fail = "attack was too slow"
+        self.attack10 = self.flurry_of_blades
+        self.attack10_descrip = "11.) Flurry of Blades - two rapid strikes"
+        self.attack10_fail = "blades moved too quickly"
 
     def rapier_stab(self, target):
         damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + self.strength * random.uniform(0.2, 0.3)))
@@ -347,50 +336,46 @@ class Ranger(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.arrows = arrows
         self.attack1 = self.bow_shot
-        self.attack1_descrip = "1.) Bow Shot – moderate pierce damage"
+        self.attack1_descrip = "1.) Bow Shot - moderate pierce damage"
         self.attack1_fail = f"{self.name} missed the arrow!"
         self.attack2 = self.basic_melee
-        self.attack2_descrip = "2.) Basic Melee – light slash damage"
+        self.attack2_descrip = "2.) Basic Melee - light slash damage"
         self.attack2_fail = f"{self.name} missed their melee swing!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip = "3.) Healing Potion – restores a small amount of health"
+        self.heal1_descrip = "3.) Healing Potion - restores a small amount of health"
         self.counter = self.counter_attack
 
-        # Level-2
-        if self.level >= 2:
-            self.attack3 = self.cast_hunters_mark
-            self.attack3_descrip = "4.) Hunter's Mark – mark target for bonus damage"
-            self.attack3_fail = "failed to mark target"
-            self.attack4 = self.summon_beast
-            self.attack4_descrip = "5.) Summon Beast – your animal companion assists"
-            self.attack4_fail = "companion failed to appear"
+    # Level-2
+        self.attack3 = self.cast_hunters_mark
+        self.attack3_descrip = "4.) Hunter's Mark - mark target for bonus damage"
+        self.attack3_fail = "failed to mark target"
+        self.attack4 = self.summon_beast
+        self.attack4_descrip = "5.) Summon Beast - your animal companion assists"
+        self.attack4_fail = "companion failed to appear"
 
-        # Level-3
-        if self.level >= 3:
-            self.attack5 = self.spike_growth
-            self.attack5_descrip = "6.) Spike Growth – area damage over time"
-            self.attack5_fail = "spikes don’t appear"
-            self.attack6 = self.horde_breaker
-            self.attack6_descrip = "7.) Horde Breaker – extra arrow against another target"
-            self.attack6_fail = "no secondary target"
+    # Level-3
+        self.attack5 = self.spike_growth
+        self.attack5_descrip = "6.) Spike Growth - area damage over time"
+        self.attack5_fail = "spikes don't appear"
+        self.attack6 = self.horde_breaker
+        self.attack6_descrip = "7.) Horde Breaker - extra arrow against another target"
+        self.attack6_fail = "no secondary target"
 
-        # Level-4
-        if self.level >= 4:
-            self.attack7 = self.volley_shot
-            self.attack7_descrip = "8.) Volley – fire arrows at multiple foes"
-            self.attack7_fail = "arrows scatter harmlessly"
-            self.attack8 = self.freedom_of_movement
-            self.attack8_descrip = "9.) Freedom of Movement – ignore difficult terrain"
-            self.attack8_fail = "movement hampered"
+    # Level-4
+        self.attack7 = self.volley_shot
+        self.attack7_descrip = "8.) Volley - fire arrows at multiple foes"
+        self.attack7_fail = "arrows scatter harmlessly"
+        self.attack8 = self.freedom_of_movement
+        self.attack8_descrip = "9.) Freedom of Movement - ignore difficult terrain"
+        self.attack8_fail = "movement hampered"
 
-        # Level-5
-        if self.level >= 5:
-            self.attack9 = self.steel_wind_strike
-            self.attack9_descrip = "10.) Steel Wind Strike – teleport and strike"
-            self.attack9_fail = "failed to teleport"
-            self.attack10 = self.conjure_barrage
-            self.attack10_descrip = "11.) Conjure Barrage – rain of arrows"
-            self.attack10_fail = "rain of arrows fumbles"
+    # Level-5
+        self.attack9 = self.steel_wind_strike
+        self.attack9_descrip = "10.) Steel Wind Strike - teleport and strike"
+        self.attack9_fail = "failed to teleport"
+        self.attack10 = self.conjure_barrage
+        self.attack10_descrip = "11.) Conjure Barrage - rain of arrows"
+        self.attack10_fail = "rain of arrows fumbles"
 
     def bow_shot(self, target):
         if self.arrows <= 0:
@@ -416,7 +401,7 @@ class Ranger(DND_CLASS):
     def healing_potion(self):
         heals = round(10 + random.uniform(2, 4))
         self.health += heals
-        print(f"{self.name} heals for {heals} – health is now {self.health}")
+        print(f"{self.name} heals for {heals} -health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.bow_shot, self.basic_melee])
@@ -434,7 +419,7 @@ class Ranger(DND_CLASS):
 
     # Level-3
     def spike_growth(self, targets):
-        print(f"{self.name} summons spiky terrain – foes take damage each turn!")
+        print(f"{self.name} summons spiky terrain - foes take damage each turn!")
 
     def horde_breaker(self, target):
         extra = int(round(self.dexterity * 0.5))
@@ -463,50 +448,46 @@ class Barbarian(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.raging_strike
-        self.attack1_descrip = "1.) Raging Strike – heavy melee damage"
+        self.attack1_descrip = "1.) Raging Strike - heavy melee damage"
         self.attack1_fail = f"{self.name} swings wildly and misses!"
         self.attack2 = self.reckless_swing
-        self.attack2_descrip = "2.) Reckless Swing – light melee damage"
+        self.attack2_descrip = "2.) Reckless Swing - light melee damage"
         self.attack2_fail = f"{self.name}'s reckless swing misses!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip = "3.) Healing Potion – restores moderate health"
+        self.heal1_descrip = "3.) Healing Potion - restores moderate health"
         self.counter = self.counter_attack
 
-        # Level-2
-        if self.level >= 2:
-            self.attack3 = self.reckless_attack
-            self.attack3_descrip = "4.) Reckless Attack – advantage on melee but vulnerable"
-            self.attack3_fail = "attack lacked focus"
-            self.attack4 = self.danger_sense
-            self.attack4_descrip = "5.) Danger Sense – advantage on Dex saves"
-            self.attack4_fail = "couldn't sense danger"
+    # Level-2
+        self.attack3 = self.reckless_attack
+        self.attack3_descrip = "4.) Reckless Attack - advantage on melee but vulnerable"
+        self.attack3_fail = "attack lacked focus"
+        self.attack4 = self.danger_sense
+        self.attack4_descrip = "5.) Danger Sense - advantage on Dex saves"
+        self.attack4_fail = "couldn't sense danger"
 
-        # Level-3
-        if self.level >= 3:
-            self.attack5 = self.frenzy
-            self.attack5_descrip = "6.) Frenzy – bonus attack on each turn"
-            self.attack5_fail = "rage subsides too quickly"
-            self.attack6 = self.mindless_rage
-            self.attack6_descrip = "7.) Mindless Rage – immune to charm/fear"
-            self.attack6_fail = "rage unsettled"
+    # Level-3
+        self.attack5 = self.frenzy
+        self.attack5_descrip = "6.) Frenzy - bonus attack on each turn"
+        self.attack5_fail = "rage subsides too quickly"
+        self.attack6 = self.mindless_rage
+        self.attack6_descrip = "7.) Mindless Rage - immune to charm/fear"
+        self.attack6_fail = "rage unsettled"
 
-        # Level-4
-        if self.level >= 4:
-            self.attack7 = self.brutal_critical
-            self.attack7_descrip = "8.) Brutal Critical – extra weapon die on crit"
-            self.attack7_fail = "bladed edge dulls"
-            self.attack8 = self.retaliation
-            self.attack8_descrip = "9.) Retaliation – attack back when hit"
-            self.attack8_fail = "reaction was slow"
+    # Level-4
+        self.attack7 = self.brutal_critical
+        self.attack7_descrip = "8.) Brutal Critical - extra weapon die on crit"
+        self.attack7_fail = "bladed edge dulls"
+        self.attack8 = self.retaliation
+        self.attack8_descrip = "9.) Retaliation - attack back when hit"
+        self.attack8_fail = "reaction was slow"
 
-        # Level-5
-        if self.level >= 5:
-            self.attack9 = self.relentless_rage
-            self.attack9_descrip = "10.) Relentless Rage – stay standing at 0 HP"
-            self.attack9_fail = "fatigue takes over"
-            self.attack10 = self.persistent_rage
-            self.attack10_descrip = "11.) Persistent Rage – rage ends only on rest"
-            self.attack10_fail = "rage flickers out"
+    # Level-5
+        self.attack9 = self.relentless_rage
+        self.attack9_descrip = "10.) Relentless Rage - stay standing at 0 HP"
+        self.attack9_fail = "fatigue takes over"
+        self.attack10 = self.persistent_rage
+        self.attack10_descrip = "11.) Persistent Rage - rage ends only on rest"
+        self.attack10_fail = "rage flickers out"
 
     def raging_strike(self, target):
         damage = int(round(4 + self.strength * random.uniform(0.5, 0.8)))
@@ -525,7 +506,7 @@ class Barbarian(DND_CLASS):
     def healing_potion(self):
         heals = int(round(8 + self.strength * 0.5 + random.uniform(2, 6)))
         self.health += heals
-        print(f"{self.name} heals for {heals} – health is now {self.health}")
+        print(f"{self.name} heals for {heals} - health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.raging_strike, self.reckless_swing])
@@ -569,50 +550,46 @@ class Fighter(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.power_thrust
-        self.attack1_descrip = "1.) Power Thrust – heavy melee damage"
+        self.attack1_descrip = "1.) Power Thrust - heavy melee damage"
         self.attack1_fail = f"{self.name}'s power thrust misses!"
         self.attack2 = self.quick_slash
-        self.attack2_descrip = "2.) Quick Slash – light melee damage"
+        self.attack2_descrip = "2.) Quick Slash - light melee damage"
         self.attack2_fail = f"{self.name}'s quick slash misses!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip = "3.) Second Wind – regain health once per short rest"
+        self.heal1_descrip = "3.) Second Wind - regain health once per short rest"
         self.counter = self.counter_attack
 
-        # Level-2
-        if self.level >= 2:
-            self.attack3 = self.second_wind
-            self.attack3_descrip = "4.) Second Wind – self-heal mid-combat"
-            self.attack3_fail = "too exhausted to recover"
-            self.attack4 = self.action_surge
-            self.attack4_descrip = "5.) Action Surge – take an extra action"
-            self.attack4_fail = "lungs fail to surge"
+    # Level-2
+        self.attack3 = self.second_wind
+        self.attack3_descrip = "4.) Second Wind - self-heal mid-combat"
+        self.attack3_fail = "too exhausted to recover"
+        self.attack4 = self.action_surge
+        self.attack4_descrip = "5.) Action Surge - take an extra action"
+        self.attack4_fail = "lungs fail to surge"
 
-        # Level-3
-        if self.level >= 3:
-            self.attack5 = self.extra_attack
-            self.attack5_descrip = "6.) Extra Attack – attack twice"
-            self.attack5_fail = "miss both swings"
-            self.attack6 = self.parry
-            self.attack6_descrip = "7.) Parry – reduce damage from one hit"
-            self.attack6_fail = "failed to parry"
+    # Level-3
+        self.attack5 = self.extra_attack
+        self.attack5_descrip = "6.) Extra Attack - attack twice"
+        self.attack5_fail = "miss both swings"
+        self.attack6 = self.parry
+        self.attack6_descrip = "7.) Parry - reduce damage from one hit"
+        self.attack6_fail = "failed to parry"
 
-        # Level-4
-        if self.level >= 4:
-            self.attack7 = self.indomitable
-            self.attack7_descrip = "8.) Indomitable – reroll a saving throw"
-            self.attack7_fail = "luck ran out"
-            self.attack8 = self.improved_critical
-            self.attack8_descrip = "9.) Improved Critical – crit on 19–20"
-            self.attack8_fail = "critical edge dulls"
+    # Level-4
+        self.attack7 = self.indomitable
+        self.attack7_descrip = "8.) Indomitable - reroll a saving throw"
+        self.attack7_fail = "luck ran out"
+        self.attack8 = self.improved_critical
+        self.attack8_descrip = "9.) Improved Critical - crit on 19-20"
+        self.attack8_fail = "critical edge dulls"
 
-        # Level-5
-        if self.level >= 5:
-            self.attack9 = self.supreme_strike
-            self.attack9_descrip = "10.) Supreme Strike – heavy precision damage"
-            self.attack9_fail = "strike lacked focus"
-            self.attack10 = self.battle_mastery
-            self.attack10_descrip = "11.) Battle Mastery – choose a combat superiority"
-            self.attack10_fail = "mastery slips away"
+    # Level-5
+        self.attack9 = self.supreme_strike
+        self.attack9_descrip = "10.) Supreme Strike - heavy precision damage"
+        self.attack9_fail = "strike lacked focus"
+        self.attack10 = self.battle_mastery
+        self.attack10_descrip = "11.) Battle Mastery - choose a combat superiority"
+        self.attack10_fail = "mastery slips away"
 
     def power_thrust(self, target):
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.dexterity))
@@ -681,50 +658,46 @@ class Paladin(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.divine_smite
-        self.attack1_descrip = "1.) Divine Smite – heavy radiant damage"
+        self.attack1_descrip = "1.) Divine Smite - heavy radiant damage"
         self.attack1_fail = f"{self.name}'s smite misses!"
         self.attack2 = self.radiant_strike
-        self.attack2_descrip = "2.) Radiant Strike – light radiant damage"
+        self.attack2_descrip = "2.) Radiant Strike - light radiant damage"
         self.attack2_fail = f"{self.name}'s strike misses!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip = "3.) Lay on Hands – restore moderate health"
+        self.heal1_descrip = "3.) Lay on Hands - restore moderate health"
         self.counter = self.counter_attack
 
-        # Level-2
-        if self.level >= 2:
-            self.attack3 = self.lay_on_hands
-            self.attack3_descrip = "4.) Lay on Hands – heal yourself or ally"
-            self.attack3_fail = "hands tremble under strain"
-            self.attack4 = self.oath_protection
-            self.attack4_descrip = "5.) Oath of Protection – shield ally"
-            self.attack4_fail = "oath power falters"
+    # Level-2
+        self.attack3 = self.lay_on_hands
+        self.attack3_descrip = "4.) Lay on Hands - heal yourself or ally"
+        self.attack3_fail = "hands tremble under strain"
+        self.attack4 = self.oath_protection
+        self.attack4_descrip = "5.) Oath of Protection - shield ally"
+        self.attack4_fail = "oath power falters"
 
-        # Level-3
-        if self.level >= 3:
-            self.attack5 = self.divine_health
-            self.attack5_descrip = "6.) Divine Health – immunity to disease"
-            self.attack5_fail = "faith wavers"
-            self.attack6 = self.aura_of_protection
-            self.attack6_descrip = "7.) Aura of Protection – add Cha to saves"
-            self.attack6_fail = "aura flickers"
+    # Level-3
+        self.attack5 = self.divine_health
+        self.attack5_descrip = "6.) Divine Health - immunity to disease"
+        self.attack5_fail = "faith wavers"
+        self.attack6 = self.aura_of_protection
+        self.attack6_descrip = "7.) Aura of Protection - add Cha to saves"
+        self.attack6_fail = "aura flickers"
 
-        # Level-4
-        if self.level >= 4:
-            self.attack7 = self.cleansing_touch
-            self.attack7_descrip = "8.) Cleansing Touch – end a condition"
-            self.attack7_fail = "touch lacks power"
-            self.attack8 = self.aura_of_courage
-            self.attack8_descrip = "9.) Aura of Courage – immunity to fear"
-            self.attack8_fail = "aura wavers"
+    # Level-4
+        self.attack7 = self.cleansing_touch
+        self.attack7_descrip = "8.) Cleansing Touch - end a condition"
+        self.attack7_fail = "touch lacks power"
+        self.attack8 = self.aura_of_courage
+        self.attack8_descrip = "9.) Aura of Courage - immunity to fear"
+        self.attack8_fail = "aura wavers"
 
-        # Level-5
-        if self.level >= 5:
-            self.attack9 = self.extra_attack
-            self.attack9_descrip = "10.) Extra Attack – attack twice"
-            self.attack9_fail = "miss both strikes"
-            self.attack10 = self.holy_wrath
-            self.attack10_descrip = "11.) Holy Wrath – radiant blast"
-            self.attack10_fail = "wrath dims"
+    # Level-5
+        self.attack9 = self.extra_attack
+        self.attack9_descrip = "10.) Extra Attack - attack twice"
+        self.attack9_fail = "miss both strikes"
+        self.attack10 = self.holy_wrath
+        self.attack10_descrip = "11.) Holy Wrath - radiant blast"
+        self.attack10_fail = "wrath dims"
 
     def divine_smite(self, target):
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.wisdom))
@@ -771,7 +744,7 @@ class Paladin(DND_CLASS):
 
     def aura_of_protection(self, _=None):
         self.aura_buff = True
-        print(f"{self.name} grants Aura of Protection – add CHA to saves!")
+        print(f"{self.name} grants Aura of Protection - add CHA to saves!")
 
     # Level-4
     def cleansing_touch(self, target):

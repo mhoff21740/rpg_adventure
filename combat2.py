@@ -67,8 +67,6 @@ def combat_encounter2(player, target):
 
 
 
-
-
 def combat_encounter3(player, target):
     if player.level >= target.level:
         target.enemy_scailing(player)
@@ -109,8 +107,8 @@ def combat_encounter3(player, target):
         if not selection.isdigit() or not (1 <= int(selection) <= len(actions)):
             print("You do not know these spells.")
             continue
-        index = int(selection) - 1 #<--This converts player selection back to index counting logic, so we can grab the correct attack( ie. firebolt, iceshard, etc)  (Since its starts at the 0 index position). 
-        action = actions[index] #<- dictionary entry of desired attack
+        selected_attack = int(selection) - 1 #<--This converts player selection back to index counting logic, so we can grab the correct attack( ie. firebolt, iceshard, etc)  (Since its starts at the 0 index position). 
+        action = actions[selected_attack] #<- dictionary entry of desired attack
         if action.get("heal"):
             player.heal1()
             if target.health > 0:
