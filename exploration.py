@@ -1,7 +1,7 @@
 from rooms import * 
 from classes import *
 from characters import *
-from combat import *
+from combat2 import *
 from constants_and_utlility_funcs import *
 
 
@@ -127,7 +127,7 @@ def exploration(character, starting_room):
                     continue
                 else:
                     combantant = current_room.characters[combantant]
-                combat_encounter(character, combantant)
+                combat_encounter2(character, combantant)
                 if character.health <= 0:
                     print("You have been defeated! Game Over!")
                     return

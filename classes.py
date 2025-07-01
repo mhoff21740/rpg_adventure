@@ -72,11 +72,13 @@ class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.cast_fireball
-        self.attack1_descrip = "1.)ast Fireball - deals moderate fire damage\n" 
+        self.attack1_descrip = "1.)Cast Fireball - deals moderate fire damage" 
+        self.attack1_fail = "accidentally launched a fireball over"
         self.attack2 = self.cast_ice_shard
-        self.attack2_descrip ="2.) Cast Ice Shard - deals light cold damage.\n"
+        self.attack2_descrip ="2.) Cast Ice Shard - deals light cold damage."
+        self.attack2_fail = "accidentally launched an ice shard over"
         self.heal1 = self.healing_word
-        self.heal1_descrip =  "3.) Cast Healing Word - restores a small amount of health\n"
+        self.heal1_descrip =  "3.) Cast Healing Word - restores a small amount of health."
         self.counter = self.counter_attack
         
     def cast_fireball(self, target):
@@ -123,8 +125,10 @@ class Rogue(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.rapier_stab
         self.attack1_descrip = "1.) Stab with your rapier - deals moderate stab damage."
+        self.attack1_fail = "accidetally stabbed the air!"
         self.attack2 = self.sly_flurish
         self.attack2_descrip = "2.) Sly Flurish - deals light stab damage."
+        self.attack2_fail = "couldn't sneak up on!"
         self.heal1 = self.healing_potion
         self.heal1_descrip =  "3.) Drink a healing potion - restores a small amount of health"
         self.counter = self.counter_attack
@@ -174,8 +178,10 @@ class Ranger(DND_CLASS):
         self.arrows = arrows
         self.attack1 = self.bow_shot
         self.attack1_descrip = "1.) Bow Shot - deals moderate peirce damage."
+        self.attack1_failure = self.attack1_fail
         self.attack2 = self.basic_melee
         self.attack2_descrip ="2.) Basic Melee - deals light slash damage." 
+        self.attack2_fail = f"{self.name} has missed"
         self.heal1 = self.healing_potion
         self.heal1_descrip =  "3.) Drink a healing potion - restores a small amount of health"
         self.counter = self.counter_attack
@@ -196,6 +202,16 @@ class Ranger(DND_CLASS):
         else:
             print(f"{target.name}'s health is now {target.health}")
 
+    
+    def attack1_fail(self):
+        return (
+        f"{self.name}'s vision was impaired and he has launched an arrow over the target.\n"
+        f"As a result of that blunder, {self.name} now has {self.arrows} arrows"
+    )
+
+    
+    
+    
     def basic_melee(self, target):
         damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + 0.2 * self.strength))
         target.health -= damage
@@ -230,8 +246,10 @@ class Barbarian(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.raging_strike
         self.attack1_descrip = "1.) Raging Strike - deals heavy melee damage."
+        self.attack1_fail = f"{self.name} swings wildly and misses their target!"
         self.attack2 = self.reckless_swing
         self.attack2_descrip = "2.) Reckless Swing - deals light melee damage."
+        self.attack2_fail = f"{self.name}'s reckless swing misses their target"
         self.heal1 = self.healing_potion
         self.heal1_descrip ="3.) Drink a healing potion - restores a moderate amount of health"
         self.counter = self.counter_attack
@@ -279,8 +297,10 @@ class Fighter(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.power_thrust
         self.attack1_descrip = "1.) Power Thrust - deals heavy melee damage."
+        self.attack1_fail = f"{self.name}'s power thrust misses!"
         self.attack2 = self.quick_slash
         self.attack2_descrip = "2.) Quick Slash - deals light melee damage."
+        self.attack2_fail = f"{self.name}'s quick slash misses!"
         self.heal1 = self.healing_potion
         self.heal1_descrip ="3.) Use a healing salve - restores a moderate amount of health"
         self.counter = self.counter_attack
@@ -330,10 +350,12 @@ class Paladin(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.divine_smite
         self.attack1_descrip = "1.) Divine Smite - deals heavy radiant damage."
+        self.attack1_fail = f"{self.name}'s divine smite misses!"
         self.attack2 = self.radiant_strike
         self.attack2_descrip = "2.) Radiant Strike - deals light radiant damage."
+        self.attack2_fail = f"{self.name}'s radiant strike misses!"
         self.heal1 = self.healing_potion
-        self.heal1_descrip ="3.) Call upon divine energy - restores a large amount of health."
+        self.heal1_descrip ="3.) Call upon divine energy - restores a moderate amount of health."
         self.counter = self.counter_attack
     
     

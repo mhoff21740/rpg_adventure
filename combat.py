@@ -1,10 +1,15 @@
+
+""" ################################################### OLD COMBATS NO MORE USEY #################################################################################
+
+
+
 import random
-from characters import Toby_Sprinkledust, Asterion, Minsc, Karlach, Laezel, Shadowheart
+from characters import Toby, Asterion, Minsc, Karlach, Laezel, Shadowheart
 from constants_and_utlility_funcs import border
 
 
 def combat_encounter(player, target):
-    if player == Toby_Sprinkledust:
+    if player == Toby:
         while target.health > 0 and player.health > 0:
             selection = input(
                 "You need to defend yourself, which action will you take?\n"
@@ -255,3 +260,5 @@ def combat_encounter(player, target):
     else:
         return
 
+
+"""
