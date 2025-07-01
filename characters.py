@@ -1,4 +1,4 @@
-from classes import *
+from classes2 import *
 
 # This is the current list of playable characters in the Faerun
 

@@ -1,3 +1,8 @@
+
+""" ########################################## BACK UP INCASE MY LEVELING SYSTEM NO WORK###########################################################
+
+
+
 import random
 from constants_and_utlility_funcs import border
 
@@ -58,12 +63,6 @@ class DND_CLASS:
             for level in range(1, self.level +1):
                 self.health += random.randint(4,10)
             
-            
-            
-    
-        
-    
-        
     def current_level(self):
         # Determine level based on XP thresholds
         if self.xp >= 400:
@@ -84,8 +83,8 @@ class DND_CLASS:
 class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
-        self.attack1 = self.cast_fireball
-        self.attack1_descrip = "1.)Cast Fireball - deals moderate fire damage" 
+        self.attack1 = self.cast_firebolt
+        self.attack1_descrip = "1.)Cast Firebolt - deals moderate fire damage" 
         self.attack1_fail = "accidentally launched a fireball over"
         self.attack2 = self.cast_ice_shard
         self.attack2_descrip ="2.) Cast Ice Shard - deals light cold damage."
@@ -94,12 +93,12 @@ class Wizard(DND_CLASS):
         self.heal1_descrip =  "3.) Cast Healing Word - restores a small amount of health."
         self.counter = self.counter_attack
         
-    def cast_fireball(self, target):
+    def cast_firebolt(self, target):
         # Level-1 fireball: lower base, scaled by stats
         damage = int(round(1 + self.intelligence * 0.5 + self.wisdom * random.uniform(0.3, 0.5)))
         target.health -= damage
         print(border)
-        print(f"{self.name} casts Fireball dealing {damage} damage")
+        print(f"{self.name} casts Firebolt dealing {damage} damage")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been made kwispy!\n")
@@ -448,7 +447,7 @@ class Enemy(DND_CLASS):
         return self.vars
     
     def basic_attack(self, target):
-        """Weaker NPC attack: small base + light stat scaling + minor randomness"""
+        Weaker NPC attack: small base + light stat scaling + minor randomness
         damage = int(round(
             2 + self.strength * random.uniform(0.3, 0.5)
             + self.dexterity * random.uniform(0.2, 0.4)
@@ -493,7 +492,7 @@ class Room:
     def randomize_items_in_rooms(self, item_list, n=3):
          self.items = random.sample(item_list, 4)
          
-    """#@staticmethod keep inscase I bork code and need a fallback
+    #@staticmethod keep inscase I bork code and need a fallback
     def randomize_character_spawn(rooms_list,character_list,player):
         enemies_for_encounter = Enemy.enemy_name_and_stats()
         rooms_populated = random.sample(rooms_list, len(rooms_list))
@@ -508,7 +507,7 @@ class Room:
                 combined_enemy_list = [character_in_room] + npcs_in_room
                 for enemy in combined_enemy_list:
                     enemy_maping[enemy.name] = enemy
-                room.characters = enemy_maping ## """
+                room.characters = enemy_maping ## 
                     
     def randomize_room_descriptions(self, room_descriptions):
             room_description = random.choice(room_descriptions)
@@ -584,3 +583,4 @@ class Room:
 
 
 
+ ###"""

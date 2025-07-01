@@ -3,7 +3,7 @@ from combat import *
 from rooms import room_descriptions, all_items
 import exploration
 from constants_and_utlility_funcs import *
-from classes import *
+from classes2 import *
 
 
 
