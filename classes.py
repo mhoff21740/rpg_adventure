@@ -3,6 +3,7 @@ from constants_and_utlility_funcs import border
 
 
 
+
 # This is a collection of classes that will be used throughoutthe land of Faerun. 
 
 class DND_CLASS:
@@ -18,7 +19,7 @@ class DND_CLASS:
         self.inventory = inventory if inventory is not None else {}
         
 
-    def create_class_variable(self):
+    def create_class_variable(self): # Used for the bugging of the de. 
         self.vars = {
             key: value
             for key, value in self.__dict__.items()
@@ -40,16 +41,28 @@ class DND_CLASS:
             print(f"Congratulations! {self.name} has reached level {new_level} and your health has increased to {self.health}!")
             self.level = new_level
             if self.level // 2 != 0 and self.level >= 3:
-                print("You have now unlocked an ability point increase!")
-                chosen_ability = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?")
-                if chosen_ability in ["intelligence", "wisdom", "dexterity", "strength"]:
-                    current_value = getattr(self, chosen_ability)
-                    setattr(self, chosen_ability, current_value + 2)
-                    print(f"{self.name}'s {chosen_ability} is now {getattr(self, chosen_ability)}")
-                else:
-                    print("Invalid ability name.")
+                while True:
+                    print("You have now unlocked an ability point increase!\n")
+                    chosen_ability = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?\n")
+                    if chosen_ability in ["intelligence", "wisdom", "dexterity", "strength"]:
+                        current_value = getattr(self, chosen_ability)
+                        setattr(self, chosen_ability, current_value + 2)
+                        print(f"{self.name}'s {chosen_ability} is now {getattr(self, chosen_ability)}")
+                    else:
+                        print("Invalid ability name.")
         else:
             print(f"{self.name} now has {self.xp} XP (Level {self.level})")
+    
+    def enemy_scailing(self, target):
+            self.level = target.level
+            for level in range(1, self.level +1):
+                self.health += random.randint(4,10)
+            
+            
+            
+    
+        
+    
         
     def current_level(self):
         # Determine level based on XP thresholds
@@ -101,7 +114,7 @@ class Wizard(DND_CLASS):
         print(f"{self.name} casts Ice Shard dealing {damage} damage")
         print(border)
         if target.health <= 0:
-            print(f"{target.name} has been frozen!")
+            print(f"{target.name} has been frozen!\n")
         else:
             print(f"{target.name}'s health is now {target.health}")
 
@@ -480,7 +493,7 @@ class Room:
     def randomize_items_in_rooms(self, item_list, n=3):
          self.items = random.sample(item_list, 4)
          
-    @staticmethod
+    """#@staticmethod keep inscase I bork code and need a fallback
     def randomize_character_spawn(rooms_list,character_list,player):
         enemies_for_encounter = Enemy.enemy_name_and_stats()
         rooms_populated = random.sample(rooms_list, len(rooms_list))
@@ -495,7 +508,7 @@ class Room:
                 combined_enemy_list = [character_in_room] + npcs_in_room
                 for enemy in combined_enemy_list:
                     enemy_maping[enemy.name] = enemy
-                room.characters = enemy_maping
+                room.characters = enemy_maping ## """
                     
     def randomize_room_descriptions(self, room_descriptions):
             room_description = random.choice(room_descriptions)
@@ -509,7 +522,7 @@ class Room:
     
     
     @staticmethod
-    def dungeon_room_randomizer():  # This will be how a random dungeon is generated each time.
+    def dungeon_room_randomizer(character_list):  # This will be how a random dungeon is generated each time.
         room_count = random.randint(10, 25)
         scenario_room_list = []
 
@@ -522,6 +535,26 @@ class Room:
             dung_room = Room(description, exits, characters, visited, items)
             scenario_room_list.append(dung_room)
 
+        rooms_populated = random.sample(scenario_room_list, len(scenario_room_list))
+        character_options = []
+        for character in character_list:
+                if character != character.name:
+                        character_options.append(character)
+        for room in rooms_populated:
+                character_options = []
+                for character in character_list:
+                    if character != character.name:
+                        character_options.append(character)
+                enemies_for_encounter = Enemy.enemy_name_and_stats()
+                enemy_mapping = {}
+                character_in_room = random.choice(character_options)
+                npcs_in_room = random.sample(enemies_for_encounter,3)
+                combined_enemy_list = [character_in_room] + npcs_in_room
+                for enemy in combined_enemy_list:
+                    enemy_mapping[enemy.name] = enemy
+                room.characters = enemy_mapping
+                
+        
         reverse_direction = {
             "north": "south",
             "south": "north",
@@ -538,6 +571,7 @@ class Room:
             num_exits = random.randint(1, min(3, len(possible_destinations)))
             chosen_directions = random.sample(directions, num_exits)
             chosen_rooms = random.sample(possible_destinations, num_exits)
+            
 
             for direction, dest_room in zip(chosen_directions, chosen_rooms):
                 room.exits[direction] = dest_room

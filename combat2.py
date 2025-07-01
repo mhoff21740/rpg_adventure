@@ -7,7 +7,10 @@ from classes import *
 
 
 def combat_encounter2(player, target):
+        if player.level >= target.level:
+            target.enemy_scailing(player)
         while target.health > 0 and player.health > 0:
+            print(f"DEBUG: SELF LEVEL {player.level} : {player.health} HP vs Target LEVEL {target.level}: {target.health} HP ")
             selection = input(
                 "You need to defend yourself, which action will you take?\n"
                 f"{player.attack1_descrip}\n"
@@ -56,7 +59,7 @@ def combat_encounter2(player, target):
             elif selection == "3":
                 player.heal1()
                 if target.health > 0:
-                   target.counter(player)
+                    target.counter(player)
             else:
                 return
 

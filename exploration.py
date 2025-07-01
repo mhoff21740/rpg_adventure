@@ -147,3 +147,20 @@ def exploration(character, starting_room):
                 
 
 
+"""@staticmethod
+    def randomize_character_spawn(rooms_list,character_list,player):
+        enemies_for_encounter = Enemy.enemy_name_and_stats()
+        rooms_populated = random.sample(rooms_list, len(rooms_list))
+        character_options = []
+        for character in character_list:
+                if character != player:
+                        character_options.append(character)
+        for room in rooms_populated:
+                enemy_maping = {}
+                character_in_room = random.choice(character_options)
+                npcs_in_room = random.sample(enemies_for_encounter,3)
+                combined_enemy_list = [character_in_room] + npcs_in_room
+                for enemy in combined_enemy_list:
+                    enemy_maping[enemy.name] = enemy
+                room.characters = enemy_maping
+                """
