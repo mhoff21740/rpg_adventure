@@ -8,6 +8,14 @@ from constants_and_utlility_funcs import *
 
 def exploration(character, starting_room):
     current_room = starting_room
+    
+    if current_room.secret:
+        for secret,room in current_room.secret.items():
+            print( f"DEBUG: THIS ROOM CONTAINS A SECRET OF {secret} !!!!!")
+    
+    
+    
+    
     while character.health > 0:
         if current_room.visited:
             print("You feel like you have been here before\n")
@@ -31,17 +39,18 @@ def exploration(character, starting_room):
             options = [
                 "1.) Go through an exit?",
                 "2.) Loot some items?\n"
-                "3.) Check inventory"
+                "3.) Check inventory\n"
+                "4.) Investigate the room(Dont select dis, it no coded yet :)"
             ]
             if current_room.characters:
-                options.append("4.) Engage in combat?")
+                options.append("5.) Engage in combat?")
             selection = input(
                 "What would you like to do?\n\n" + "\n".join(options) + "\n"
             )
 
-            valid_choices = ["1", "2", "3"]
+            valid_choices = ["1", "2", "3","4"]
             if current_room.characters:
-                valid_choices.append("4")
+                valid_choices.append("5")
 
             if selection not in valid_choices:
                 print("Those features haven't been implemented yet")
@@ -119,8 +128,15 @@ def exploration(character, starting_room):
                         break
                     else:
                         break
+            
+            
+            elif selection =="4":
+                pass
+        ## """This is where I need to put the option to do a perception check to revel da secretz"""
+            
+            
                 
-            elif selection == "4" and current_room.characters:
+            elif selection == "5" and current_room.characters:
                 combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
                 if combantant not in ', '.join( current_room.characters):
                     print(" This enemey is not here\n")

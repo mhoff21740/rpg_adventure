@@ -1,3 +1,114 @@
+from classes2 import Room
+
+# 1. Treasure Vault
+treasure_vault = Room(
+    description="You step into a glittering chamber where the air shimmers with reflected torchlight, and piles of gold coins and ornate chests beckon.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"You find an add panel on the ground"
+    items=["Gold Coin", "Jeweled Chalice", "Stack of Gems"]
+)
+
+# 2. Gem Chamber
+gem_chamber = Room(
+    description="As you enter, the walls burst into soft light, encrusted with rubies, emeralds, sapphires, and diamond fragments that glow in the torchlight.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"You search the alter throughly and see an odd button"
+    items=["Ruby", "Emerald", "Sapphire", "Diamond Fragment"]
+)
+
+# 3. Potion Laboratory
+potion_lab = Room(
+    description="You push open the door to a laboratory where shelves of shimmering vials line the walls, each liquid swirling with arcane power.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"There is an empty file that doesnt seem to belong"
+    items=["Healing Potion", "Invisibility Draught", "Elixir of Strength"]
+)
+
+# 4. Ancient Armory
+ancient_armory = Room(
+    description="You find yourself in an armory of legend, where enchanted swords and spellproof shields stand ready beneath ornate banners.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"You see an odd wear pattern on the status gauntletS
+    items=["Enchanted Sword", "Spellproof Shield", "Helmet of Insight"]
+)
+
+# 5. Elusive Garden
+elusive_garden = Room(
+    description="You step barefoot into a moonlit garden, exotic flowers perfuming the air and a silent fountain at its center stirring in shadows.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"There are strange runes on the basin that look like they can be aligned.
+    items=["Flower of Renewal", "Bottle of Pure Water"]
+)
+
+# 6. Ancient Library
+ancient_library = Room(
+    description="You push aside a dusty curtain and enter a library of ages, towering bookshelves converging on an open grimoire that hums with ancient knowledge.",
+    exits={},
+    characters=[],
+    visited=False,
+    secret={}, #"You see many dusty tomes on this shelf, although one appears to be somewhat cleaner than the rest
+    items=["Tome of Knowledge", "Scroll of Fireball"]
+)
+
+# Collect all secret rooms
+secret_rooms = [
+    treasure_vault,
+    gem_chamber,
+    potion_lab,
+    ancient_armory,
+    elusive_garden,
+    ancient_library
+]
+
+secret_room_mapping = {
+    "hidden panel": treasure_vault,
+    "moss altar": gem_chamber,
+    "false shelf": potion_lab,
+    "statue gauntlet": ancient_armory,
+    "fountain basin": elusive_garden,
+    "rotating shelf": ancient_library
+}
+
+def secret_room_exploration(secret_room, player):
+    pass 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###################################################### Room Descriptions for main campaign, leave here until I figure out where else I can put them    ################################################################
+
+
+
+
+
+
+
+
 room_descriptions = [
     "You enter a grand hall lined with faded banners and cracked marble pillars.",
     "You step into a chamber filled with the scent of old parchment and shelves of dusty tomes.",

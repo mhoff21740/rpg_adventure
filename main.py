@@ -1,6 +1,6 @@
 from characters import *
 from combat import *
-from rooms import room_descriptions, all_items
+from rooms import room_descriptions, all_items, secret_room_mapping
 import exploration
 from constants_and_utlility_funcs import *
 from classes2 import *
@@ -45,7 +45,7 @@ def main():
             print("That character is not playable.")
 
     # Dungeon setup
-    scenario_room_list = Room.dungeon_room_randomizer(character_list)
+    scenario_room_list = Room.dungeon_room_randomizer(character_list, selected_character, secret_room_mapping)
     for room in scenario_room_list:
         room.randomize_items_in_rooms(all_items, 5)
         room.randomize_room_descriptions(room_descriptions)

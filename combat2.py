@@ -107,9 +107,9 @@ def combat_encounter3(player, target):
         if not selection.isdigit() or not (1 <= int(selection) <= len(actions)):
             print("You do not know these spells.")
             continue
-        selected_attack = int(selection) - 1 #<--This converts player selection back to index counting logic, so we can grab the correct attack( ie. firebolt, iceshard, etc)  (Since its starts at the 0 index position). 
-        action = actions[selected_attack] #<- dictionary entry of desired attack
-        if action.get("heal"):
+        selected_action = int(selection) - 1 #<--This converts player selection back to index counting logic, so we can grab the correct attack( ie. firebolt, iceshard, etc)  (Since its starts at the 0 index position). 
+        attack = actions[selected_action] #<- dictionary entry of desired attack( I.e I want to use Ice Shard this round, the description says 2, but its really at index 1)
+        if attack.get("heal"):
             player.heal1()
             if target.health > 0:
                 target.counter(player)
@@ -118,15 +118,15 @@ def combat_encounter3(player, target):
         print(f"{player.name} has rolled a {attack_roll}")
         if attack_roll >= 9:
             # Successful hit
-            action["func"](target) #<--calls the method from the players desired attack
+            attack["func"](target) #<--calls the method from the players desired attack
             if target.health > 0:
                 target.counter(player)
         else:
-            if action["func"] == player.attack1 and hasattr(player, "arrows"):
+            if attack["func"] == player.attack1 and hasattr(player, "arrows"):
                 if player.arrows > 0:
                     player.arrows -= 1
                     print(border)
-                    fail = action["fail"]
+                    fail = attack["fail"]
                     msg = fail() if callable(fail) else fail
                     print(msg)
                     print(border)
@@ -138,7 +138,7 @@ def combat_encounter3(player, target):
                     print(border)
                     continue
             print(border)
-            fail = action.get("fail")
+            fail = attack.get("fail")
             if callable(fail):
                 print(fail() or "")
             elif isinstance(fail, str):

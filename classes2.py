@@ -2,6 +2,7 @@ import random
 from constants_and_utlility_funcs import border
 
 
+
 ## Expanded classes with level up skillz!
 
 # This is a collection of classes that will be used throughoutthe land of Faerun. 
@@ -51,7 +52,7 @@ class DND_CLASS:
                     else:
                         print("Invalid ability name.")
         else:
-            print(f"{self.name} now has {self.xp} XP (Level {self.level})")
+            print(f"{self.name} now has gained {xp_dropped} XP and now has a total of {self.xp} XP (Level {self.level})")
     
     def enemy_scailing(self, target):
             self.level = target.level
@@ -831,14 +832,19 @@ class Enemy(DND_CLASS):
         self.basic_attack(target)
 
 class Room:
-    def __init__ (self, description, exits, characters, visited, items=None):
+    def __init__ (self, description, exits, characters, visited, secret = None, items=None):
         self.description = description
         self.exits = exits
-        self.items = []
+        self.items = items if items is not None else []
         self.characters = characters
         self.visited = visited
+        self.secret = secret if secret is not None else {}
 
 
+    def __str__(self):
+        return self.description
+    
+    
     def loot_item(self, character, item):
         self.items.remove(item)
         if isinstance(character, Ranger):
@@ -858,22 +864,6 @@ class Room:
     def randomize_items_in_rooms(self, item_list, n=3):
          self.items = random.sample(item_list, 4)
          
-    """#@staticmethod keep inscase I bork code and need a fallback
-    def randomize_character_spawn(rooms_list,character_list,player):
-        enemies_for_encounter = Enemy.enemy_name_and_stats()
-        rooms_populated = random.sample(rooms_list, len(rooms_list))
-        character_options = []
-        for character in character_list:
-                if character != player:
-                        character_options.append(character)
-        for room in rooms_populated:
-                enemy_maping = {}
-                character_in_room = random.choice(character_options)
-                npcs_in_room = random.sample(enemies_for_encounter,3)
-                combined_enemy_list = [character_in_room] + npcs_in_room
-                for enemy in combined_enemy_list:
-                    enemy_maping[enemy.name] = enemy
-                room.characters = enemy_maping ## """
                     
     def randomize_room_descriptions(self, room_descriptions):
             room_description = random.choice(room_descriptions)
@@ -887,7 +877,7 @@ class Room:
     
     
     @staticmethod
-    def dungeon_room_randomizer(character_list):  # This will be how a random dungeon is generated each time.
+    def dungeon_room_randomizer(character_list, player, secret_room_mapping):  # This will be how a random dungeon is generated each time.
         room_count = random.randint(10, 25)
         scenario_room_list = []
 
@@ -896,19 +886,18 @@ class Room:
             exits = {}  # Set later
             characters = None
             visited = False
+            secret = {}
             items = []
-            dung_room = Room(description, exits, characters, visited, items)
+            dung_room = Room(description, exits, characters, visited, secret, items)
             scenario_room_list.append(dung_room)
 
-        rooms_populated = random.sample(scenario_room_list, len(scenario_room_list))
-        character_options = []
-        for character in character_list:
-                if character != character.name:
-                        character_options.append(character)
+        rooms_populated = random.sample(scenario_room_list, random.randint(7, room_count))
+        rooms_with_secrets = random.sample(scenario_room_list, len(scenario_room_list))
+        
         for room in rooms_populated:
                 character_options = []
                 for character in character_list:
-                    if character != character.name:
+                    if character != player:
                         character_options.append(character)
                 enemies_for_encounter = Enemy.enemy_name_and_stats()
                 enemy_mapping = {}
@@ -919,6 +908,10 @@ class Room:
                     enemy_mapping[enemy.name] = enemy
                 room.characters = enemy_mapping
                 
+        for room in rooms_with_secrets:
+            key, value = random.choice(list(secret_room_mapping.items()))
+            room.secret[key] = value 
+            
         
         reverse_direction = {
             "north": "south",
@@ -936,16 +929,20 @@ class Room:
             num_exits = random.randint(1, min(3, len(possible_destinations)))
             chosen_directions = random.sample(directions, num_exits)
             chosen_rooms = random.sample(possible_destinations, num_exits)
-            
-
             for direction, dest_room in zip(chosen_directions, chosen_rooms):
                 room.exits[direction] = dest_room
                 rev_dir = reverse_direction[direction]
                 if rev_dir not in dest_room.exits:
                     dest_room.exits[rev_dir] = room
+                    
+                    
+                    
+        #Secret room, maybe add perception check into exploration to look for secret mechanisms that will allow for secret room access 
 
+        
+        
+        
         return scenario_room_list
-
 
 
 
