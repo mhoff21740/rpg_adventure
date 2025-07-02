@@ -131,7 +131,26 @@ def exploration(character, starting_room):
             
             
             elif selection =="4":
-                pass
+                    if current_room.secret:
+                        perception_check = random.randint(1,20)
+                        print(f"{character.name} has rolled a perception check of {perception_check}.\n")
+                        if perception_check >= 12:
+                                for secret,room in current_room.secret.items():
+                                    print(f"After and intense investigation, you discover a peculiar {secret}\n")
+                                    interaction = input("Would you like to interact with it? Y or N")
+                                    if interaction not in [ "Y", "N","y", "n" ]:
+                                        print ("Not a valid option")
+                                    if interaction == "y" or "Y":
+                                        current_room = current_room.secret[secret]
+                                        break
+                                    elif interaction == "N" or "n":
+                                        break
+                                    else:
+                                        print(" Nothing seems to stand out in particular, as you look around")
+                    else:
+                        print("Nothing stands out at you\n")
+                    break
+                    
         ## """This is where I need to put the option to do a perception check to revel da secretz"""
             
             

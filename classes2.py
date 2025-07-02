@@ -892,7 +892,7 @@ class Room:
             scenario_room_list.append(dung_room)
 
         rooms_populated = random.sample(scenario_room_list, random.randint(7, room_count))
-        rooms_with_secrets = random.sample(scenario_room_list, len(scenario_room_list))
+        rooms_with_secrets = random.sample(scenario_room_list, len(scenario_room_list))  ##random.randint(4, room_count)
         
         for room in rooms_populated:
                 character_options = []
