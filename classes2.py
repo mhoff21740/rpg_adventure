@@ -910,7 +910,8 @@ class Room:
                 
         for room in rooms_with_secrets:
             key, value = random.choice(list(secret_room_mapping.items()))
-            room.secret[key] = value 
+            room.secret[key] = value
+            ## STILL NEED TO WORK ON EXIT STRATEGY####
             
         
         reverse_direction = {

@@ -18,7 +18,7 @@ def exploration(character, starting_room):
     
     while character.health > 0:
         if current_room.visited:
-            print("You feel like you have been here before\n")
+            print("\033[1mYou feel like you have been here before\033[0m\n")
         print(f"{current_room.description}\n")
         if current_room.items == []:
             print( "This room has been thoughly looted\n")
@@ -33,14 +33,14 @@ def exploration(character, starting_room):
             print(f"You see some enemies:{', '.join(current_room.characters)}!\n")
         
         print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
-        current_room.visited = True
+        
         # Main action selection loop
         while True:
             options = [
                 "1.) Go through an exit?",
                 "2.) Loot some items?\n"
                 "3.) Check inventory\n"
-                "4.) Investigate the room(Dont select dis, it no coded yet :)"
+                "4.) Investigate the room"
             ]
             if current_room.characters:
                 options.append("5.) Engage in combat?")
@@ -66,7 +66,8 @@ def exploration(character, starting_room):
 
                         print("You cannot exit through a wall")
                         continue
-                    else:
+                    else: 
+                        current_room.visited = True
                         current_room = current_room.exits[exit_choice]
                         print(f"\n{border}\n\n\n")
                         break  # Exit the exit selection loop
@@ -131,29 +132,26 @@ def exploration(character, starting_room):
             
             
             elif selection =="4":
+                    perception_check = random.randint(1,20)
+                    print(f"{character.name} has rolled a perception check of {perception_check}.\n")
                     if current_room.secret:
-                        perception_check = random.randint(1,20)
-                        print(f"{character.name} has rolled a perception check of {perception_check}.\n")
                         if perception_check >= 12:
                                 for secret,room in current_room.secret.items():
                                     print(f"After and intense investigation, you discover a peculiar {secret}\n")
-                                    interaction = input("Would you like to interact with it? Y or N")
+                                    interaction = input("Would you like to interact with it? Y or N\n")
                                     if interaction not in [ "Y", "N","y", "n" ]:
                                         print ("Not a valid option")
-                                    if interaction == "y" or "Y":
+                                    if interaction.lower() == "y":
                                         current_room = current_room.secret[secret]
                                         break
-                                    elif interaction == "N" or "n":
+                                    elif interaction.lower() == "n":
                                         break
                                     else:
-                                        print(" Nothing seems to stand out in particular, as you look around")
-                    else:
-                        print("Nothing stands out at you\n")
-                    break
+                                        print("Not a valid option")
+                        else:
+                            print("Nothing stands out at you\n")
+                        break
                     
-        ## """This is where I need to put the option to do a perception check to revel da secretz"""
-            
-            
                 
             elif selection == "5" and current_room.characters:
                 combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
