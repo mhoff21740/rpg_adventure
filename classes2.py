@@ -1,6 +1,6 @@
 import random
 from constants_and_utlility_funcs import border
-
+import functools
 
 
 ## Expanded classes with level up skillz!
@@ -17,7 +17,7 @@ class DND_CLASS:
         self.strength = strength
         self.xp = xp
         self.level = level
-        self.inventory = inventory if inventory is not None else {}
+        self.inventory = {"healing potion": 3 }
         
 
     def create_class_variable(self): # Used for the bugging of the de. 
@@ -28,6 +28,10 @@ class DND_CLASS:
         }
         return self.vars
 
+    def healing_potion(self):
+        heals = round(10 + random.uniform(2, 4))
+        self.health += heals
+        print(f"{self.name} heals for {heals} -health is now {self.health}")
     
     
     def total_level_and_xp(self): #Needed? Maybe if player just wants to remember what their level is 
@@ -41,7 +45,7 @@ class DND_CLASS:
             self.health += random.randint(4,10)
             print(f"Congratulations! {self.name} has reached level {new_level} and your health has increased to {self.health}!")
             self.level = new_level
-            if self.level // 2 != 0 and self.level >= 3:
+            if self.level % 2 != 0 and self.level >= 3:
                 while True:
                     print("You have now unlocked an ability point increase!\n")
                     chosen_ability = input("Which ability would you like to increase: intelligence, wisdom, dexterity, or strength?\n")
@@ -80,6 +84,7 @@ class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, spell_slots = 1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.spell_slots = spell_slots
+        self.inventory = {"healing potion" : 1 }
         
         # Level-1 spells
         self.attack1 = self.cast_firebolt
@@ -163,9 +168,24 @@ class Wizard(DND_CLASS):
             self.health += heals
             print(f"{self.name} has been healed for {heals}!")
             print(f"{self.name}'s health is now {self.health}")
+        elif self.spell_slots <= 0 and  self.inventory["healing potion"] > 0:
+            while True:
+                heal_or_not_to_heal = input(f"{self.name} has no more spell slots and cannot heal! You would like to use one of your healing potions? Y or N ")
+                if heal_or_not_to_heal.lower() == "y":
+                    self.healing_potion()
+                    break
+                elif heal_or_not_to_heal.lower() == "n":
+                    print (f"{self.name} has decided to skip healing")
+                    break
+                else:
+                    print("Invalid selection")
         else:
-            print(f"{self.name} has no more spell slots and cannot heal!")
+            print(f"{self.name} has no more spell slots or potions to heal! ")    
 
+    
+    
+    
+    
     def counter_attack(self, target):
         attack = random.choice([self.cast_firebolt, self.cast_ice_shard])
         attack(target)
