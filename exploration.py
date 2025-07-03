@@ -132,26 +132,28 @@ def exploration(character, starting_room):
             
             
             elif selection =="4":
-                    perception_check = random.randint(1,20)
-                    print(f"{character.name} has rolled a perception check of {perception_check}.\n")
-                    if current_room.secret:
-                        if perception_check >= 12:
-                                for secret,room in current_room.secret.items():
-                                    print(f"After and intense investigation, you discover a peculiar {secret}\n")
-                                    interaction = input("Would you like to interact with it? Y or N\n")
-                                    if interaction not in [ "Y", "N","y", "n" ]:
-                                        print ("Not a valid option")
-                                    if interaction.lower() == "y":
-                                        current_room = current_room.secret[secret]
-                                        break
-                                    elif interaction.lower() == "n":
-                                        break
-                                    else:
-                                        print("Not a valid option")
-                        else:
-                            print("Nothing stands out at you\n")
-                        break
+                perception_check = random.randint(1, 20)
+                print(f"{character.name} has rolled a perception check of {perception_check}.\n")
+                if current_room.secret:
+                    if perception_check >= 12:
+                        for secret_item, secret_room in current_room.secret.items():
+                            print(f"After an intense investigation, you discover a peculiar {secret}\n")
+                            interaction = input("Would you like to interact with it? Y or N\n")
+                            if interaction.lower() == "y":
+                                # Revels le secret exit and adds to exits in room
+                                current_room.exits[f"{secret_item}"] = secret_room
+                                secret_room.exits[f"back out"] = current_room
+                                print(f"You have revealed a secret passage: secret_{secret}!")
+                                current_room = secret_room
+                                break
+                            elif interaction.lower() == "n":
+                                break
+                            else:
+                                print("Not a valid option")
+                else:
+                    print("Nothing stands out at you\n")
                     
+                
                 
             elif selection == "5" and current_room.characters:
                 combantant = input(f"Who would you like to fight? {', '.join(current_room.characters)}\n")
@@ -166,12 +168,14 @@ def exploration(character, starting_room):
                     return
                 # Remove the defeated enemy from the room
                 if combantant.health <= 0:
-                    drop_chance = random.randint(1,2)
                     print(f"You have defeated {combantant.name}!\n")
                     if combantant in character_list:
                         character.gain_xp(int(round(combantant.level * 35)))    
                     else:
                         character.gain_xp(combantant.xp)
+                    if isinstance(character, Wizard):
+                        character.spell_slotz()
+                    drop_chance = random.randint(1,2)
                     print (f"\nYou are wounded from that fight and left with only {character.health} HP! You will need to heal at some point!\n")
                     if drop_chance == 1:
                         print(f"As you marval over your victory, you see that {combantant.name} has dropped {", ".join(current_room.random_npc_drops())}\n")

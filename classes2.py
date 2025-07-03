@@ -77,8 +77,10 @@ class DND_CLASS:
 
 
 class Wizard(DND_CLASS):
-    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, inventory=None):
+    def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, spell_slots = 1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+        self.spell_slots = spell_slots
+        
         # Level-1 spells
         self.attack1 = self.cast_firebolt
         self.attack1_descrip = "1.) Cast Firebolt - moderate fire damage"
@@ -121,6 +123,15 @@ class Wizard(DND_CLASS):
         self.attack10 = self.cast_wall_of_force
         self.attack10_descrip = "11.) Cast Wall of Force - create impassable barrier"
         self.attack10_fail = "barrier fails to materialize"
+        
+        
+    def spell_slotz(self):
+        new_level = self.current_level()
+        if new_level > self.level:
+            self.spell_slots += 2
+            print(f"As {self.name} levels up, they have gained {getattr(self,self.spell_slots)} spell slots!")
+        else:
+            print(f"{self.name} has {self.spell_slots} spell slots remaining.\n")
 
     # Level-1
     def cast_firebolt(self, target):
@@ -146,10 +157,14 @@ class Wizard(DND_CLASS):
             print(f"{target.name}'s health is now {target.health}")
 
     def healing_word(self):
-        heals = round(6 + (self.wisdom * random.uniform(1, 4)))
-        self.health += heals
-        print(f"{self.name} has been healed for {heals}!")
-        print(f"{self.name}'s health is now {self.health}")
+        if self.spell_slots > 0:
+            self.spell_slots -= 1
+            heals = round(6 + (self.wisdom * random.uniform(1, 4)))
+            self.health += heals
+            print(f"{self.name} has been healed for {heals}!")
+            print(f"{self.name}'s health is now {self.health}")
+        else:
+            print(f"{self.name} has no more spell slots and cannot heal!")
 
     def counter_attack(self, target):
         attack = random.choice([self.cast_firebolt, self.cast_ice_shard])
@@ -892,7 +907,9 @@ class Room:
             scenario_room_list.append(dung_room)
 
         rooms_populated = random.sample(scenario_room_list, random.randint(7, room_count))
-        rooms_with_secrets = random.sample(scenario_room_list, len(scenario_room_list))  ##random.randint(4, room_count)
+        rooms_with_secrets = random.sample(scenario_room_list, random.randint(4, room_count))  ##random.randint(4, room_count)
+        
+        
         
         for room in rooms_populated:
                 character_options = []
@@ -911,7 +928,7 @@ class Room:
         for room in rooms_with_secrets:
             key, value = random.choice(list(secret_room_mapping.items()))
             room.secret[key] = value
-            ## STILL NEED TO WORK ON EXIT STRATEGY####
+            
             
         
         reverse_direction = {
