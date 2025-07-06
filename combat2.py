@@ -7,6 +7,8 @@ from constants_and_utlility_funcs import border
 from classes2 import *
 
 
+"""### OLD Method
+
 def combat_encounter2(player, target):
         if player.level >= target.level:
             target.enemy_scailing(player)
@@ -62,7 +64,7 @@ def combat_encounter2(player, target):
                 if target.health > 0:
                     target.counter(player)
             else:
-                return
+                return """ ############### 
 
 
 
@@ -108,7 +110,7 @@ def combat_encounter3(player, target):
             print("You do not know these spells.")
             continue
         selected_action = int(selection) - 1 #<--This converts player selection back to index counting logic, so we can grab the correct attack( ie. firebolt, iceshard, etc)  (Since its starts at the 0 index position). 
-        attack = actions[selected_action] #<- dictionary entry of desired attack( I.e I want to use Ice Shard this round, the description says 2, but its really at index 1)
+        attack = actions[selected_action] #<- index position of  of desired attack( I.e I want to use Ice Shard this round, the description says 2, but its really at index 1)
         if attack.get("heal"):
             player.heal1()
             if target.health > 0:

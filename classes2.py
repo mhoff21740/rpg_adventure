@@ -1,6 +1,7 @@
 import random
 from constants_and_utlility_funcs import border
 import functools
+import time
 
 
 ## Expanded classes with level up skillz!
@@ -32,6 +33,8 @@ class DND_CLASS:
         heals = round(10 + random.uniform(2, 4))
         self.health += heals
         print(f"{self.name} heals for {heals} -health is now {self.health}")
+
+    
     
     
     def total_level_and_xp(self): #Needed? Maybe if player just wants to remember what their level is 
@@ -167,6 +170,7 @@ class Wizard(DND_CLASS):
             heals = round(6 + (self.wisdom * random.uniform(1, 4)))
             self.health += heals
             print(f"{self.name} has been healed for {heals}!")
+            time.sleep(2)
             print(f"{self.name}'s health is now {self.health}")
         elif self.spell_slots <= 0 and  self.inventory["healing potion"] > 0:
             while True:
@@ -811,6 +815,31 @@ class Paladin(DND_CLASS):
 
 
 
+class Boss(DND_CLASS):
+   #Bosses start at level 4, because Boss.
+    def __init__(self,name,health,intelligence,wisdom,dexterity,strength,xp,level=4,inventory=None):
+        super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
+       
+        self.attack1 = self.basic_attack
+        self.attack1_descrip = f"A basic slashing attack."
+
+        self.attack2 = self.heavy_attack
+        self.attack2_descrip = (f"A heavy crushing blow -deals heavy bludegoning damage.")
+
+    def heavy_attack(self, target):
+        rolls = [random.randint(1, 6) for _ in range(2)]
+        damage = sum(rolls) + self.strength + self.level
+        target.health -= damage
+        
+    def basic_attack(self, target):
+        damage = random.randint(1, 4) + self.strength
+        target.health -= damage
+        
+    def counter_attack(self, target):
+        attack = random.choice([self.heavy_attack, self.basic_attack])
+        attack(target)
+
+
 class Enemy(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level =1 , inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
@@ -897,7 +926,7 @@ class Room:
                 print(f"You looted the {item}!\n")
 
     def randomize_items_in_rooms(self, item_list, n=3):
-         self.items = random.sample(item_list, 4)
+         self.items = random.sample(item_list, n)
          
                     
     def randomize_room_descriptions(self, room_descriptions):
@@ -912,8 +941,8 @@ class Room:
     
     
     @staticmethod
-    def dungeon_room_randomizer(character_list, player, secret_room_mapping):  # This will be how a random dungeon is generated each time.
-        room_count = random.randint(10, 25)
+    def dungeon_room_randomizer(character_list, player, secret_room_mapping,boss_rooms):  # This will be how a random dungeon is generated each time.
+        room_count = random.randint(10, 45)
         scenario_room_list = []
 
         for _ in range(room_count):
@@ -926,26 +955,28 @@ class Room:
             dung_room = Room(description, exits, characters, visited, secret, items)
             scenario_room_list.append(dung_room)
 
-        rooms_populated = random.sample(scenario_room_list, random.randint(7, room_count))
+        rooms_populated = random.sample(scenario_room_list, random.randint(10, room_count))
         rooms_with_secrets = random.sample(scenario_room_list, random.randint(4, room_count))  ##random.randint(4, room_count)
-        
+        scenario_room_list.extend(boss_rooms)
         
         
         for room in rooms_populated:
-                character_options = []
-                for character in character_list:
-                    if character != player:
-                        character_options.append(character)
-                enemies_for_encounter = Enemy.enemy_name_and_stats()
-                enemy_mapping = {}
-                character_in_room = random.choice(character_options)
-                npcs_in_room = random.sample(enemies_for_encounter,3)
-                combined_enemy_list = [character_in_room] + npcs_in_room
-                for enemy in combined_enemy_list:
-                    enemy_mapping[enemy.name] = enemy
-                room.characters = enemy_mapping
-                
+            character_options = []
+            for character in character_list:
+                if character != player:
+                    character_options.append(character)
+            enemies_for_encounter = Enemy.enemy_name_and_stats()
+            enemy_mapping = {}
+            character_in_room = random.choice(character_options)
+            npcs_in_room = random.sample(enemies_for_encounter, 3)
+            combined_enemy_list = [character_in_room] + npcs_in_room
+            for enemy in combined_enemy_list:
+                enemy_mapping[enemy.name] = enemy
+            room.characters = enemy_mapping
+            
         for room in rooms_with_secrets:
+            if room in boss_rooms:
+                continue
             key, value = random.choice(list(secret_room_mapping.items()))
             room.secret[key] = value
             

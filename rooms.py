@@ -1,4 +1,5 @@
 from classes2 import Room
+from characters import pyrothrax_boss,zelroth_boss,atlas_boss,nakamara_boss,aetherion_boss
 
 # 1. Treasure Vault
 treasure_vault = Room(
@@ -79,8 +80,76 @@ secret_room_mapping = {
     "rotating shelf": ancient_library
 }
 
-def secret_room_exploration(secret_room, player):
-    pass 
+
+
+
+# Bawss Rooms ( Need to create bosses) # Also maybe make attacks immune until something is done to boss or playterhas something in inv!
+
+
+# 1. Dragon's Lair
+dragon_lair = Room(
+    description="""
+You step into a vast, molten cavern where rivers of lava carve glowing paths across the black stone floor. The heat is stifling, and each breath tastes of brimstone. At the far end, glowing embers swirl around the massive form of Pyrothrax the Flame Drake.
+""",
+    exits={},
+    characters={"Pyrothrax the Flame Drake": pyrothrax_boss}, 
+    visited=False,
+    secret={"heat_vent": "A hidden grate triggers a blast of superheated steam when struck."},
+    items=["Drakefire Scale", "Flameheart Ruby"]
+)
+
+
+# 2. Ancient Lich's Sanctum
+lich_sanctum = Room(
+    description="""
+The corridor opens into a vaulted chamber lined with obsidian pillars carved in the likeness of wailing souls. In the center sits Zelroth the Eternal upon a throne of bone, his hollow eyes glowing with unholy power.
+""",
+    exits={},
+    characters={"Zelroth the Eternal": zelroth_boss},  
+    visited=False,
+    secret={"hidden_phylactery": "A concealed alcove behind the throne holds Zelroth's phylactery."},
+    items=["Phylactery Shard", "Staff of the Damned"]
+)
+
+# 3. Golem Foundry
+golem_foundry = Room(
+    description="""
+Sparks fly and metal groans under the weight of forging arms as you enter the industrial heart of the foundry. Slinging molten steel, the colossal form of Atlas, the Iron Colossus, awakens to your presence.
+""",
+    exits={},
+    characters={"Atlas, the Iron Colossus": atlas_boss},
+    visited=False,
+    secret={"overload_switch": "Disabling the forge's power conduit weakens Atlas's armored plating."},
+    items=["Colossus Core", "Golem Gauntlet"]
+)
+
+# 4. Serpent Queen's Temple
+serpent_temple = Room(
+    description="""
+Vines creep down moss-covered walls and the air is thick with venomous mist. Golden serpent statues surround a raised dais where Nakamara the Serpent Queen coils, her forked tongue tasting the air in anticipation.
+""",
+    exits={},
+    characters={"Nakamara the Serpent Queen": nakamara_boss},
+    visited=False,
+    secret={"serpent_statue": "Aligning the statues opens a hidden passage, releasing a distracting gas."},
+    items=["Queen's Fang", "Venomous Scepter"]
+)
+
+# 5. Sky Fortress Throne
+sky_throne = Room(
+    description='''
+You descend a spiraling stone stair into a sprawling vaulted hall hewn from storm-battered granite. Flickering torch sconces line the damp walls, their smoke curling toward arched ceilings carved with tempest motifs. Gusts howl through grated vents overhead, stirring puddles on the flagstone floor. Atop a jagged dais of black basalt stands Lord Aetherion, Stormwarden of the Deep Holds—his rune-inscribed armor crackling with raw lightning.
+''',
+    exits={},
+    characters={ "Lord Aetherion, Stormwarden of the Deep Holds": aetherion_boss},
+    visited=False,
+    secret={ "gale_rune": "A concealed rune behind a loose basalt slab activates the trapdoor to the vent, redirecting the winds and grounding Aetherion’s power."},
+    items=["Stormwarden’s Pauldrons", "Gale-forged Blade"]
+)
+
+
+# Collection for easy iteration
+boss_rooms = [dragon_lair, lich_sanctum, golem_foundry, serpent_temple, sky_throne]
 
 
 
