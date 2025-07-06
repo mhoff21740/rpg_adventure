@@ -83,7 +83,7 @@ secret_room_mapping = {
 
 
 
-# Bawss Rooms ( Need to create bosses) # Also maybe make attacks immune until something is done to boss or playterhas something in inv!
+# Boss rooms
 
 
 # 1. Dragon's Lair
