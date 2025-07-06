@@ -10,38 +10,31 @@ import time
 
 def exploration(character, starting_room):
     current_room = starting_room
-    
-    if current_room.secret:
-        for secret,room in current_room.secret.items():
-            print( f"DEBUG: THIS ROOM CONTAINS A SECRET OF {secret} !!!!!")
-    
-    
-    
-    
+        
     while character.health > 0:
         if current_room.visited:
             print("\033[1mYou feel like you have been here before\033[0m\n")
-            time.sleep(2)
+            time.sleep(1.5)
         print(f"{current_room.description}\n")
         if current_room.items == []:
             print( "This room has been thoughly looted\n")
-            time.sleep(2)
+            time.sleep(1.5)
         else:
             print(f"You see some items strewn throughout: {', '.join(current_room.items)}\n")
-            time.sleep(2)
+            time.sleep(1.5)
         if not current_room.characters:
             if current_room.visited:
                 print("You see the remains of your previous fights in here, it's quite smelly!\n")
-                time.sleep(2)
+                time.sleep(1.5)
             else:
                 print("You see no enemies....yet.\n")
-                time.sleep(2)
+                time.sleep(1.5)
         else:
             print(f"You see some enemies:{', '.join(current_room.characters)}!\n")
-            time.sleep(2)
+            time.sleep(1.5)
         
         print(f"As you look around, you spot a few exits: {', '.join(current_room.exits)}\n")
-        time.sleep(2)
+        time.sleep(1.5)
         
         # Main action selection loop
         while True:

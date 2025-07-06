@@ -94,7 +94,7 @@ You step into a vast, molten cavern where rivers of lava carve glowing paths acr
     exits={},
     characters={"Pyrothrax the Flame Drake": pyrothrax_boss}, 
     visited=False,
-    secret={"heat_vent": "A hidden grate triggers a blast of superheated steam when struck."},
+    secret={},
     items=["Drakefire Scale", "Flameheart Ruby"]
 )
 
@@ -107,7 +107,7 @@ The corridor opens into a vaulted chamber lined with obsidian pillars carved in 
     exits={},
     characters={"Zelroth the Eternal": zelroth_boss},  
     visited=False,
-    secret={"hidden_phylactery": "A concealed alcove behind the throne holds Zelroth's phylactery."},
+    secret={},
     items=["Phylactery Shard", "Staff of the Damned"]
 )
 
@@ -119,7 +119,7 @@ Sparks fly and metal groans under the weight of forging arms as you enter the in
     exits={},
     characters={"Atlas, the Iron Colossus": atlas_boss},
     visited=False,
-    secret={"overload_switch": "Disabling the forge's power conduit weakens Atlas's armored plating."},
+    secret={},
     items=["Colossus Core", "Golem Gauntlet"]
 )
 
@@ -131,7 +131,7 @@ Vines creep down moss-covered walls and the air is thick with venomous mist. Gol
     exits={},
     characters={"Nakamara the Serpent Queen": nakamara_boss},
     visited=False,
-    secret={"serpent_statue": "Aligning the statues opens a hidden passage, releasing a distracting gas."},
+    secret={},
     items=["Queen's Fang", "Venomous Scepter"]
 )
 
@@ -143,7 +143,7 @@ You descend a spiraling stone stair into a sprawling vaulted hall hewn from stor
     exits={},
     characters={ "Lord Aetherion, Stormwarden of the Deep Holds": aetherion_boss},
     visited=False,
-    secret={ "gale_rune": "A concealed rune behind a loose basalt slab activates the trapdoor to the vent, redirecting the winds and grounding Aetherion’s power."},
+    secret={},
     items=["Stormwarden’s Pauldrons", "Gale-forged Blade"]
 )
 
