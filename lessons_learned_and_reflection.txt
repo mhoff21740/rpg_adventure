@@ -1,0 +1,45 @@
+Lessons Learned
+Throughout the development of RPG Adventure, I significantly deepened my understanding of Python’s data structures, object-oriented design, control flow, and modular architecture. This project challenged me to solve real-world problems that naturally arise as software complexity grows, reinforcing both foundational concepts and practical design thinking.
+1. Data Structures in Practice: Lists, Dictionaries, and Real-Time Interactions
+While I understood the basic role of lists and dictionaries before this project, implementing them within a dynamic game loop revealed their deeper nuances. For example, I used dictionaries to represent room exits and originally assumed that a simple player input (e.g., "north") would automatically resolve the movement. I quickly discovered that I needed to explicitly reassign the current_room variable using the dictionary’s value—this hands-on lesson clarified how data structures need to be intentionally accessed and updated in real time.
+2. Managing Complexity Through Scalable Design
+As I expanded from three character classes to six, each with unique skills, attacks, and level-based unlocks, I encountered the limits of hardcoded logic. Initially, my combat system handled every class combination individually, which became unsustainable. This forced me to refactor the combat engine into a scalable framework that could handle class-specific logic, level-based changes, and dynamic behavior—all while keeping the code maintainable. I improved my use of dictionaries, including lists of dictionaries, to manage and reference abilities cleanly across different game states.
+3. Control Flow and Loop Logic
+This project also reinforced my fluency in loop design and control flow. I became more comfortable using while and for loops to iterate over game states, check player inputs, and evaluate conditions such as enemy presence, inventory checks, and combat sequences. I learned how to manipulate and break out of loops based on custom game logic, which gave me more confidence in flow control across a complex system.
+4. Project Structure and Modular Design
+Building this project across multiple files taught me the importance of logical organization and separation of concerns. By modularizing combat logic, character classes, room generation, and exploration into separate files, I maintained clarity and focus in each module. This experience gave me insight into structuring larger-scale projects and avoiding overly dense scripts that are difficult to debug or extend.
+
+
+
+Self Reflection 
+
+
+Throughout the development of RPG Adventure, I encountered a wide range of real-world programming challenges that helped solidify my Python fundamentals, deepen my understanding of object-oriented design, and improve my ability to debug, test, and manage increasingly complex codebases. Below is a summary of key insights and lessons learned from the project.
+Testing and Debugging
+As the project grew in size and complexity, I relied heavily on print()-based debugging to observe runtime values and isolate logic issues. For example, I identified a flaw in my energy scaling logic by printing live combat stats and observing inconsistencies in real time.
+One of the most nuanced bugs I resolved involved my level-up system. Initially, character spells were gated by level and only meant to unlock at runtime. However, I discovered that class attributes are generated at instantiation, meaning any level-locked spells weren't being created at all if the character started at level 1. After debugging, I adjusted the logic so that all spells are initialized at the start, but only become usable in combat once the character reaches the required level. This approach preserved OOP principles while resolving the underlying issue.
+I also learned the value of testing modules in isolation. Rather than testing the entire game loop, I validated subsystems—combat, exploration, room generation—independently. This drastically reduced debugging time and reinforced the importance of breaking problems into manageable components.
+Player Input and Validation
+To ensure stable gameplay, I implemented basic input validation. For example, when prompting the player to select an attack, I sanitized input to confirm it was an integer and within the valid range of options. If not, a simple error message allowed the player to try again. While I didn’t implement advanced exception handling in this version, input checks prevented most user errors and protected the game flow.
+Time and Progress Management
+I structured development around a consistent daily schedule, dedicating focused blocks of time to design and code without distractions. I approached the project by first implementing core mechanics using static test cases (e.g., hardcoded rooms and enemy mappings). Once the foundational systems were working—exploration, combat, inventory—I introduced randomization in phases, testing at each stage to ensure stability. This gradual layering approach enabled me to scale the project confidently while maintaining code quality.
+Reusability and Code Refactoring
+Early in the project, I hardcoded combat logic for every possible player matchup. This quickly became unmanageable as more classes and level-based abilities were added. I recognized the duplication and refactored the system into a single unified combat loop capable of handling all class combinations, counters, and level-based unlocks. This shift toward reusable, scalable design marked a major improvement in how I think about project architecture.
+Game Design and Player Experience
+I took inspiration from Dungeons & Dragons for class balancing and ability design. Combat includes counterattacks, finite healing mechanics, and enemy scaling to ensure challenge progression. Randomized dungeon generation ensures a unique playthrough each time, maintaining replayability and unpredictability.
+Python-Specific Features and Improvements
+This project significantly improved my grasp of Python’s more advanced features. I used:
+•	Unpacking in randomization and combat tuple handling
+•	List comprehensions to simplify logic for inventory and character generation
+•	enumerate() in combat loops to cleanly number player options
+I also began shifting away from verbose loops and adopted more Pythonic constructs, particularly in how I generated lists and filtered data.
+Looking Ahead
+If I were to continue or refactor this project, I would explore:
+•	Implementing a save/load system for persistent game states
+•	Adding a dialogue and questing system
+•	Creating a character customization interface
+•	Introducing shops, vendors, and crafting systems
+•	Developing a testing framework for validating game logic
+•	Using version control more formally for feature branches and rollbacks
+
+

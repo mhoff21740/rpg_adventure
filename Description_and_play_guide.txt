@@ -1,0 +1,47 @@
+RPG Adventure – A Procedural, Combat-Driven Dungeon Crawler Built in Python
+
+RPG Adventure is a text-based, object-oriented dungeon crawler built from the ground up in Python. It showcases principles of game logic, combat systems, procedural generation, and modular design. Designed as a reinforcement project for mastering core Python fundamentals and object-oriented programming, the project blends clean architecture with engaging gameplay mechanics and emergent scenarios.
+________________________________________
+Game Highlights
+•	Procedural Dungeon Generation
+Each session generates a unique, interconnected dungeon map with variable room descriptions, secret discoveries, randomized NPCs, item placements, and strategic exit options. Previously visited rooms are tracked for immersive exploration.
+•	Multi-Class Combat Engine
+Players choose between class-based heroes (e.g. Wizard, Rogue, Ranger) with unique combat logic, resources, and class-specific mechanics:
+o	Wizard unlocks new spells as they level.
+o	Rogue strikes fast and favors agility-based tactics.
+o	Ranger manages ranged combat through a finite arrow system with real-time inventory integration.
+•	Intelligent Loot System
+Looting adapts to player context and inventory—e.g., players need a fishing rod to catch a goldfish or arrows to benefit from ranged weapon drops. NPCs and other fallen players drop loot dynamically upon death.
+•	Dynamic PvP & PvE Mechanics
+Players can engage in combat with hostile NPCs or other player characters. NPCs scale in level and health relative to player progression, maintaining challenge throughout gameplay.
+•	Stat-Driven Leveling System
+Features a custom XP and level-up system modeled after Dungeons & Dragons 5e rules:
+o	Level-gated ability score improvements
+o	Class-based stat progression
+o	Spell/skill unlocks based on player level
+o	Player HP scaling
+o	XP varies based on enemy type (NPC vs. player)
+•	Boss Room Encounters
+Unique boss rooms with special combat rules, secret modifiers, and strategic variation keep high-level encounters fresh and dangerous.
+
+How to Play 
+
+Requirements: Python 3.12  or higher
+
+1.)	Clone the repository and head to the main rpg_adventure directory. 
+2.)	Run the main.py file
+3.)	Once run, you may select your character:
+    a.	Toby Sprinkledust – Gnomish Wizard
+    b.	Asterion – Elvin Rouge 
+    c.	Minsc – Human Ranger
+    d.	Karlach – Tiefling Barbarian
+    e.	Lae’zel – Githyanki Fighter
+    f.	ShadowHeart – Elvin Paladin
+4.)	After your character selection, you will now begin your adventure in a random starting room. 
+5.)	Once in a room, you can either:
+    a.	Move into another room
+    b.	Loot any items in the room
+    c.	Check your inventory 
+    d.	Investigate the room for secrets 
+    e.	Fight Enemies
+6.)	You will be able to continue exploring and pillaging until either your character perishes or you have successfully defeated all enemies and bosses! 
