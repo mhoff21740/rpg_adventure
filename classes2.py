@@ -92,7 +92,7 @@ class Wizard(DND_CLASS):
         # Level-1 spells
         self.attack1 = self.cast_firebolt
         self.attack1_descrip = "1.) Cast Firebolt - moderate fire damage"
-        self.attack1_fail = "accidentally launched a fireball over"
+        self.attack1_fail = f"accidentally launched a fireball over"
         self.attack2 = self.cast_ice_shard
         self.attack2_descrip = "2.) Cast Ice Shard - light cold damage"
         self.attack2_fail = "accidentally launched an ice shard over"
@@ -825,15 +825,25 @@ class Boss(DND_CLASS):
 
         self.attack2 = self.heavy_attack
         self.attack2_descrip = (f"A heavy crushing blow -deals heavy bludegoning damage.")
+        self.counter = self.counter_attack
 
     def heavy_attack(self, target):
         rolls = [random.randint(1, 6) for _ in range(2)]
         damage = sum(rolls) + self.strength + self.level
         target.health -= damage
+        if target.health <= 0:
+            print(f"{target.name} has been slashed to death\n")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
+        
         
     def basic_attack(self, target):
         damage = random.randint(1, 4) + self.strength
         target.health -= damage
+        if target.health <= 0:
+            print(f"{target.name} has been slashed to death\n")
+        else:
+            print(f"{target.name}'s health is now {target.health}")
         
     def counter_attack(self, target):
         attack = random.choice([self.heavy_attack, self.basic_attack])
