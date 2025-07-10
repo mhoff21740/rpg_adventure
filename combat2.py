@@ -40,7 +40,7 @@ def combat_encounter3(player, target):
             ]
 
         # combat begin
-        prompt = "You need to defend yourself, which action will you take?\n"
+        prompt = "\nYou need to defend yourself, which action will you take?\n"
         for i, action in enumerate(actions):
             prompt += f"{action['desc']}\n"
         selection = input(prompt).strip()
@@ -55,7 +55,7 @@ def combat_encounter3(player, target):
                 target.counter(player)
             continue
         attack_roll = random.randint(1, 20)
-        print(f"{player.name} has rolled a {attack_roll}")
+        print(f"{player.name} has rolled a {attack_roll}\n")
         if attack_roll >= 9:
             # Successful hit
             attack["func"](target) #<--calls the method from the players desired attack
@@ -64,11 +64,8 @@ def combat_encounter3(player, target):
         else:
             if attack["func"] == player.attack1 and hasattr(player, "arrows"):
                 if player.arrows > 0:
-                    player.arrows -= 1
                     print(border)
-                    fail = attack["fail"]
-                    msg = fail() if callable(fail) else fail
-                    print(msg)
+                    attack["fail"]()
                     print(border)
                     continue
                 else:
@@ -82,7 +79,7 @@ def combat_encounter3(player, target):
             if callable(fail):
                 print(fail() or "")
             elif isinstance(fail, str):
-                print(f"{player.name} {fail}!")
+                print(f" {player.name} {fail} {target.name}.")
             else:
                 print(f"{player.name}'s attack missed!")
             print(border)

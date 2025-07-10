@@ -30,9 +30,13 @@ class DND_CLASS:
         return self.vars
 
     def healing_potion(self):
-        heals = round(10 + random.uniform(2, 4))
-        self.health += heals
-        print(f"{self.name} heals for {heals} -health is now {self.health}")
+        if self.inventory["healing potion"] > 0:
+            self.inventory["healing potion"] -= 1
+            heals = round(10 + random.uniform(2, 4))
+            self.health += heals
+            print(f"{self.name} heals for {heals} and thier health is now {self.health}. {self.name} now has {self.inventory["healing potion"]} heaing potions left!\n")
+        else:
+            print(f"You are out of healing potions, you will need to find more!\n")
 
     
     
@@ -87,15 +91,15 @@ class Wizard(DND_CLASS):
     def __init__(self, name, health, intelligence, wisdom, dexterity, strength, xp, level=1, spell_slots = 1, inventory=None):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.spell_slots = spell_slots
-        self.inventory = {"healing potion" : 1 }
+        self.inventory = {"healing potion" : 2 }
         
         # Level-1 spells
         self.attack1 = self.cast_firebolt
         self.attack1_descrip = "1.) Cast Firebolt - moderate fire damage"
-        self.attack1_fail = f"accidentally launched a fireball over"
+        self.attack1_fail = "accidentally launched a fireball over"
         self.attack2 = self.cast_ice_shard
         self.attack2_descrip = "2.) Cast Ice Shard - light cold damage"
-        self.attack2_fail = "accidentally launched an ice shard over"
+        self.attack2_fail = " accidentally launched an ice shard over"
         self.heal1 = self.healing_word
         self.heal1_descrip = "3.) Cast Healing Word - restores a small amount of health"
         self.counter = self.counter_attack
@@ -103,34 +107,34 @@ class Wizard(DND_CLASS):
     # Level-2 spells
         self.attack3 = self.cast_scorching_ray
         self.attack3_descrip = "4.) Cast Scorching Ray - two rays of fire"
-        self.attack3_fail = "scorching rays sputter harmlessly"
+        self.attack3_fail = "'s scorching rays sputter harmlessly around"
         self.attack4 = self.cast_mirror_image
         self.attack4_descrip = "5.) Cast Mirror Image - create illusory duplicates"
-        self.attack4_fail = "images fail to form"
+        self.attack4_fail = " 's images fail to form"
 
     # Level-3 spells
         self.attack5 = self.cast_lightning_bolt
         self.attack5_descrip = "6.) Cast Lightning Bolt - line of lightning damage"
-        self.attack5_fail = "bolt fizzles out"
+        self.attack5_fail = "'s bolt fizzles out in front of"
         self.attack6 = self.cast_invisibility
         self.attack6_descrip = "7.) Cast Invisibility - become unseen"
-        self.attack6_fail = "spell fizzles"
+        self.attack6_fail = "'s spell fails and can still be seen by"
 
     # Level-4 spells
         self.attack7 = self.cast_ice_storm
         self.attack7_descrip = "8.) Cast Ice Storm - area cold damage"
-        self.attack7_fail = "storm collapses"
+        self.attack7_fail = "'s storm collapses in front of"
         self.attack8 = self.cast_greater_healing
         self.attack8_descrip = "9.) Cast Greater Healing - restores significant health"
-        self.attack8_fail = "healing energy falters"
+        self.attack8_fail = " cant heal, as he was intimidated by "
 
     # Level-5 spells
         self.attack9 = self.cast_cone_of_cold
         self.attack9_descrip = "10.) Cast Cone of Cold - cone of extreme cold"
-        self.attack9_fail = "cone dissipates"
+        self.attack9_fail = "'s cone dissipates around "
         self.attack10 = self.cast_wall_of_force
         self.attack10_descrip = "11.) Cast Wall of Force - create impassable barrier"
-        self.attack10_fail = "barrier fails to materialize"
+        self.attack10_fail = "'s barrier fails to materialize around"
         
         
     def spell_slotz(self):
@@ -146,7 +150,7 @@ class Wizard(DND_CLASS):
         damage = int(round(1 + self.intelligence * 0.5 + self.wisdom * random.uniform(0.3, 0.5)))
         target.health -= damage
         print(border)
-        print(f"{self.name} casts Firebolt dealing {damage} damage")
+        print(f"{self.name} casts Firebolt dealing {damage} damage\n")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been made kwispy!\n")
@@ -157,7 +161,7 @@ class Wizard(DND_CLASS):
         damage = int(round(1 + self.intelligence * 0.4 + self.wisdom * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} casts Ice Shard dealing {damage} damage")
+        print(f"{self.name} casts Ice Shard dealing {damage} damage\n")
         print(border)
         if target.health <= 0:
             print(f"{target.name} has been frozen!\n")
@@ -169,30 +173,27 @@ class Wizard(DND_CLASS):
             self.spell_slots -= 1
             heals = round(6 + (self.wisdom * random.uniform(1, 4)))
             self.health += heals
-            print(f"{self.name} has been healed for {heals}!")
+            print(f"{self.name} has used 1 spell slot to heal for {heals}!")
             time.sleep(2)
-            print(f"{self.name}'s health is now {self.health}")
+            print(f"{self.name}'s health is now {self.health} and has {self.spell_slots} reamining!\n")
         elif self.spell_slots <= 0 and  self.inventory["healing potion"] > 0:
             while True:
-                heal_or_not_to_heal = input(f"{self.name} has no more spell slots and cannot heal! You would like to use one of your healing potions? Y or N ")
+                heal_or_not_to_heal = input(f"{self.name} has no more spell slots and cannot heal! You would like to use one of your healing potions? Y or N \n")
                 if heal_or_not_to_heal.lower() == "y":
                     self.healing_potion()
                     break
                 elif heal_or_not_to_heal.lower() == "n":
-                    print (f"{self.name} has decided to skip healing")
+                    print (f"{self.name} has decided to skip healing\n")
                     break
                 else:
                     print("Invalid selection")
         else:
             print(f"{self.name} has no more spell slots or potions to heal! ")    
 
-    
-    
-    
-    
     def counter_attack(self, target):
         attack = random.choice([self.cast_firebolt, self.cast_ice_shard])
         attack(target)
+        
 
     # Level-2
     def cast_scorching_ray(self, target):
@@ -203,7 +204,7 @@ class Wizard(DND_CLASS):
             total += bolt_dmg
         target.health -= total
         print(border)
-        print(f"{self.name} casts Scorching Ray, dealing {total} fire damage")
+        print(f"{self.name} casts Scorching Ray, dealing {total} fire damage\n")
         print(border)
         if target.health <= 0:
             print(f"{target.name} is engulfed in flames!\n")
@@ -212,13 +213,13 @@ class Wizard(DND_CLASS):
 
     def cast_mirror_image(self, _=None):
         self.mirror_images = random.randint(2, 4)
-        print(f"{self.name} creates {self.mirror_images} illusory duplicates!")
+        print(f"{self.name} creates {self.mirror_images} illusory duplicates!\n")
 
     # Level-3
     def cast_lightning_bolt(self, targets):
         damage = sum(random.randint(1, 6) for _ in range(3)) + int(self.intelligence * 0.2)
         print(border)
-        print(f"{self.name} casts Lightning Bolt, dealing {damage} lightning damage!")
+        print(f"{self.name} casts Lightning Bolt, dealing {damage} lightning damage!\n")
         for tgt in targets:
             tgt.health -= damage
             print(f"  – {tgt.name}'s health is now {tgt.health}")
@@ -232,7 +233,7 @@ class Wizard(DND_CLASS):
     def cast_ice_storm(self, targets):
         damage = sum(random.randint(1, 8) for _ in range(2)) + int(self.wisdom * 0.3)
         print(border)
-        print(f"{self.name} casts Ice Storm for {damage} cold damage!")
+        print(f"{self.name} casts Ice Storm for {damage} cold damage!\n")
         for tgt in targets:
             tgt.health -= damage
             print(f"  – {tgt.name}'s health is now {tgt.health}")
@@ -241,14 +242,14 @@ class Wizard(DND_CLASS):
     def cast_greater_healing(self):
         heals = round(15 + (self.wisdom * random.uniform(2, 5)))
         self.health += heals
-        print(f"{self.name} casts Greater Healing for {heals} health!")
+        print(f"{self.name} casts Greater Healing for {heals} health!\n")
         print(f"{self.name}'s health is now {self.health}")
 
     # Level-5
     def cast_cone_of_cold(self, targets):
         damage = sum(random.randint(1, 8) for _ in range(3)) + int(self.intelligence * 0.3)
         print(border)
-        print(f"{self.name} casts Cone of Cold for {damage} cold damage!")
+        print(f"{self.name} casts Cone of Cold for {damage} cold damage!\n")
         for tgt in targets:
             tgt.health -= damage
             print(f"  – {tgt.name}'s health is now {tgt.health}")
@@ -264,10 +265,10 @@ class Rogue(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.rapier_stab
         self.attack1_descrip = "1.) Rapier Stab - moderate stab damage"
-        self.attack1_fail = "accidentally stabbed the air!"
+        self.attack1_fail = "accidentally stabbed the air around !"
         self.attack2 = self.sly_flourish
         self.attack2_descrip = "2.) Sly Flourish - light finesse damage"
-        self.attack2_fail = "flourish missed its mark!"
+        self.attack2_fail = "'s flourish missed "
         self.heal1 = self.healing_potion
         self.heal1_descrip = "3.) Healing Potion - restores a small amount of health"
         self.counter = self.counter_attack
@@ -275,51 +276,48 @@ class Rogue(DND_CLASS):
     # Level-2
         self.attack3 = self.sneak_attack
         self.attack3_descrip = "4.) Sneak Attack - bonus precision damage"
-        self.attack3_fail = "failed to find a weak spot"
+        self.attack3_fail = "failed to find a weak spot on"
         self.attack4 = self.cunning_dash
         self.attack4_descrip = "5.) Cunning Dash - reposition quickly"
-        self.attack4_fail = "tripped while dashing"
+        self.attack4_fail = "tripped while dashing away from"
     # Level-3
         self.attack5 = self.evade
         self.attack5_descrip = "6.) Evasion - avoid area attacks"
-        self.attack5_fail = "couldn't dodge in time"
+        self.attack5_fail = "couldn't dodge "
         self.attack6 = self.uncanny_dodge
         self.attack6_descrip = "7.) Uncanny Dodge - halve incoming damage"
-        self.attack6_fail = "failed to react in time"
+        self.attack6_fail = "failed to react in time to "
     # Level-4
         self.attack7 = self.fourth_level_focus
         self.attack7_descrip = "8.) Focused Strike - extra precise hit"
         self.attack7_fail = "overfocused and missed"
         self.attack8 = self.shadow_strike
         self.attack8_descrip = "9.) Shadow Strike - bonus damage from darkness"
-        self.attack8_fail = "couldn't vanish into shadows"
+        self.attack8_fail = "couldn't vanish into shadows and is still seen by"
     # Level-5
         self.attack9 = self.death_blow
         self.attack9_descrip = "10.) Death Blow - massive critical damage"
-        self.attack9_fail = "attack was too slow"
+        self.attack9_fail = "attack was too slow and grazed"
         self.attack10 = self.flurry_of_blades
         self.attack10_descrip = "11.) Flurry of Blades - two rapid strikes"
-        self.attack10_fail = "blades moved too quickly"
+        self.attack10_fail = "blades moved too quickly around"
 
     def rapier_stab(self, target):
         damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + self.strength * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} stabs {target.name} for {damage} damage")
+        print(f"{self.name} stabs {target.name} for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
     def sly_flourish(self, target):
         damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + self.strength * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} flourishes {target.name} for {damage} damage")
+        print(f"{self.name} flourishes {target.name} for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
-    def healing_potion(self):
-        heals = round(10 + random.uniform(2, 4))
-        self.health += heals
-        print(f"{self.name} drinks a potion and heals for {heals}")
-        print(f"{self.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.rapier_stab, self.sly_flourish])
@@ -329,7 +327,8 @@ class Rogue(DND_CLASS):
     def sneak_attack(self, target):
         bonus = int(round(self.dexterity * random.uniform(0.5, 0.7)))
         target.health -= bonus
-        print(f"{self.name} performs Sneak Attack for {bonus} bonus damage!")
+        print(f"{self.name} performs Sneak Attack for {bonus} bonus damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def cunning_dash(self, _=None):
         print(f"{self.name} dashes to a new position!")
@@ -348,18 +347,21 @@ class Rogue(DND_CLASS):
     def fourth_level_focus(self, target):
         damage = int(round(3 + self.dexterity * 0.6))
         target.health -= damage
-        print(f"{self.name} lands a Focused Strike for {damage} damage!")
+        print(f"{self.name} lands a Focused Strike for {damage} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def shadow_strike(self, target):
         damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6)))
         target.health -= damage
-        print(f"{self.name} strikes from the shadows for {damage} damage!")
+        print(f"{self.name} strikes from the shadows for {damage} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     # Level-5
     def death_blow(self, target):
         damage = int(round(5 + self.strength * random.uniform(0.5, 0.8)))
         target.health -= damage
-        print(f"{self.name} executes Death Blow for {damage} damage!")
+        print(f"{self.name} executes Death Blow for {damage} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def flurry_of_blades(self, target):
         hits = 2
@@ -368,7 +370,8 @@ class Rogue(DND_CLASS):
             dmg = int(round(1 + self.dexterity * random.uniform(0.3, 0.5)))
             total += dmg
         target.health -= total
-        print(f"{self.name} unleashes Flurry of Blades for {total} total damage!")
+        print(f"{self.name} unleashes Flurry of Blades for {total} total damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
 
 class Ranger(DND_CLASS):
@@ -377,10 +380,10 @@ class Ranger(DND_CLASS):
         self.arrows = arrows
         self.attack1 = self.bow_shot
         self.attack1_descrip = "1.) Bow Shot - moderate pierce damage"
-        self.attack1_fail = f"{self.name} missed the arrow!"
+        self.attack1_fail = self.attack1_fail
         self.attack2 = self.basic_melee
         self.attack2_descrip = "2.) Basic Melee - light slash damage"
-        self.attack2_fail = f"{self.name} missed their melee swing!"
+        self.attack2_fail = "missed their melee swing on!"
         self.heal1 = self.healing_potion
         self.heal1_descrip = "3.) Healing Potion - restores a small amount of health"
         self.counter = self.counter_attack
@@ -388,34 +391,34 @@ class Ranger(DND_CLASS):
     # Level-2
         self.attack3 = self.cast_hunters_mark
         self.attack3_descrip = "4.) Hunter's Mark - mark target for bonus damage"
-        self.attack3_fail = "failed to mark target"
+        self.attack3_fail = "failed to mark "
         self.attack4 = self.summon_beast
         self.attack4_descrip = "5.) Summon Beast - your animal companion assists"
-        self.attack4_fail = "companion failed to appear"
+        self.attack4_fail = " 's companion failed to appear to defend against"
 
     # Level-3
         self.attack5 = self.spike_growth
         self.attack5_descrip = "6.) Spike Growth - area damage over time"
-        self.attack5_fail = "spikes don't appear"
+        self.attack5_fail = "'s spikes don't appear around"
         self.attack6 = self.horde_breaker
         self.attack6_descrip = "7.) Horde Breaker - extra arrow against another target"
-        self.attack6_fail = "no secondary target"
+        self.attack6_fail = "has no secondary target aside from"
 
     # Level-4
         self.attack7 = self.volley_shot
         self.attack7_descrip = "8.) Volley - fire arrows at multiple foes"
-        self.attack7_fail = "arrows scatter harmlessly"
+        self.attack7_fail = " 's arrows scatter harmlessly over"
         self.attack8 = self.freedom_of_movement
         self.attack8_descrip = "9.) Freedom of Movement - ignore difficult terrain"
-        self.attack8_fail = "movement hampered"
+        self.attack8_fail = " 's movement is hampered by "
 
     # Level-5
         self.attack9 = self.steel_wind_strike
         self.attack9_descrip = "10.) Steel Wind Strike - teleport and strike"
-        self.attack9_fail = "failed to teleport"
+        self.attack9_fail = "failed to teleport twoards"
         self.attack10 = self.conjure_barrage
         self.attack10_descrip = "11.) Conjure Barrage - rain of arrows"
-        self.attack10_fail = "rain of arrows fumbles"
+        self.attack10_fail = " 's rain of arrows fumbles and falls around"
 
     def bow_shot(self, target):
         if self.arrows <= 0:
@@ -425,23 +428,23 @@ class Ranger(DND_CLASS):
         damage = int(round(2 + self.dexterity * random.uniform(0.4, 0.6) + 0.3 * self.strength))
         target.health -= damage
         print(border)
-        print(f"{self.name} fires an arrow for {damage} damage – arrows left: {self.arrows}")
+        print(f"{self.name} fires an arrow for {damage} damage – arrows left: {self.arrows}\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
     def attack1_fail(self):
-        print(f"{self.name}'s vision was impaired and the arrow missed.")
+        self.arrows -= 1
+        print(f"{self.name}'s vision was impaired and the arrow missed.\n")
+        print(f"As a result of this blunder {self.name} now has {self.arrows} left!")
 
     def basic_melee(self, target):
         damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + 0.2 * self.strength))
         target.health -= damage
         print(border)
         print(f"{self.name} slashes for {damage} damage")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
-    def healing_potion(self):
-        heals = round(10 + random.uniform(2, 4))
-        self.health += heals
-        print(f"{self.name} heals for {heals} -health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.bow_shot, self.basic_melee])
@@ -464,7 +467,8 @@ class Ranger(DND_CLASS):
     def horde_breaker(self, target):
         extra = int(round(self.dexterity * 0.5))
         target.health -= extra
-        print(f"{self.name} fires at an additional target for {extra} damage!")
+        print(f"{self.name} fires at an additional target for {extra} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     # Level-4
     def volley_shot(self, targets):
@@ -478,7 +482,8 @@ class Ranger(DND_CLASS):
     def steel_wind_strike(self, target):
         damage = int(round(3 + self.strength * random.uniform(0.3, 0.5)))
         target.health -= damage
-        print(f"{self.name} teleports and strikes {target.name} for {damage} damage!")
+        print(f"{self.name} teleports and strikes {target.name} for {damage} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def conjure_barrage(self, targets):
         print(f"{self.name} rains arrows down on all enemies!")
@@ -489,10 +494,10 @@ class Barbarian(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.raging_strike
         self.attack1_descrip = "1.) Raging Strike - heavy melee damage"
-        self.attack1_fail = f"{self.name} swings wildly and misses!"
+        self.attack1_fail = " swings wildly and misses"
         self.attack2 = self.reckless_swing
         self.attack2_descrip = "2.) Reckless Swing - light melee damage"
-        self.attack2_fail = f"{self.name}'s reckless swing misses!"
+        self.attack2_fail = " 's reckless swing misses"
         self.heal1 = self.healing_potion
         self.heal1_descrip = "3.) Healing Potion - restores moderate health"
         self.counter = self.counter_attack
@@ -500,26 +505,26 @@ class Barbarian(DND_CLASS):
     # Level-2
         self.attack3 = self.reckless_attack
         self.attack3_descrip = "4.) Reckless Attack - advantage on melee but vulnerable"
-        self.attack3_fail = "attack lacked focus"
+        self.attack3_fail = " 's attack lacked focus and missed"
         self.attack4 = self.danger_sense
         self.attack4_descrip = "5.) Danger Sense - advantage on Dex saves"
-        self.attack4_fail = "couldn't sense danger"
+        self.attack4_fail = "couldn't sense danger around"
 
     # Level-3
         self.attack5 = self.frenzy
         self.attack5_descrip = "6.) Frenzy - bonus attack on each turn"
-        self.attack5_fail = "rage subsides too quickly"
+        self.attack5_fail = " can no longer direct her rage at"
         self.attack6 = self.mindless_rage
         self.attack6_descrip = "7.) Mindless Rage - immune to charm/fear"
-        self.attack6_fail = "rage unsettled"
+        self.attack6_fail = " 's rage unsettled"
 
     # Level-4
         self.attack7 = self.brutal_critical
         self.attack7_descrip = "8.) Brutal Critical - extra weapon die on crit"
-        self.attack7_fail = "bladed edge dulls"
+        self.attack7_fail = " 's bladed dull edge has no effect on "
         self.attack8 = self.retaliation
         self.attack8_descrip = "9.) Retaliation - attack back when hit"
-        self.attack8_fail = "reaction was slow"
+        self.attack8_fail = "'s reaction was slow against "
 
     # Level-5
         self.attack9 = self.relentless_rage
@@ -527,26 +532,24 @@ class Barbarian(DND_CLASS):
         self.attack9_fail = "fatigue takes over"
         self.attack10 = self.persistent_rage
         self.attack10_descrip = "11.) Persistent Rage - rage ends only on rest"
-        self.attack10_fail = "rage flickers out"
+        self.attack10_fail = "'s rage flickers out against "
 
     def raging_strike(self, target):
         damage = int(round(4 + self.strength * random.uniform(0.5, 0.8)))
         target.health -= damage
         print(border)
-        print(f"{self.name} unleashes Raging Strike for {damage} damage")
+        print(f"{self.name} unleashes Raging Strike for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
     def reckless_swing(self, target):
         damage = int(round(2 + self.strength * random.uniform(0.3, 0.5) + self.dexterity * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} performs Reckless Swing for {damage} damage")
+        print(f"{self.name} performs Reckless Swing for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
-    def healing_potion(self):
-        heals = int(round(8 + self.strength * 0.5 + random.uniform(2, 6)))
-        self.health += heals
-        print(f"{self.name} heals for {heals} - health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.raging_strike, self.reckless_swing])
@@ -564,7 +567,8 @@ class Barbarian(DND_CLASS):
     def frenzy(self, target):
         extra = int(round(self.strength * 0.3))
         target.health -= extra
-        print(f"{self.name} enters Frenzy and strikes for extra {extra} damage!")
+        print(f"{self.name} enters Frenzy and strikes for extra {extra} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def mindless_rage(self, _=None):
         print(f"{self.name} is immune to charm and fear while raging!")
@@ -573,7 +577,8 @@ class Barbarian(DND_CLASS):
     def brutal_critical(self, target):
         bonus_die = random.randint(1, 6)
         target.health -= bonus_die
-        print(f"{self.name} scores Brutal Critical adding {bonus_die} damage!")
+        print(f"{self.name} scores Brutal Critical adding {bonus_die} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def retaliation(self, target):
         print(f"{self.name} retaliates against the foe!")
@@ -591,10 +596,10 @@ class Fighter(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.power_thrust
         self.attack1_descrip = "1.) Power Thrust - heavy melee damage"
-        self.attack1_fail = f"{self.name}'s power thrust misses!"
+        self.attack1_fail = "'s power thrust misses "
         self.attack2 = self.quick_slash
         self.attack2_descrip = "2.) Quick Slash - light melee damage"
-        self.attack2_fail = f"{self.name}'s quick slash misses!"
+        self.attack2_fail = "'s quick slash misses "
         self.heal1 = self.healing_potion
         self.heal1_descrip = "3.) Second Wind - regain health once per short rest"
         self.counter = self.counter_attack
@@ -602,54 +607,51 @@ class Fighter(DND_CLASS):
     # Level-2
         self.attack3 = self.second_wind
         self.attack3_descrip = "4.) Second Wind - self-heal mid-combat"
-        self.attack3_fail = "too exhausted to recover"
+        self.attack3_fail = " is too exhausted to recover after attacking "
         self.attack4 = self.action_surge
         self.attack4_descrip = "5.) Action Surge - take an extra action"
-        self.attack4_fail = "lungs fail to surge"
+        self.attack4_fail = "'s lungs fail to surge in order to attack "
 
     # Level-3
         self.attack5 = self.extra_attack
         self.attack5_descrip = "6.) Extra Attack - attack twice"
-        self.attack5_fail = "miss both swings"
+        self.attack5_fail = " misses both swings against "
         self.attack6 = self.parry
         self.attack6_descrip = "7.) Parry - reduce damage from one hit"
-        self.attack6_fail = "failed to parry"
+        self.attack6_fail = "failed to parry "
 
     # Level-4
         self.attack7 = self.indomitable
         self.attack7_descrip = "8.) Indomitable - reroll a saving throw"
-        self.attack7_fail = "luck ran out"
+        self.attack7_fail = "'s luck ran out against "
         self.attack8 = self.improved_critical
         self.attack8_descrip = "9.) Improved Critical - crit on 19-20"
-        self.attack8_fail = "critical edge dulls"
+        self.attack8_fail = " 's critical edge dulls against "
 
     # Level-5
         self.attack9 = self.supreme_strike
         self.attack9_descrip = "10.) Supreme Strike - heavy precision damage"
-        self.attack9_fail = "strike lacked focus"
+        self.attack9_fail = " 's strike lacked focus on "
         self.attack10 = self.battle_mastery
         self.attack10_descrip = "11.) Battle Mastery - choose a combat superiority"
-        self.attack10_fail = "mastery slips away"
+        self.attack10_fail = "'s mastery slips away in front of "
 
     def power_thrust(self, target):
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.dexterity))
         target.health -= damage
         print(border)
-        print(f"{self.name} delivers Power Thrust for {damage} damage")
+        print(f"{self.name} delivers Power Thrust for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
     def quick_slash(self, target):
         damage = int(round(1 + self.dexterity * random.uniform(0.3, 0.5) + self.strength * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} lands Quick Slash for {damage} damage")
+        print(f"{self.name} lands Quick Slash for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
-    def healing_potion(self):
-        heals = int(round(7 + self.wisdom * 0.5 + random.uniform(2, 5)))
-        self.health += heals
-        print(f"{self.name} uses Second Wind and recovers {heals} health!")
-        print(f"{self.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.power_thrust, self.quick_slash])
@@ -688,7 +690,8 @@ class Fighter(DND_CLASS):
     def supreme_strike(self, target):
         damage = int(round(6 + self.strength * 0.5))
         target.health -= damage
-        print(f"{self.name} lands Supreme Strike for {damage} damage!")
+        print(f"{self.name} lands Supreme Strike for {damage} damage!\n")
+        print(f"{target.name}'s health is now {target.health}")
 
     def battle_mastery(self, _=None):
         print(f"{self.name} chooses a Battle Mastery maneuver!")
@@ -699,10 +702,10 @@ class Paladin(DND_CLASS):
         super().__init__(name, health, intelligence, wisdom, dexterity, strength, xp, level, inventory)
         self.attack1 = self.divine_smite
         self.attack1_descrip = "1.) Divine Smite - heavy radiant damage"
-        self.attack1_fail = f"{self.name}'s smite misses!"
+        self.attack1_fail = "'s smite misses "
         self.attack2 = self.radiant_strike
         self.attack2_descrip = "2.) Radiant Strike - light radiant damage"
-        self.attack2_fail = f"{self.name}'s strike misses!"
+        self.attack2_fail = "'s strike misses "
         self.heal1 = self.healing_potion
         self.heal1_descrip = "3.) Lay on Hands - restore moderate health"
         self.counter = self.counter_attack
@@ -710,54 +713,51 @@ class Paladin(DND_CLASS):
     # Level-2
         self.attack3 = self.lay_on_hands
         self.attack3_descrip = "4.) Lay on Hands - heal yourself or ally"
-        self.attack3_fail = "hands tremble under strain"
+        self.attack3_fail = " 's hands tremble under strain from fighting "
         self.attack4 = self.oath_protection
         self.attack4_descrip = "5.) Oath of Protection - shield ally"
-        self.attack4_fail = "oath power falters"
+        self.attack4_fail = "'s oath power falters due to the presence of "
 
     # Level-3
         self.attack5 = self.divine_health
         self.attack5_descrip = "6.) Divine Health - immunity to disease"
-        self.attack5_fail = "faith wavers"
+        self.attack5_fail = "'s faith wavers thanks to "
         self.attack6 = self.aura_of_protection
         self.attack6_descrip = "7.) Aura of Protection - add Cha to saves"
-        self.attack6_fail = "aura flickers"
+        self.attack6_fail = "'s aura flickers in front of "
 
     # Level-4
         self.attack7 = self.cleansing_touch
         self.attack7_descrip = "8.) Cleansing Touch - end a condition"
-        self.attack7_fail = "touch lacks power"
+        self.attack7_fail = "'s touch lacks power after fighting "
         self.attack8 = self.aura_of_courage
         self.attack8_descrip = "9.) Aura of Courage - immunity to fear"
-        self.attack8_fail = "aura wavers"
+        self.attack8_fail = "'s aura wavers from fear of "
 
     # Level-5
         self.attack9 = self.extra_attack
         self.attack9_descrip = "10.) Extra Attack - attack twice"
-        self.attack9_fail = "miss both strikes"
+        self.attack9_fail = "misses both strikes against "
         self.attack10 = self.holy_wrath
         self.attack10_descrip = "11.) Holy Wrath - radiant blast"
-        self.attack10_fail = "wrath dims"
+        self.attack10_fail = "'s wrath dims around "
 
     def divine_smite(self, target):
         damage = int(round(4 + 0.5 * self.strength + 0.3 * self.wisdom))
         target.health -= damage
         print(border)
-        print(f"{self.name} calls Divine Smite for {damage} damage")
+        print(f"{self.name} calls Divine Smite for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
     def radiant_strike(self, target):
         damage = int(round(1 + self.strength * random.uniform(0.2, 0.3) + self.dexterity * random.uniform(0.2, 0.3)))
         target.health -= damage
         print(border)
-        print(f"{self.name} delivers Radiant Strike for {damage} damage")
+        print(f"{self.name} delivers Radiant Strike for {damage} damage\n")
+        print(f"{target.name}'s health is now {target.health}")
         print(border)
 
-    def healing_potion(self):
-        heals = int(round(3 + self.wisdom + random.uniform(3, 5)))
-        self.health += heals
-        print(f"{self.name} uses Lay on Hands for {heals} health!")
-        print(f"{self.name}'s health is now {self.health}")
 
     def counter_attack(self, target):
         attack = random.choice([self.divine_smite, self.radiant_strike])
@@ -768,10 +768,12 @@ class Paladin(DND_CLASS):
         heals = int(round(10 + self.level * 2))
         if target:
             target.health += heals
-            print(f"{self.name} heals {target.name} for {heals} health!")
+            print(f"{self.name} heals {target.name} for {heals} health!\n")
+            print(f"{target.name}'s health is now {target.health}")
         else:
             self.health += heals
-            print(f"{self.name} heals themselves for {heals} health!")
+            print(f"{self.name} heals themselves for {heals} health!\n")
+            print(f"{self.name}'s health is now {self.health}")
 
     def oath_protection(self, target):
         target.protected = True
@@ -807,7 +809,7 @@ class Paladin(DND_CLASS):
     def holy_wrath(self, targets):
         damage = sum(random.randint(1, 6) for _ in range(3)) + int(self.wisdom * 0.3)
         print(border)
-        print(f"{self.name} unleashes Holy Wrath for {damage} radiant damage!")
+        print(f"{self.name} unleashes Holy Wrath for {damage} radiant damage!\n")
         for tgt in targets:
             tgt.health -= damage
             print(f"  – {tgt.name}'s health is now {tgt.health}")
@@ -822,7 +824,6 @@ class Boss(DND_CLASS):
        
         self.attack1 = self.basic_attack
         self.attack1_descrip = f"A basic slashing attack."
-
         self.attack2 = self.heavy_attack
         self.attack2_descrip = (f"A heavy crushing blow -deals heavy bludegoning damage.")
         self.counter = self.counter_attack
@@ -831,19 +832,26 @@ class Boss(DND_CLASS):
         rolls = [random.randint(1, 6) for _ in range(2)]
         damage = sum(rolls) + self.strength + self.level
         target.health -= damage
+        print(border)
+        print(f"{self.name} pummles {target.name} for {damage} damage!\n")
         if target.health <= 0:
-            print(f"{target.name} has been slashed to death\n")
+            print(f"{target.name} has been crushed to death\n")
         else:
             print(f"{target.name}'s health is now {target.health}")
+        print(border)
         
         
     def basic_attack(self, target):
         damage = random.randint(1, 4) + self.strength
         target.health -= damage
+        print(border)
+        print(f"{self.name} slashes {target.name} for {damage} damage!\n")
         if target.health <= 0:
             print(f"{target.name} has been slashed to death\n")
         else:
             print(f"{target.name}'s health is now {target.health}")
+        print(border)
+
         
     def counter_attack(self, target):
         attack = random.choice([self.heavy_attack, self.basic_attack])
@@ -895,7 +903,7 @@ class Enemy(DND_CLASS):
             + random.uniform(0, 1)
         ))
         target.health -= damage
-        print(f"{self.name} attacks {target.name} for {damage} damage!")
+        print(f"{self.name} attacks {target.name} for {damage} damage!\n")
         if target.health <= 0:
             print(f"{target.name} has been defeated!")
         else:
@@ -966,7 +974,7 @@ class Room:
             scenario_room_list.append(dung_room)
 
         rooms_populated = random.sample(scenario_room_list, random.randint(10, room_count))
-        rooms_with_secrets = random.sample(scenario_room_list, random.randint(4, room_count))  ##random.randint(4, room_count)
+        rooms_with_secrets = random.sample(scenario_room_list, random.randint(4, 10))  ##random.randint(4, room_count)
         scenario_room_list.extend(boss_rooms)
         
         

@@ -44,8 +44,12 @@ def exploration(character, starting_room):
                 "3.) Check inventory\n"
                 "4.) Investigate the room"
             ]
-            if current_room.characters:
+            if current_room in boss_rooms and character.level < 4:
+                options.append("5.) Engage in combat?(You feel like you are very under leveled to fight such a creature) Good luck if you choose to proceed!")
+                 
+            elif current_room.characters:
                 options.append("5.) Engage in combat?")
+            
             selection = input(
                 "What would you like to do?\n\n" + "\n".join(options) + "\n"
             )
@@ -138,20 +142,23 @@ def exploration(character, starting_room):
                 print(f"{character.name} has rolled a perception check of {perception_check}.\n")
                 if current_room.secret:
                     if perception_check >= 12:
-                        for secret_item, secret_room in current_room.secret.items():
+                        for secret, secret_room in current_room.secret.items():
                             print(f"After an intense investigation, you discover a peculiar {secret}\n")
                             interaction = input("Would you like to interact with it? Y or N\n")
                             if interaction.lower() == "y":
-                                # Revels le secret exit and adds to exits in room
-                                current_room.exits[f"{secret_item}"] = secret_room
+                                # Revels  secret exit and adds to exits in room
+                                current_room.exits[f"{secret}"] = secret_room
                                 secret_room.exits[f"back out"] = current_room
-                                print(f"You have revealed a secret passage: secret_{secret}!")
+                                print(f"You have revealed a secret passage and decide to enter the hidden room!")
                                 current_room = secret_room
+                                print(f"{current_room.description}\n")
                                 break
                             elif interaction.lower() == "n":
                                 break
                             else:
                                 print("Not a valid option")
+                    else:
+                        print("Nothing stands out at you\n")
                 else:
                     print("Nothing stands out at you\n")
                     
